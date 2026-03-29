@@ -924,6 +924,19 @@
                         </ul>
                     </div>
 
+                    <!-- Registration Help Alert -->
+                    <div class="form-help-alert" style="margin: 20px 0 30px 0; padding: 15px; border-radius: 15px; background: rgba(37, 211, 102, 0.15); border: 2px solid #25D366; display: flex; align-items: center; gap: 15px; position: relative; overflow: hidden; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.15);" data-aos="zoom-in">
+                        <div style="background: #25D366; color: #fff; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; animation: pulse-green 2s infinite;">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div style="flex-grow: 1;">
+                            <h4 style="color: #125b30; margin: 0 0 3px 0; font-size: 1.05rem; font-weight: 800;">هل تواجه صعوبة في التسجيل؟</h4>
+                            <p style="color: #1a4d2e; margin: 0; font-size: 0.85rem; opacity: 1; font-weight: bold;">اضغط هنا للتحدث معنا مباشرة للمساعدة الفورية</p>
+                        </div>
+                        <a href="https://wa.me/201001352771" target="_blank" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; text-decoration: none; z-index: 10;"></a>
+                        <i class="fas fa-chevron-left" style="color: #125b30; font-size: 1.2rem;"></i>
+                    </div>
+
                     <form id="registrationForm" class="apply-form">
                         <div class="form-grid">
                             <div class="input-group">
@@ -1123,6 +1136,12 @@
                                 <div class="loader" id="loader" style="display: none;"></div>
                             </button>
                             <p class="form-note">* يرجى الانتظار وعدم مغادرة الصفحة حتى يتم تحميل الصور واستلام رقم الجلوس</p>
+                            
+                            <div style="margin-top: 25px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px;">
+                                <a href="https://wa.me/201001352771" target="_blank" style="color: #25D366; text-decoration: none; font-size: 0.95rem; font-weight: bold; display: inline-flex; align-items: center; gap: 8px; background: rgba(37, 211, 102, 0.08); padding: 8px 15px; border-radius: 50px; border: 1px solid rgba(37, 211, 102, 0.2);">
+                                    <i class="fab fa-whatsapp"></i> تواجه مشكلة فنية؟ اضغط للمساعدة
+                                </a>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -1143,20 +1162,21 @@
                     <input type="text" name="name" id="contactName" placeholder="الاسم" required>
                     <input type="tel" name="phone" id="contactPhone" placeholder="رقم الهاتف" required>
                     <textarea name="message" id="contactMessage" placeholder="رسالتك..." rows="4" required></textarea>
-                    <button type="submit" class="btn btn-primary w-full shadow-gold">إرسال الرسالة</button>
+                    <div id="contactStatus" style="display: none; padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 0.9rem;"></div>
+                    <button type="submit" id="contactSubmitBtn" class="btn btn-primary w-full shadow-gold">إرسال الرسالة إلى لوحة التحكم</button>
                 </form>
 
                 <div class="contact-details-grid">
                     <div class="detail-card">
-                        <i class="fab fa-whatsapp"></i>
-                        <h3>واتساب</h3>
-                        <p>تواصل سريع للاستفسارات</p>
-                        <a href="https://wa.me/201002200841">اضغط هنا</a>
+                        <i class="fas fa-phone-alt"></i>
+                        <h3>هاتفنا</h3>
+                        <p>للتواصل والاستفسارات العاجلة</p>
+                        <a href="tel:01002200841">01002200841</a>
                     </div>
                     <div class="detail-card">
                         <i class="fas fa-map-marker-alt"></i>
                         <h3>المقر</h3>
-                        <p>مدينة مسير - المحافظة</p>
+                        <p>مدينة مسير - كفر الشيخ</p>
                     </div>
                 </div>
             </div>
@@ -1177,7 +1197,6 @@
                 <div class="social-links-circle">
                     <a href="https://www.facebook.com/share/1CBZekgahU/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook-f"></i></a>
                     <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
         </div>
@@ -1257,7 +1276,7 @@
                 <div id="seatInfoTextWrapper">
                     <p>عزيزي المتسابق: <strong id="displayStudentName"></strong></p>
                     <p>لقد تم تخصيص رقم جلوس خاص بك:</p>
-                    <div class="seat-number-display" id="displaySeatNumber">0000</div>
+                    <div class="seat-number-display" id="displaySeatNumber" style="font-size: 3rem; padding: 10px; margin: 10px 0;">0000</div>
                     <p style="font-size: 1.5rem; color: #fff; margin-bottom: 20px;">
                         رقم اللجنة: <strong id="displayCommittee"
                             style="color: #d4af37; background: rgba(212, 175, 55, 0.1); padding: 5px 15px; border-radius: 10px; border: 1px solid #d4af37;">-</strong>
@@ -1269,8 +1288,8 @@
                 </div>
 
                 <div id="studentQRCodeContainer"
-                    style="margin-top: 25px; background: #fff; padding: 15px; border-radius: 15px; display: none; box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); border: 2px solid var(--primary-gold); width: fit-content; margin-inline: auto;">
-                    <img id="studentQRCode" src="" alt="QR Code" style="width: 180px; height: 180px; display: block;">
+                    style="margin-top: 10px; background: #fff; padding: 10px; border-radius: 15px; display: none; box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); border: 2px solid var(--primary-gold); width: fit-content; margin-inline: auto;">
+                    <img id="studentQRCode" src="" alt="QR Code" style="width: 120px; height: 120px; display: block;">
                 </div>
                 <div id="qrMessage"
                     style="display: none; font-size: 1.05rem; color: #d4af37; margin-top: 20px; line-height: 1.6; padding: 15px; font-weight: bold; background: rgba(212, 175, 55, 0.1); border-radius: 12px; border: 1px dashed #d4af37; margin-bottom: 20px;">

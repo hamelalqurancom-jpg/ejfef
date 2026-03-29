@@ -1482,6 +1482,59 @@ window.toggleQRCode = function () {
     if (closeBtn) closeBtn.style.display = 'block';
 
     setTimeout(() => {
-        qrContainer.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        if (whatsappSection) {
+            whatsappSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+            qrContainer.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        }
     }, 100);
 };
+
+// --- Contact Form Submission (to Control Panel) ---
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+    contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const submitBtn = document.getElementById('contactSubmitBtn');
+        const statusDiv = document.getElementById('contactStatus');
+        const name = document.getElementById('contactName').value;
+        const phone = document.getElementById('contactPhone').value;
+        const message = document.getElementById('contactMessage').value;
+
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
+        }
+
+        try {
+            await db.collection('messages').add({
+                name: name,
+                phone: phone,
+                message: message,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
+
+            if (statusDiv) {
+                statusDiv.style.display = 'block';
+                statusDiv.style.background = 'rgba(40, 167, 69, 0.2)';
+                statusDiv.style.color = '#28a745';
+                statusDiv.textContent = '✅ تم إرسال رسالتك بنجاح إلى الإدارة.';
+            }
+
+            contactForm.reset();
+        } catch (error) {
+            console.error('Contact Error:', error);
+            if (statusDiv) {
+                statusDiv.style.display = 'block';
+                statusDiv.style.background = 'rgba(255, 77, 77, 0.1)';
+                statusDiv.style.color = '#ff4d4d';
+                statusDiv.textContent = '❌ حدث خطأ، يرجى المحاولة لاحقاً.';
+            }
+        } finally {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'إرسال الرسالة إلى لوحة التحكم';
+            }
+        }
+    });
+}
