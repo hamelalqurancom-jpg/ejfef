@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض رد الإدارة - حامل القرآن</title>
+    <link rel="icon" type="image/png" href="https://hamelalquran.com/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #d4af37;
+            --bg-dark: #0f1c23;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text-gold: #d4af37;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+
+        body {
+            background: var(--bg-dark);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.1), transparent),
+                              radial-gradient(circle at bottom left, rgba(212, 175, 55, 0.05), transparent);
+        }
+
+        .response-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 30px;
+            width: 100%;
+            max-width: 600px;
+            padding: 40px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .response-card::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 100px; height: 100px;
+            background: linear-gradient(135deg, var(--primary) 0%, transparent 70%);
+            opacity: 0.2;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-weight: 900;
+        }
+
+        .header p { color: #888; font-size: 0.9rem; }
+
+        .content-box {
+            margin-bottom: 30px;
+        }
+
+        .user-message {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border-right: 4px solid #444;
+        }
+
+        .user-message h4 { color: #888; margin-bottom: 8px; font-size: 0.85rem; }
+        .user-message p { color: #ccc; line-height: 1.6; }
+
+        .admin-reply {
+            background: rgba(52, 152, 219, 0.1);
+            padding: 25px;
+            border-radius: 20px;
+            border-right: 4px solid #3498db;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .admin-reply h4 { 
+            color: #3498db; 
+            margin-bottom: 10px; 
+            font-size: 1rem; 
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-reply p { color: #eee; line-height: 1.7; font-size: 1.1rem; }
+
+        .footer-logo {
+            text-align: center;
+            margin-top: 40px;
+            opacity: 0.5;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .loading-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(212, 175, 55, 0.1);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .error-msg { text-align: center; color: #ff6b6b; padding: 20px; }
+        
+        .back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            border: 1px solid var(--primary);
+            padding: 8px 20px;
+            border-radius: 50px;
+            transition: 0.3s;
+        }
+        .back-btn:hover { background: var(--primary); color: #000; }
+    </style>
+</head>
+<body>
+
+    <div class="response-card" id="mainCard">
+        <div id="loading" class="loading-overlay">
+            <div class="spinner"></div>
+            <p>جاري استرداد الرد من الإدارة...</p>
+        </div>
+
+        <div id="content" style="display: none;">
+            <div class="header">
+                <h1>حامل القرآن</h1>
+                <p>صرح قرآني شامخ .. ورسالة إيمانية باقية</p>
+            </div>
+
+            <div class="content-box">
+                <div class="user-message">
+                    <h4>رسالتك:</h4>
+                    <p id="userMsg"></p>
+                </div>
+
+                <div class="admin-reply">
+                    <h4><i class="fas fa-reply-all"></i> رد الإدارة الرسمي:</h4>
+                    <p id="adminReply"></p>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="https://hamelalquran.com" class="back-btn"><i class="fas fa-home"></i> العودة للموقع الرئيسي</a>
+            </div>
+            
+            <div class="footer-logo">
+                <p style="font-size: 0.8rem;">&copy; 2026 مسابقة حامل القرآن | جميع الحقوق محفوظة</p>
+            </div>
+        </div>
+
+        <div id="error" class="error-msg" style="display: none;">
+            <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 20px;"></i>
+            <h3>عذراً، هذا الرابط غير موجود أو قد تم حذفه.</h3>
+            <a href="https://hamelalquran.com" class="back-btn">العودة للرئيسية</a>
+        </div>
+    </div>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    
+    <script>
+        // Real Firebase config from project
+        const firebaseConfig = {
+            apiKey: "AIzaSyCsVH5BVV9abx66UicOa51T1qADmUVrd7U",
+            authDomain: "hamel-b7a68.firebaseapp.com",
+            projectId: "hamel-b7a68",
+            storageBucket: "hamel-b7a68.firebasestorage.app",
+            messagingSenderId: "818022836347",
+            appId: "1:818022836347:web:ebcdef3f19c53cd1ef1ade",
+            measurementId: "G-HEMLZDRBS3"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Get ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+
+        async function loadResponse() {
+            if (!id) {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').style.display = 'block';
+                return;
+            }
+
+            try {
+                const doc = await db.collection('feedback').doc(id).get();
+                if (doc.exists) {
+                    const data = doc.data();
+                    document.getElementById('userMsg').innerText = data.message || 'لا يوجد نص للرسالة';
+                    document.getElementById('adminReply').innerText = data.adminReply || 'جاري مراجعة رسالتك، سيتم الرد قريباً.';
+                    
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('content').style.display = 'block';
+                } else {
+                    throw new Error('Not found');
+                }
+            } catch (err) {
+                console.error(err);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').style.display = 'block';
+            }
+        }
+
+        loadResponse();
+    </script>
+</body>
+</html>

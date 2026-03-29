@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوستر مسابقة حامل القرآن الكريم | بمسير</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-gold: #d4af37;
+            --gold-light: #f9f0a2;
+            --gold-dark: #b8860b;
+            --emerald-deep: #062111;
+            --luxury-black: #050505;
+            --gold-gradient: linear-gradient(135deg, #f9f0a2 0%, #d4af37 50%, #b8860b 100%);
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* 1:1 Aspect Ratio for Social Media (Instagram/Facebook) */
+        .poster-container {
+            width: 1080px;
+            height: 1080px;
+            background: radial-gradient(circle at center, #0a2d18 0%, #050505 100%);
+            border: 20px solid var(--primary-gold);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 40px;
+            color: #fff;
+            overflow: hidden;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
+        }
+
+        /* Luxury Decorative Background */
+        .poster-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url('https://www.transparenttextures.com/patterns/islamic-art.png');
+            opacity: 0.07;
+            z-index: 1;
+        }
+
+        .corner-ornament {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            opacity: 0.4;
+            z-index: 2;
+        }
+        .top-right { top: 0; right: 0; transform: rotate(0deg); }
+        .top-left { top: 0; left: 0; transform: rotate(-90deg); }
+        .bottom-right { bottom: 0; right: 0; transform: rotate(90deg); }
+        .bottom-left { bottom: 0; left: 0; transform: rotate(180deg); }
+
+        .content {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Header Sponsorship */
+        .sponsor-banner {
+            background: var(--gold-gradient);
+            color: #000;
+            padding: 8px 60px;
+            border-radius: 0 0 40px 40px;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 900;
+            font-size: 1.8rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-top: -40px;
+        }
+
+        .announcement-text {
+            color: #fff;
+            font-size: 2.2rem;
+            margin-top: 50px;
+            letter-spacing: 2px;
+            font-weight: 700;
+            opacity: 0.9;
+        }
+
+        .main-title {
+            font-family: 'Amiri', serif;
+            font-size: 6.5rem;
+            font-weight: 900;
+            line-height: 1;
+            margin: 20px 0;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4));
+        }
+
+        .divider {
+            width: 70%;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--primary-gold), transparent);
+            margin: 30px 0;
+            position: relative;
+        }
+        .divider::after {
+            content: '\f687'; /* Quran icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: #081d11;
+            padding: 10px;
+            color: var(--primary-gold);
+            font-size: 2rem;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            width: 100%;
+            margin-top: 40px;
+        }
+
+        .category-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            border-radius: 40px;
+            padding: 40px 30px;
+            backdrop-filter: blur(15px);
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .category-card h3 {
+            font-size: 2.5rem;
+            color: var(--gold-light);
+            margin-bottom: 35px;
+            font-family: 'Tajawal', sans-serif;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .level-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .level-item {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 20px;
+            background: rgba(255,255,255,0.02);
+            padding: 15px 25px;
+            border-radius: 20px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: 0.3s;
+        }
+
+        .level-item i {
+            color: var(--primary-gold);
+            font-size: 1.4rem;
+        }
+
+        /* NEW Badge Style */
+        .badge-new {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            color: #fff;
+            padding: 4px 15px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            margin-right: auto; /* Push to far left */
+            font-weight: 900;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            animation: pulse-gold 2s infinite;
+        }
+
+        @keyframes pulse-gold {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .footer-cta {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .url-highlight {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--gold-light);
+            background: rgba(212, 175, 55, 0.1);
+            padding: 10px 60px;
+            border-radius: 50px;
+            border: 2px dashed var(--primary-gold);
+            font-family: sans-serif;
+        }
+
+        .final-note {
+            font-size: 1.3rem;
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="poster-container" id="captureTarget">
+        <!-- Decoration SVG Ornaments -->
+        <svg class="corner-ornament top-right" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M200 0V200C200 89.5431 110.457 0 0 0H200Z" fill="url(#goldGrad)"/></svg>
+        <svg class="corner-ornament top-left" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M200 0V200C200 89.5431 110.457 0 0 0H200Z" fill="url(#goldGrad)"/></svg>
+        <svg class="corner-ornament bottom-right" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M200 0V200C200 89.5431 110.457 0 0 0H200Z" fill="url(#goldGrad)"/></svg>
+        <svg class="corner-ornament bottom-left" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M200 0V200C200 89.5431 110.457 0 0 0H200Z" fill="url(#goldGrad)"/></svg>
+        
+        <defs>
+            <linearGradient id="goldGrad" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#f9f0a2"/><stop offset="0.5" stop-color="#d4af37"/><stop offset="1" stop-color="#b8860b"/>
+            </linearGradient>
+        </defs>
+
+        <div class="content">
+            <!-- Sponsorship Banner -->
+            <div class="sponsor-banner">برعاية مطبعة أبوخضرة وشباب مسير</div>
+
+            <p class="announcement-text">.. انتظرونا اليوم التقديم لمسابقة ..</p>
+            <h1 class="main-title">حامل القرآن الكريم بمسير</h1>
+            
+            <div class="divider"></div>
+
+            <div class="categories-grid">
+                <!-- Group 1: Youth -->
+                <div class="category-card">
+                    <h3><i class="fas fa-children"></i> فئة الشباب (حتى 18 سنة)</h3>
+                    <div class="level-list">
+                        <div class="level-item"><i class="fas fa-medal"></i> المستوى الأول: القرآن كاملاً</div>
+                        <div class="level-item"><i class="fas fa-medal"></i> المستوى الثاني: ثلاثة أرباع القرآن</div>
+                        <div class="level-item"><i class="fas fa-medal"></i> المستوى الثالث: نصف القرآن</div>
+                        <div class="level-item"><i class="fas fa-medal"></i> المستوى الرابع: ربع القرآن</div>
+                    </div>
+                </div>
+
+                <!-- Group 2: Seniors -->
+                <div class="category-card">
+                    <h3><i class="fas fa-star-and-crescent"></i> فئة الكبار (أكثر من 30 سنة)</h3>
+                    <div class="level-list">
+                        <div class="level-item">
+                            <i class="fas fa-award"></i> القرآن كاملاً
+                            <span class="badge-new">جديد</span>
+                        </div>
+                        <div class="level-item">
+                            <i class="fas fa-award"></i> نصف القرآن الكريم
+                            <span class="badge-new">جديد</span>
+                        </div>
+                    </div>
+                    <div style="margin-top: 50px; font-size: 4rem; color: var(--primary-gold); opacity: 0.1;">
+                        <i class="fas fa-quran"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-cta">
+                <div class="final-note">سارع بالتسجيل الإلكتروني الآن عبر موقعنا الحصري</div>
+                <div class="url-highlight">hamelalquran.com</div>
+                <div style="font-size: 1.1rem; color: #777; margin-bottom: 20px;">جميع الحقوق محفوظة © 2026 - مسابقة حامل القرآن بمسير</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

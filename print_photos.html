@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طباعة صور المتسابقين | مسابقة حامل القرآن</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: white;
+            color: black;
+            padding: 10px;
+            direction: rtl;
+            margin: 0;
+        }
+
+        .no-print {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            border: 1px solid #d4af37;
+        }
+
+        .no-print select {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-family: 'Cairo', sans-serif;
+            outline: none;
+        }
+
+        .btn-print {
+            background: #d4af37;
+            color: #000;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .page-container {
+            width: 210mm; /* A4 Width */
+            margin: 0 auto;
+            background: white;
+        }
+
+        .committee-page {
+            page-break-after: always;
+            padding: 15px;
+            box-sizing: border-box;
+            min-height: 290mm; /* A4 Height */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page-header {
+            text-align: center;
+            border-bottom: 2px solid #000;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+        }
+
+        .page-header h2 {
+            margin: 0;
+            font-family: 'Amiri', serif;
+            font-size: 24px;
+        }
+
+        .page-header p {
+            margin: 5px 0 0;
+            font-weight: bold;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .photos-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 columns */
+            grid-template-rows: repeat(5, 1fr);    /* 5 rows = 20 total */
+            gap: 12px;
+            flex-grow: 1;
+        }
+
+        .photo-card {
+            border: 1px solid #ccc;
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            text-align: center;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .student-img-container {
+            width: 100%;
+            height: 120px; /* Adjusted to fit 5 rows */
+            overflow: hidden;
+            border: 1px solid #eee;
+            background: #f9f9f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .student-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .no-photo-placeholder {
+            color: #999;
+            font-size: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .no-photo-placeholder i {
+            font-size: 24px;
+        }
+
+        .student-details {
+            width: 100%;
+            padding-top: 5px;
+        }
+
+        .student-name {
+            font-weight: bold;
+            font-size: 11px;
+            margin-bottom: 2px;
+            color: #000;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 32px; /* Fixed height for 2 lines */
+            line-height: 1.4;
+        }
+
+        .student-meta {
+            font-size: 10px;
+            color: #444;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            border-top: 1px dashed #ddd;
+            padding-top: 3px;
+        }
+
+        .student-meta strong {
+            color: #d4af37;
+        }
+
+        @media print {
+            .no-print {
+                display: none;
+            }
+
+            body {
+                padding: 0;
+                margin: 0;
+            }
+
+            .page-container {
+                width: 100%;
+            }
+
+            .committee-page {
+                border: none;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="no-print">
+        <select id="levelFilter">
+            <option value="all">كل المستويات</option>
+            <option value="المستوى الأول (القرآن كاملاً)">المستوى الأول (القرآن كاملاً)</option>
+            <option value="المستوى الثاني (ثلاثة أرباع القرآن)">المستوى الثاني (ثلاثة أرباع القرآن)</option>
+            <option value="المستوى الثالث (نصف القرآن)">المستوى الثالث (نصف القرآن)</option>
+            <option value="المستوى الرابع (ربع القرآن)">المستوى الرابع (ربع القرآن)</option>
+        </select>
+        <select id="genderFilter">
+            <option value="all">الجميع</option>
+            <option value="بنين">بنين</option>
+            <option value="بنات">بنات</option>
+        </select>
+        <select id="ageGroupFilter">
+            <option value="all">كل الأعمار</option>
+            <option value="junior">صغار (1-18)</option>
+            <option value="senior">كبار (30+)</option>
+        </select>
+        <select id="committeeFilter">
+            <option value="all">كل اللجان</option>
+        </select>
+        <button class="btn-print" onclick="window.print()">طباعة الآن</button>
+    </div>
+
+    <div class="page-container" id="pageContainer">
+        <div id="loading" style="text-align: center; padding: 100px; font-size: 1.5rem;">
+            جاري جلب صور المتسابقين...
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCsVH5BVV9abx66UicOa51T1qADmUVrd7U",
+            authDomain: "hamel-b7a68.firebaseapp.com",
+            projectId: "hamel-b7a68",
+            storageBucket: "hamel-b7a68.firebasestorage.app",
+            messagingSenderId: "818022836347",
+            appId: "1:818022836347:web:ebcdef3f19c53cd1ef1ade",
+            measurementId: "G-HEMLZDRBS3"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        let allStudents = [];
+        const urlParams = new URLSearchParams(window.location.search);
+        const ageGroupParam = urlParams.get('ageGroup');
+        if (ageGroupParam) {
+            document.getElementById('ageGroupFilter').value = ageGroupParam;
+        }
+
+        async function init() {
+            try {
+                const snapshot = await db.collection('registrations').orderBy('seatNumber', 'asc').get();
+                const committees = new Set();
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    allStudents.push(data);
+                    const comm = data.committee ? String(data.committee) : '1';
+                    committees.add(comm);
+                });
+                
+                const committeeFilter = document.getElementById('committeeFilter');
+                const sortedCommittees = Array.from(committees).sort((a, b) => parseInt(a) - parseInt(b));
+                sortedCommittees.forEach(comm => {
+                    const option = document.createElement('option');
+                    option.value = comm;
+                    option.textContent = `لجنة ${comm}`;
+                    committeeFilter.appendChild(option);
+                });
+                
+                render();
+            } catch (err) {
+                console.error(err);
+                document.getElementById('loading').innerHTML = "حدث خطأ أثناء تحميل البيانات.";
+            }
+        }
+
+        function render() {
+            const container = document.getElementById('pageContainer');
+            container.innerHTML = '';
+
+            const levelF = document.getElementById('levelFilter').value;
+            const genderF = document.getElementById('genderFilter').value;
+            const commF = document.getElementById('committeeFilter').value;
+            const ageF = document.getElementById('ageGroupFilter').value;
+
+            const filtered = allStudents.filter(s => {
+                const lMatch = levelF === 'all' || s.level === levelF;
+                const gMatch = genderF === 'all' || s.gender === genderF;
+                const comm = s.committee ? String(s.committee) : '1';
+                const commMatch = commF === 'all' || comm === commF;
+                
+                let ageMatch = true;
+                if (ageF !== 'all') {
+                    const y = s.ageYears || 0;
+                    const m = s.ageMonths || 0;
+                    const d = s.ageDays || 0;
+                    const isJunior = y < 18 || (y === 18 && m === 0 && d === 0);
+                    const isSenior = y >= 30;
+                    if (ageF === 'junior') ageMatch = isJunior;
+                    if (ageF === 'senior') ageMatch = isSenior;
+                }
+                
+                return lMatch && gMatch && commMatch && ageMatch;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<div style="text-align:center; padding: 50px;">لا توجد بيانات للعرض</div>';
+                return;
+            }
+
+            // Group by Committee and Age Category
+            const grouped = {};
+            filtered.forEach(s => {
+                const isS = s.ageYears >= 30;
+                const levelKey = isS ? `${s.level} (شباب)` : `${s.level} (صغار)`;
+                const groupKey = `${levelKey} | ${s.committee || 1}`;
+                if (!grouped[groupKey]) grouped[groupKey] = [];
+                grouped[groupKey].push(s);
+            });
+
+            for (const key in grouped) {
+                const parts = key.split(' | ');
+                const levelName = parts[0];
+                const commNum = parts[1];
+                const students = grouped[key];
+
+                // Split into chunks of 20 (one page each)
+                for (let i = 0; i < students.length; i += 20) {
+                    const chunk = students.slice(i, i + 20);
+                    const page = document.createElement('div');
+                    page.className = 'committee-page';
+
+                    page.innerHTML = `
+                        <div class="page-header">
+                            <h2>مسابقة حامل القرآن الكريم بمسير</h2>
+                            <p>${levelName} - <span style="color:#000">اللجنة الرئيسية رقم (${commNum})</span></p>
+                        </div>
+                        <div class="photos-grid">
+                            ${chunk.map(s => `
+                                <div class="photo-card">
+                                    <div class="student-img-container">
+                                        ${s.personalPhotoPath ? 
+                                            `<img src="${s.personalPhotoPath}" class="student-img" loading="lazy">` : 
+                                            `<div class="no-photo-placeholder">
+                                                <i class="fas fa-user-circle"></i>
+                                                <span>لا توجد صورة</span>
+                                            </div>`
+                                        }
+                                    </div>
+                                    <div class="student-details">
+                                        <div class="student-name">${s.studentName}</div>
+                                        <div class="student-meta">
+                                            <span>رقم الجلوس: <strong>${s.seatNumber || '-'}</strong></span>
+                                            <span>اللجنة: <strong>${s.committee || '-'}</strong></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    container.appendChild(page);
+                }
+            }
+        }
+
+        document.getElementById('levelFilter').addEventListener('change', render);
+        document.getElementById('genderFilter').addEventListener('change', render);
+        document.getElementById('ageGroupFilter').addEventListener('change', render);
+        document.getElementById('committeeFilter').addEventListener('change', render);
+
+        init();
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</body>
+
+</html>

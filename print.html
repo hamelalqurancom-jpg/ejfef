@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كشف المتقدمين للمسابقة | للطباعة</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:wght@700&family=Aref+Ruqaa:wght@700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: white;
+            color: black;
+            padding: 20px;
+            direction: rtl;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px double #000;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .header h1 {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: 45px;
+            margin: 0;
+            color: #000;
+            letter-spacing: 1px;
+        }
+
+        .header h1::before,
+        .header h1::after {
+            content: " ✽ ";
+            font-size: 30px;
+            vertical-align: middle;
+            color: #aa8c2c;
+        }
+
+        .header p {
+            font-size: 18px;
+            margin: 5px 0;
+            font-weight: bold;
+        }
+
+        .print-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+        }
+
+        th,
+        td {
+            border: 1px solid #000;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        .footer {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-around;
+            font-weight: bold;
+        }
+
+        /* Essential rule to force background colors when printing */
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+        }
+
+        .no-print {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: #d4af37;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        @media print {
+            .no-print {
+                display: none;
+            }
+
+            body {
+                padding: 0;
+            }
+
+            table {
+                font-size: 11px;
+                page-break-inside: auto;
+            }
+
+            th {
+                background-color: #1a4a76 !important; /* Deep Blue */
+                color: #ffffff !important;
+                border-color: #113355 !important;
+            }
+
+            tr:nth-child(even) td {
+                background-color: #f4f7fa !important; /* Soft light blue/gray */
+            }
+
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+
+            .level-section {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="no-print controls"
+        style="position: fixed; top: 20px; left: 20px; display: flex; gap: 10px; z-index: 1000; background: white; padding: 10px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+        <select id="levelFilter"
+            style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; font-family: 'Cairo', sans-serif; cursor: pointer;">
+            <option value="all">كل المستويات</option>
+            <option value="المستوى الأول (القرآن كاملاً)">المستوى الأول (القرآن كاملاً)</option>
+            <option value="المستوى الثاني (ثلاثة أرباع القرآن)">المستوى الثاني (ثلاثة أرباع القرآن)</option>
+            <option value="المستوى الثالث (نصف القرآن)">المستوى الثالث (نصف القرآن)</option>
+            <option value="المستوى الرابع (ربع القرآن)">المستوى الرابع (ربع القرآن)</option>
+        </select>
+        <select id="genderFilter"
+            style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; font-family: 'Cairo', sans-serif; cursor: pointer;">
+            <option value="all">الجميع (بنين/بنات)</option>
+            <option value="بنين">بنين</option>
+            <option value="بنات">بنات</option>
+        </select>
+        <select id="ageGroupFilter"
+            style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; font-family: 'Cairo', sans-serif; cursor: pointer;">
+            <option value="all">كل الأعمار</option>
+            <option value="junior">صغار (1-18)</option>
+            <option value="senior">كبار (30+)</option>
+        </select>
+        <select id="committeeFilter"
+            style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; font-family: 'Cairo', sans-serif; cursor: pointer;">
+            <option value="all">كل اللجان</option>
+        </select>
+        <button class="no-print-btn" onclick="window.print()"
+            style="padding: 10px 20px; background: #d4af37; color: #000; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">اضغط
+            هنا للطباعة</button>
+    </div>
+
+    <div class="header">
+        <h1>مسابقة حامل القرآن الكريم بمسير</h1>
+        <p>تحت رعاية: مطبعة أبو خضرة و شباب مسير</p>
+        <p>كشف المتقدمين المسجلين إلكترونياً</p>
+    </div>
+
+    <div class="print-info">
+        <span id="regCount">إجمالي المسجلين: ...</span>
+        <span id="printDate">التاريخ: </span>
+    </div>
+
+    <div id="printContent">
+        <!-- Tables will be generated here -->
+        <div id="initialLoading" style="text-align: center; padding: 40px;">جاري جلب البيانات من السحابة...</div>
+    </div>
+
+    <div class="footer">
+        <div>توقيع مسؤول التنظيم</div>
+        <div>توقيع لجنة التحكيم</div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCsVH5BVV9abx66UicOa51T1qADmUVrd7U",
+            authDomain: "hamel-b7a68.firebaseapp.com",
+            projectId: "hamel-b7a68",
+            storageBucket: "hamel-b7a68.firebasestorage.app",
+            messagingSenderId: "818022836347",
+            appId: "1:818022836347:web:ebcdef3f19c53cd1ef1ade",
+            measurementId: "G-HEMLZDRBS3"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        document.getElementById('printDate').innerText += new Date().toLocaleDateString('ar-EG');
+
+        let allData = [];
+        const urlParams = new URLSearchParams(window.location.search);
+        const ageGroupParam = urlParams.get('ageGroup');
+        if (ageGroupParam) {
+            document.getElementById('ageGroupFilter').value = ageGroupParam;
+        }
+
+        async function fetchForPrint() {
+            const printContent = document.getElementById('printContent');
+            const selectedLevel = document.getElementById('levelFilter').value;
+            const selectedGender = document.getElementById('genderFilter').value;
+            const selectedAgeGroup = document.getElementById('ageGroupFilter').value;
+            const selectedCommittee = document.getElementById('committeeFilter').value;
+
+            try {
+                if (allData.length === 0) {
+                    const snapshot = await db.collection('registrations').orderBy('timestamp', 'asc').get();
+                    if (snapshot.empty) {
+                        printContent.innerHTML = '<div style="text-align:center; padding: 20px;">لا توجد بيانات حالياً</div>';
+                        return;
+                    }
+                    snapshot.forEach(doc => allData.push(doc.data()));
+                    
+                    const committeeFilter = document.getElementById('committeeFilter');
+                    const committees = new Set();
+                    allData.forEach(d => {
+                        const comm = d.committee ? String(d.committee) : '1';
+                        committees.add(comm);
+                    });
+                    const sortedCommittees = Array.from(committees).sort((a, b) => parseInt(a) - parseInt(b));
+                    sortedCommittees.forEach(comm => {
+                        const option = document.createElement('option');
+                        option.value = comm;
+                        option.textContent = `لجنة ${comm}`;
+                        committeeFilter.appendChild(option);
+                    });
+                }
+
+                renderTables(selectedLevel, selectedGender, selectedAgeGroup, selectedCommittee);
+
+            } catch (error) {
+                console.error(error);
+                printContent.innerHTML = '<div style="text-align:center; padding: 20px; color: red;">حدث خطأ أثناء جلب البيانات</div>';
+            }
+        }
+
+        function renderTables(levelFilter, genderFilter, ageFilter, committeeFilter = 'all') {
+            const printContent = document.getElementById('printContent');
+            printContent.innerHTML = '';
+
+            let filteredData = allData.filter(d => {
+                const levelMatch = (levelFilter === 'all' || d.level === levelFilter);
+                const genderMatch = (genderFilter === 'all' || d.gender === genderFilter);
+                const comm = d.committee ? String(d.committee) : '1';
+                const commMatch = (committeeFilter === 'all' || comm === committeeFilter);
+                
+                let ageMatch = true;
+                if (ageFilter !== 'all') {
+                    const y = d.ageYears || 0;
+                    const m = d.ageMonths || 0;
+                    const day = d.ageDays || 0;
+                    const isJunior = y < 18 || (y === 18 && m === 0 && day === 0);
+                    const isSenior = y >= 30;
+                    if (ageFilter === 'junior') ageMatch = isJunior;
+                    if (ageFilter === 'senior') ageMatch = isSenior;
+                }
+                
+                return levelMatch && genderMatch && commMatch && ageMatch;
+            });
+
+            if (filteredData.length === 0) {
+                printContent.innerHTML = '<div style="text-align:center; padding: 20px;">لا توجد بيانات تطابق هذه الاختيارات</div>';
+                document.getElementById('regCount').innerText = `إجمالي المعروض: 0`;
+                return;
+            }
+
+            // Group the data by Level and Age Category, then by Committee
+            let grouped = {};
+            filteredData.forEach(data => {
+                const isS = data.ageYears >= 30;
+                const levelKey = isS ? `${data.level} (شباب)` : `${data.level} (صغار)`;
+                if (!grouped[levelKey]) grouped[levelKey] = {};
+                const comm = data.committee || 1;
+                if (!grouped[levelKey][comm]) grouped[levelKey][comm] = [];
+                grouped[levelKey][comm].push(data);
+            });
+
+            for (const level in grouped) {
+                for (const comm in grouped[level]) {
+                    const section = document.createElement('div');
+                    section.className = 'level-section';
+
+                    // Determine colors based on level
+                    let bgColor = '#1e88e5'; // اللبني الثقيل (Default)
+                    let borderColor = '#1565c0';
+                    let textColor = '#ffffff';
+                    let commColor = '#ffd700';
+                    
+                    if (level.includes('الأول')) {
+                        bgColor = '#0277bd'; // لبني/أزرق ثقيل
+                        borderColor = '#01579b';
+                    } else if (level.includes('الثاني')) {
+                        bgColor = '#ef5350'; // أحمر فاتح
+                        borderColor = '#c62828';
+                    } else if (level.includes('الثالث')) {
+                        bgColor = '#fbc02d'; // أصفر
+                        borderColor = '#f57f17';
+                        textColor = '#000000';
+                        commColor = '#000000'; // Make committee text black for contrast
+                    } else if (level.includes('الرابع')) {
+                        bgColor = '#f57c00'; // برتقالي
+                        borderColor = '#e65100';
+                    } else if (level.includes('الخامس')) {
+                        bgColor = '#43a047'; // أخضر يتماشى مع التنوع
+                        borderColor = '#2e7d32';
+                    }
+
+                    const levelHeader = document.createElement('h2');
+                    levelHeader.style.textAlign = 'center';
+                    levelHeader.style.margin = '20px 0 10px';
+                    levelHeader.style.padding = '10px';
+                    levelHeader.style.background = bgColor;
+                    levelHeader.style.color = textColor;
+                    levelHeader.style.borderRadius = '10px';
+                    levelHeader.style.border = `2px solid ${borderColor}`;
+                    levelHeader.innerHTML = `${level} <br> <span style="font-size: 1.2rem; color: ${commColor}; font-weight: 900;">اللجنة (${comm})</span>`;
+                    section.appendChild(levelHeader);
+
+                    const table = document.createElement('table');
+                    table.innerHTML = `
+                        <thead>
+                            <tr>
+                                <th style="width: 5%">م</th>
+                                <th style="width: 10%">رقم الجلوس</th>
+                                <th style="width: 5%">السن</th>
+                                <th style="width: 8%">اللجنة</th>
+                                <th style="width: 25%">اسم المتسابق</th>
+                                <th style="width: 8%">النوع</th>
+                                <th style="width: 17%">أرقام الهاتف</th>
+                                <th style="width: 6%">حضور</th>
+                                <th style="width: 6%">المبلغ</th>
+                                <th style="width: 10%">الدرجة</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    `;
+                    const tbody = table.querySelector('tbody');
+                    let counter = 1;
+
+                    grouped[level][comm].forEach(data => {
+                        const row = `
+                            <tr>
+                                <td>${counter++}</td>
+                                <td style="font-weight: bold; background: #fffbe6 !important; color: #b8860b !important;">${data.seatNumber || '-'}</td>
+                                <td style="font-weight: bold; font-size: 10px;">${data.ageYears || 0}س و ${data.ageMonths || 0}ش</td>
+                                <td style="font-weight: bold; color: #aa8c2c;">${data.committee || '-'}</td>
+                                <td style="text-align: right; font-weight: bold; color: #1a4a76;">${data.studentName}</td>
+                                <td style="font-weight: bold; ${data.gender === 'بنين' ? 'background: #e6f3ff !important; color: #0056b3 !important;' : 'background: #ffe6f0 !important; color: #c2185b !important;'}">${data.gender || '-'}</td>
+                                <td>
+                                    <div style="font-size: 10px; line-height: 1.2;">
+                                        <div style="font-weight: bold; color: #28a745;">${data.phone1}</div>
+                                        <div style="color: #666; border-top: 1px dashed #ccc; margin-top: 2px; padding-top: 2px;">${data.phone2}</div>
+                                    </div>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        `;
+                        tbody.innerHTML += row;
+                    });
+                    section.appendChild(table);
+                    printContent.appendChild(section);
+                }
+            }
+
+            document.getElementById('regCount').innerText = `إجمالي المعروض: ${filteredData.length}`;
+        }
+
+        document.getElementById('levelFilter').addEventListener('change', () => {
+            renderTables(document.getElementById('levelFilter').value, document.getElementById('genderFilter').value, document.getElementById('ageGroupFilter').value, document.getElementById('committeeFilter').value);
+        });
+        document.getElementById('genderFilter').addEventListener('change', () => {
+            renderTables(document.getElementById('levelFilter').value, document.getElementById('genderFilter').value, document.getElementById('ageGroupFilter').value, document.getElementById('committeeFilter').value);
+        });
+        document.getElementById('ageGroupFilter').addEventListener('change', () => {
+            renderTables(document.getElementById('levelFilter').value, document.getElementById('genderFilter').value, document.getElementById('ageGroupFilter').value, document.getElementById('committeeFilter').value);
+        });
+        document.getElementById('committeeFilter').addEventListener('change', () => {
+            renderTables(document.getElementById('levelFilter').value, document.getElementById('genderFilter').value, document.getElementById('ageGroupFilter').value, document.getElementById('committeeFilter').value);
+        });
+
+        fetchForPrint();
+    </script>
+</body>
+
+</html>

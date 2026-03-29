@@ -1,0 +1,2518 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم | مسابقة حامل القرآن</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            font-family: 'Cairo', sans-serif;
+            padding: 40px 20px;
+        }
+
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .admin-header h1 {
+            color: #d4af37;
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+
+        .stat-card h3 {
+            font-size: 1rem;
+            color: #aaa;
+            margin: 0;
+        }
+
+        .stat-card p {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 10px 0 0;
+        }
+
+        .registrations-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .registrations-table th,
+        .registrations-table td {
+            padding: 15px;
+            text-align: right;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .registrations-table th {
+            background: rgba(212, 175, 55, 0.1);
+            color: #d4af37;
+            font-weight: 700;
+        }
+
+        .registrations-table tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
+        }
+
+        .btn-view {
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-img {
+            background: #d4af37;
+            color: #000;
+        }
+
+        .btn-delete {
+            background: #ff4d4d;
+            color: #fff;
+            margin-right: 5px;
+        }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .badge-blue {
+            background: rgba(0, 123, 255, 0.2);
+            color: #007bff;
+            border: 1px solid #007bff;
+        }
+
+        .badge-pink {
+            background: rgba(255, 105, 180, 0.2);
+            color: #ff69b4;
+            border: 1px solid #ff69b4;
+        }
+
+        /* Modal Styles for Image Viewing */
+        .img-preview-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .img-preview-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border: 3px solid #d4af37;
+            border-radius: 10px;
+        }
+
+        .close-preview {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #fff;
+            font-size: 2.5rem;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .close-preview:hover {
+            background: #ff4d4d;
+            transform: rotate(90deg);
+        }
+
+        .download-btn {
+            position: absolute;
+            bottom: 30px;
+            background: #28a745;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid #d4af37;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-card input {
+            width: 100%;
+            padding: 12px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border: 1px solid #333;
+            background: #111;
+            color: #fff;
+            text-align: center;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            background: #d4af37;
+            color: #000;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="loginOverlay" class="login-overlay">
+        <div class="login-card">
+            <i class="fas fa-lock" style="font-size: 3rem; color: #d4af37; margin-bottom: 20px;"></i>
+            <h2>دخول لوحة التحكم</h2>
+            <input type="password" id="adminPassword" placeholder="أدخل كلمة المرور">
+            <button onclick="checkPassword()" class="btn-login">دخول</button>
+        </div>
+    </div>
+
+
+
+    <div class="admin-container" id="adminContent" style="display:none;">
+        <header class="admin-header">
+            <h1>لوحة تحكم مسابقة حامل القرآن</h1>
+            <div style="display:flex; gap:10px;">
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <div style="display: flex; gap: 5px;">
+                        <a href="print.html?ageGroup=junior" target="_blank" class="btn btn-primary"
+                            style="padding: 10px 15px; font-size: 0.8rem; flex: 1;"><i class="fas fa-print"></i> كشوف الصغار</a>
+                        <a href="print.html?ageGroup=senior" target="_blank" class="btn btn-primary"
+                            style="padding: 10px 15px; font-size: 0.8rem; flex: 1; background: #2d3436; border: 1px solid #d4af37;"><i class="fas fa-print"></i> كشوف الكبار</a>
+                    </div>
+                    <div style="display: flex; gap: 5px;">
+                        <a href="print_photos.html?ageGroup=junior" target="_blank" class="btn btn-primary"
+                            style="padding: 10px 15px; font-size: 0.8rem; flex: 1; background: #6c5ce7; border: none;"><i class="fas fa-image"></i> صور الصغار</a>
+                        <a href="print_photos.html?ageGroup=senior" target="_blank" class="btn btn-primary"
+                            style="padding: 10px 15px; font-size: 0.8rem; flex: 1; background: #a29bfe; border: none; color: #000;"><i class="fas fa-image"></i> صور الكبار</a>
+                    </div>
+                </div>
+                <button onclick="exportBackupData()" class="btn btn-primary" style="background: #28a745; border: none;">
+                    <i class="fas fa-download"></i> تصدير (data.js)
+                </button>
+                <button onclick="logout()" class="btn btn-secondary">تسجيل خروج</button>
+            </div>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <i class="fas fa-users"></i>
+                <h3>إجمالي المسجلين</h3>
+                <p id="totalCount">0</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-star"></i>
+                <h3>المستوى الأول</h3>
+                <p id="level1Count">0</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-star-half-alt"></i>
+                <h3>المستوى الثاني</h3>
+                <p id="level2Count">0</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-certificate"></i>
+                <h3>المستوى الثالث</h3>
+                <p id="level3Count">0</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-child"></i>
+                <h3>المستوى الرابع</h3>
+                <p id="level4Count">0</p>
+            </div>
+            <div class="stat-card" style="border-color: rgba(255, 77, 77, 0.3);">
+                <i class="fas fa-user-slash" style="color: #ff4d4d;"></i>
+                <h3>طلاب محظورين</h3>
+                <p id="blockedCount" style="color: #ff4d4d;">0</p>
+            </div>
+            <div class="stat-card" style="border-color: rgba(52, 152, 219, 0.3);">
+                <i class="fas fa-chart-line" style="color: #3498db;"></i>
+                <h3>زيارات اليوم</h3>
+                <p id="todayVisitsCount" style="color: #3498db;">0</p>
+            </div>
+            <!-- Nomination Stats -->
+            <div class="stat-card" style="border-color: rgba(232, 67, 147, 0.3);">
+                <i class="fas fa-heart" style="color: #e84393;"></i>
+                <h3 style="color: #e84393;">الأم المثالية</h3>
+                <p id="motherCount">0</p>
+            </div>
+            <div class="stat-card" style="border-color: rgba(52, 152, 219, 0.3);">
+                <i class="fas fa-chalkboard-teacher" style="color: #3498db;"></i>
+                <h3 style="color: #3498db;">المعلم المثالي</h3>
+                <p id="maleTeacherCount">0</p>
+            </div>
+            <div class="stat-card" style="border-color: rgba(0, 184, 148, 0.3);">
+                <i class="fas fa-graduation-cap" style="color: #00b894;"></i>
+                <h3 style="color: #00b894;">المعلمة المثالية</h3>
+                <p id="femaleTeacherCount">0</p>
+            </div>
+        </div>
+
+        <div class="admin-tabs" style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+            <button onclick="switchTab('registrations')" id="tabRegs" class="btn btn-primary">طلبات التسجيل</button>
+            <button onclick="switchTab('messages')" id="tabMsgs" class="btn btn-secondary">رسائل التواصل</button>
+            <button onclick="switchTab('motherAward')" id="tabMother" class="btn btn-secondary">الأم المثالية</button>
+            <button onclick="switchTab('maleTeacher')" id="tabMale" class="btn btn-secondary">المعلم المثالي</button>
+            <button onclick="switchTab('femaleTeacher')" id="tabFemale" class="btn btn-secondary">المعلمة
+                المثالية</button>
+            <button onclick="switchTab('sheikhs')" id="tabSheikhs" class="btn btn-secondary" style="background: linear-gradient(135deg, #1a472a, #2d6a4f); color: #d4af37; border: 1px solid #d4af37;"><i
+                    class="fas fa-star"></i> لوحة المشايخ</button>
+            <button onclick="switchTab('blocked')" id="tabBlocked" class="btn btn-secondary"><i
+                    class="fas fa-user-slash"></i> الطلاب المحظورين</button>
+            <button onclick="switchTab('feedback')" id="tabFeedback" class="btn btn-secondary">آراء المشاركين</button>
+            <button onclick="switchTab('stories')" id="tabStories" class="btn btn-secondary" style="background: linear-gradient(135deg, #1e140d, #2d1e0d); color: #d4af37; border: 1px solid #d4af37;"><i class="fas fa-scroll"></i> قصص القرآن</button>
+            <button onclick="switchTab('visits')" id="tabVisits" class="btn btn-secondary" style="background: #3498db; color: #fff; border: none;"><i class="fas fa-eye"></i> إحصائيات الزوار</button>
+            <button onclick="switchTab('settings')" id="tabSettings" class="btn btn-secondary"><i
+                    class="fas fa-cog"></i> إعدادات المسابقة</button>
+        </div>
+
+        <div id="registrationsSection">
+            <div class="registration-filters"
+                style="margin-bottom: 20px; display: flex; flex-direction: column; gap: 10px;">
+                <div
+                    style="display: flex; gap: 10px; flex-wrap: wrap; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px;">
+                    <span
+                        style="color: #d4af37; font-weight: bold; align-self: center; margin-left: 10px;">المستوى:</span>
+                    <button onclick="setLevelFilter('all')" id="btnLAll" class="btn btn-primary"
+                        style="padding: 5px 15px; font-size: 0.9rem;">الكل</button>
+                    <button onclick="setLevelFilter('المستوى الأول (القرآن كاملاً)')" id="btnL1"
+                        class="btn btn-secondary" style="padding: 5px 15px; font-size: 0.9rem;">الأول</button>
+                    <button onclick="setLevelFilter('المستوى الثاني (ثلاثة أرباع القرآن)')" id="btnL2"
+                        class="btn btn-secondary" style="padding: 5px 15px; font-size: 0.9rem;">الثاني</button>
+                    <button onclick="setLevelFilter('المستوى الثالث (نصف القرآن)')" id="btnL3" class="btn btn-secondary"
+                        style="padding: 5px 15px; font-size: 0.9rem;">الثالث</button>
+                    <button onclick="setLevelFilter('المستوى الرابع (ربع القرآن)')" id="btnL4" class="btn btn-secondary"
+                        style="padding: 5px 15px; font-size: 0.9rem;">الرابع</button>
+                </div>
+                <div
+                    style="display: flex; gap: 10px; flex-wrap: wrap; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px;">
+                    <span
+                        style="color: #d4af37; font-weight: bold; align-self: center; margin-left: 10px;">النوع:</span>
+                    <button onclick="setGenderFilter('all')" id="btnGAll" class="btn btn-primary"
+                        style="padding: 5px 15px; font-size: 0.9rem;">الجميع</button>
+                    <button onclick="setGenderFilter('بنين')" id="btnGBoy" class="btn btn-secondary"
+                        style="padding: 5px 15px; font-size: 0.9rem;">بنين</button>
+                    <button onclick="setGenderFilter('بنات')" id="btnGGirl" class="btn btn-secondary"
+                        style="padding: 5px 15px; font-size: 0.9rem;">بنات</button>
+                </div>
+                <div
+                    style="display: flex; gap: 10px; flex-wrap: wrap; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px;">
+                    <span
+                        style="color: #d4af37; font-weight: bold; align-self: center; margin-left: 10px;">الفئة العمرية:</span>
+                    <button onclick="setAgeGroupFilter('all')" id="btnAAll" class="btn btn-primary"
+                        style="padding: 5px 15px; font-size: 0.9rem;">الكل</button>
+                    <button onclick="setAgeGroupFilter('junior')" id="btnAJunior" class="btn btn-secondary"
+                        style="padding: 5px 15px; font-size: 0.9rem;">الصغار (1-18)</button>
+                    <button onclick="setAgeGroupFilter('senior')" id="btnASenior" class="btn btn-secondary"
+                        style="padding: 5px 15px; font-size: 0.9rem;">الكبار (30+)</button>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
+                    <!-- Search Bar -->
+                    <div style="position: relative; width: 100%; max-width: 400px;">
+                        <i class="fas fa-search"
+                            style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #d4af37;"></i>
+                        <input type="text" id="searchInput" onkeyup="handleSearch()" placeholder="ابحث باسم المتسابق..."
+                            style="width: 100%; padding: 12px 45px 12px 15px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(212,175,55,0.3); color: #fff; font-family: 'Cairo', sans-serif;">
+                    </div>
+                    <button onclick="downloadImagesZip()" id="zipDownloadBtn" class="btn btn-primary" style="background: #8e44ad; border: none; padding: 10px 20px;">
+                        <i class="fas fa-file-archive"></i> تحميل ملفات المتسابقين المعروضين (ZIP)
+                    </button>
+                </div>
+                <!-- Active Sheikh Filter Badge (Initially Hidden) -->
+                <div id="activeSheikhFilter" style="display:none; background: rgba(212, 175, 55, 0.1); border: 1px solid #d4af37; padding: 10px 15px; border-radius: 10px; align-items: center; gap: 10px; margin-top: 10px;">
+                    <span style="color: #d4af37; font-weight: bold;"><i class="fas fa-user-tie"></i> طلاب الشيخ: <span id="activeSheikhName">---</span></span>
+                    <button onclick="clearSheikhFilter()" class="btn btn-secondary" style="padding: 5px 12px; font-size: 0.8rem; background: #ff4d4d; border: none;"><i class="fas fa-times"></i> إلغاء الفلتر</button>
+                </div>
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table class="registrations-table">
+                    <thead>
+                        <tr>
+                            <th>الاسم</th>
+                            <th>رقم الجلوس</th>
+                            <th>السن</th>
+                            <th>اللجنة</th>
+                            <th>النوع</th>
+                            <th>المستوى</th>
+                            <th>العنوان</th>
+                            <th>أرقام الهاتف</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="registrationsList">
+                        <!-- البيانات ستظهر هنا -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="imgPreviewModal" class="img-preview-modal">
+            <span class="close-preview" onclick="closeImgPreview()">&times;</span>
+            <img id="previewImg" src="">
+            <a id="downloadLink" href="#" download class="download-btn">
+                <i class="fas fa-download"></i> تحميل الصورة
+            </a>
+        </div>
+
+        <!-- Details Modal -->
+        <div id="detailsModal" class="img-preview-modal" style="display: none; padding: 10px;">
+            <div class="login-card"
+                style="max-width: 600px; width: 95%; text-align: right; position: relative; background: #111; border: 2px solid #d4af37; padding: 25px; max-height: 95vh; overflow-y: auto; border-radius: 20px; box-shadow: 0 0 30px rgba(0,0,0,0.5);">
+                <!-- Improved Close Button (X) -->
+                <span onclick="closeDetailsModal()"
+                    style="position: absolute; top: 15px; left: 15px; cursor: pointer; color: #fff; background: rgba(255,255,255,0.1); width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.2rem; z-index: 100; transition: 0.3s;"
+                    onmouseover="this.style.background='#ff4d4d'"
+                    onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+                    &times;
+                </span>
+
+                <h2
+                    style="margin-bottom: 25px; border-bottom: 1px solid #d4af37; padding-bottom: 10px; color: #d4af37; font-size: 1.4rem;">
+                    <i class="fas fa-info-circle"></i> تفاصيل المتسابق
+                </h2>
+
+                <div id="studentDetailsContent"
+                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.95rem; color: #fff;">
+                    <!-- Details will be injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Modal -->
+        <div id="editModal" class="img-preview-modal" style="display: none; padding: 10px;">
+            <div class="login-card" style="max-width: 700px; width: 95%; text-align: right; position: relative; background: #111; border: 2px solid #d4af37; padding: 25px; max-height: 95vh; overflow-y: auto; border-radius: 20px;">
+                <span onclick="closeEditModal()" style="position: absolute; top: 15px; left: 15px; cursor: pointer; color: #fff; background: rgba(255,255,255,0.1); width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.2rem; z-index: 100;">&times;</span>
+                <h2 style="margin-bottom: 25px; border-bottom: 1px solid #d4af37; padding-bottom: 10px; color: #d4af37; font-size: 1.4rem;"><i class="fas fa-edit"></i> تعديل بيانات المتسابق</h2>
+                
+                <form id="editStudentForm" onsubmit="event.preventDefault(); saveEditedStudent();">
+                    <input type="hidden" id="editStudentId">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div>
+                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">اسم المتسابق</label>
+                            <input type="text" id="editStudentName" required style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
+                        </div>
+                        <div>
+                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">الرقم القومي</label>
+                            <input type="text" id="editNationalID" required maxlength="14" style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
+                        </div>
+                        <div>
+                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">رقم الجلوس</label>
+                            <input type="number" id="editSeatNumber" required style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
+                        </div>
+                        <div>
+                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">اللجنة</label>
+                            <input type="number" id="editCommittee" required style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
+                        </div>
+                        <div>
+                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">الجنس</label>
+                            <select id="editGender" style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
+                                <option value="بنين">بنين</option>
+                                <option value="بنات">بنات</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">المستوى</label>
+                            <select id="editLevel" style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
+                                <option value="المستوى الأول (القرآن كاملاً)">المستوى الأول (القرآن كاملاً)</option>
+                                <option value="المستوى الثاني (ثلاثة أرباع القرآن)">المستوى الثاني (ثلاثة أرباع القرآن)</option>
+                                <option value="المستوى الثالث (نصف القرآن)">المستوى الثالث (نصف القرآن)</option>
+                                <option value="المستوى الرابع (ربع القرآن)">المستوى الرابع (ربع القرآن)</option>
+                                <option value="المستوى الخامس (المعلم المتميز)">المستوى الخامس (المعلم المتميز)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">هاتف المتسابق</label>
+                            <input type="tel" id="editPhone1" required style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
+                        </div>
+                        <div>
+                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">هاتف ولي الأمر</label>
+                            <input type="tel" id="editPhone2" style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
+                        </div>
+                         <div>
+                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">اسم الشيخ</label>
+                            <input type="text" id="editSheikhName" style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
+                        </div>
+                        <div>
+                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">هاتف الشيخ</label>
+                            <input type="tel" id="editSheikhPhone" style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
+                        </div>
+                         <div style="grid-column: span 2;">
+                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">العنوان</label>
+                            <input type="text" id="editAddress" style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
+                        </div>
+                        <div style="border-top: 1px dashed #333; padding-top: 10px;">
+                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">تحديث صورة الشهادة</label>
+                            <input type="file" id="editBirthCertFile" accept="image/*" style="width: 100%; color: #aaa; font-size: 0.8rem;">
+                        </div>
+                        <div style="border-top: 1px dashed #333; padding-top: 10px;">
+                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">تحديث الصورة الشخصية</label>
+                            <input type="file" id="editPersonalPhotoFile" accept="image/*" style="width: 100%; color: #aaa; font-size: 0.8rem;">
+                        </div>
+                    </div>
+                    <div style="margin-top: 30px; display: flex; gap: 10px;">
+                        <button type="submit" id="saveEditBtn" class="btn btn-primary" style="flex: 2; padding: 15px; font-weight: 900;">
+                             <i class="fas fa-save"></i> حفظ التعديلات
+                        </button>
+                        <button type="button" onclick="closeEditModal()" class="btn btn-secondary" style="flex: 1; padding: 15px;">إلغاء</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- QR Code Preview Modal -->
+        <div id="qrPreviewModal" class="img-preview-modal" style="display: none;">
+            <div class="login-card" style="max-width: 400px; background: #fff; padding: 30px; border-radius: 20px; text-align: center; position: relative; border: 5px solid #d4af37;">
+                <span onclick="closeQRPreview()" style="position: absolute; top: 10px; right: 10px; cursor: pointer; color: #000; font-size: 1.5rem; transition: 0.3s;">&times;</span>
+                <h3 style="color: #000; margin-bottom: 20px; font-family: 'Cairo', sans-serif;">كود المتسابق (QR)</h3>
+                <div id="qrCodeContainer" style="background: #fff; padding: 10px; display: inline-block; border: 1px solid #eee; margin-bottom: 20px;">
+                    <img id="adminQRCodeImg" src="" style="width: 200px; height: 200px;">
+                </div>
+                <p id="qrStudentName" style="color: #000; font-weight: bold; margin-bottom: 10px;"></p>
+                <div style="display: flex; gap: 10px;">
+                    <button id="downloadQRBtn" class="btn btn-primary" style="flex: 1; padding: 10px; font-size: 0.9rem; background: #d4af37; color: #000; border: none; font-weight: bold;">
+                        <i class="fas fa-download"></i> تحميل الكود
+                    </button>
+                    <button onclick="closeQRPreview()" class="btn btn-secondary" style="flex: 1; padding: 10px; font-size: 0.9rem; border-color: #333; color: #333;">
+                        إغلاق
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="messagesSection" style="display:none;">
+            <div style="overflow-x: auto;">
+                <table class="registrations-table">
+                    <thead>
+                        <tr>
+                            <th>الاسم</th>
+                            <th>رقم الهاتف</th>
+                            <th>الرسالة</th>
+                            <th>التاريخ</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="messagesList">
+                        <!-- الرسائل ستظهر هنا -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="nominationsSection" style="display:none;">
+            <div style="overflow-x: auto;">
+                <table class="registrations-table">
+                    <thead>
+                        <tr>
+                            <th>المرشِح</th>
+                            <th>هاتف المرشِح</th>
+                            <th>المرشَح</th>
+                            <th>سبب الترشيح</th>
+                            <th>التاريخ</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="nominationsList">
+                        <!-- Nominations will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="blockedSection" style="display:none;">
+            <div style="overflow-x: auto;">
+                <table class="registrations-table">
+                    <thead>
+                        <tr>
+                            <th>الاسم</th>
+                            <th>الرقم القومي</th>
+                            <th>السن</th>
+                            <th>السبب</th>
+                            <th>التاريخ</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="blockedList">
+                        <!-- الطلاب المحظورين سيظهرون هنا -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="feedbackSection" style="display:none;">
+            <div style="overflow-x: auto;">
+                <table class="registrations-table">
+                    <thead>
+                        <tr>
+                            <th>الاسم</th>
+                            <th>الهاتف</th>
+                            <th>الصفة</th>
+                            <th>النوع</th>
+                            <th>الرسالة</th>
+                            <th>التاريخ</th>
+                            <th>الرد</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="feedbackList">
+                        <!-- الآراء ستظهر هنا -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="storiesSection" style="display:none;">
+            <div style="overflow-x: auto;">
+                <table class="registrations-table">
+                    <thead>
+                        <tr>
+                            <th>الاسم</th>
+                            <th>الهاتف</th>
+                            <th>القصة</th>
+                            <th>التاريخ</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="storiesList">
+                        <!-- القصص ستظهر هنا -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="visitsSection" style="display:none;">
+            <div style="background: rgba(52, 152, 219, 0.1); border: 2px solid #3498db; padding: 25px; border-radius: 20px; margin-bottom: 30px; text-align: center;">
+                <h2 style="color: #fff; font-size: 1.8rem; margin-bottom: 10px;"><i class="fas fa-chart-bar"></i> تحليل الزيارات (آخر 24 ساعة)</h2>
+                <div id="hourlyStatsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; margin-top: 20px;">
+                    <!-- Hourly stats will appear here -->
+                </div>
+            </div>
+            <div style="overflow-x: auto;">
+                <table class="registrations-table">
+                    <thead>
+                        <tr>
+                            <th>المنصة</th>
+                            <th>المتصفح</th>
+                            <th>التاريخ والوقت</th>
+                        </tr>
+                    </thead>
+                    <tbody id="visitsList">
+                        <!-- الزيارات ستظهر هنا -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ====== SHEIKHS LEADERBOARD SECTION ====== -->
+        <div id="sheikhsSection" style="display:none;">
+            <style>
+                .sheikhs-board-header {
+                    text-align: center;
+                    padding: 30px 20px 20px;
+                    background: linear-gradient(135deg, rgba(212,175,55,0.08), rgba(212,175,55,0.03));
+                    border-radius: 20px;
+                    border: 1px solid rgba(212,175,55,0.2);
+                    margin-bottom: 30px;
+                }
+                .sheikhs-board-header h2 { color: #d4af37; font-size: 1.8rem; margin-bottom: 5px; }
+                .sheikhs-board-header p { color: #aaa; font-size: 0.95rem; }
+                .sheikhs-leaderboard { display: flex; flex-direction: column; gap: 15px; margin-bottom: 40px; }
+                .sheikh-rank-card {
+                    display: flex;
+                    align-items: center;
+                    gap: 20px;
+                    padding: 20px 25px;
+                    border-radius: 18px;
+                    background: rgba(255,255,255,0.03);
+                    border: 1px solid rgba(255,255,255,0.08);
+                    transition: all 0.3s;
+                    position: relative;
+                    overflow: hidden;
+                }
+                .sheikh-rank-card:hover { transform: translateX(-5px); border-color: rgba(212,175,55,0.3); }
+                .sheikh-rank-card.rank-1 {
+                    background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(212,175,55,0.05));
+                    border: 2px solid #d4af37;
+                    box-shadow: 0 0 25px rgba(212,175,55,0.2);
+                }
+                .sheikh-rank-card.rank-2 {
+                    background: linear-gradient(135deg, rgba(192,192,192,0.1), rgba(192,192,192,0.03));
+                    border: 1px solid rgba(192,192,192,0.5);
+                }
+                .sheikh-rank-card.rank-3 {
+                    background: linear-gradient(135deg, rgba(205,127,50,0.12), rgba(205,127,50,0.03));
+                    border: 1px solid rgba(205,127,50,0.4);
+                }
+                .rank-badge-admin {
+                    width: 55px; height: 55px;
+                    border-radius: 50%;
+                    display: flex; align-items: center; justify-content: center;
+                    font-size: 1.5rem; font-weight: 900;
+                    flex-shrink: 0;
+                }
+                .rank-badge-admin.r1 { background: linear-gradient(135deg,#d4af37,#f0c040); color:#000; box-shadow:0 0 15px rgba(212,175,55,0.5); }
+                .rank-badge-admin.r2 { background: linear-gradient(135deg,#aaa,#ddd); color:#000; }
+                .rank-badge-admin.r3 { background: linear-gradient(135deg,#cd7f32,#e8a45a); color:#000; }
+                .rank-badge-admin.rn { background: rgba(255,255,255,0.08); color:#aaa; font-size: 1.1rem; }
+                .sheikh-info { flex: 1; }
+                .sheikh-info h3 { font-size: 1.2rem; font-weight: 800; color: #fff; margin: 0 0 5px; }
+                .sheikh-info .sheikh-phone { font-size: 0.88rem; color: #aaa; direction: ltr; display: inline-block; }
+                .sheikh-progress-wrap { flex: 2; }
+                .sheikh-progress-bar-bg {
+                    background: rgba(255,255,255,0.06);
+                    border-radius: 50px;
+                    height: 14px;
+                    overflow: hidden;
+                    margin-top: 6px;
+                }
+                .sheikh-progress-fill {
+                    height: 100%;
+                    border-radius: 50px;
+                    background: linear-gradient(90deg, #d4af37, #f0c040);
+                    transition: width 1s ease;
+                }
+                .rank-1 .sheikh-progress-fill { background: linear-gradient(90deg, #d4af37, #f5e06e); }
+                .rank-2 .sheikh-progress-fill { background: linear-gradient(90deg, #aaa, #ddd); }
+                .rank-3 .sheikh-progress-fill { background: linear-gradient(90deg, #cd7f32, #e8a45a); }
+                .sheikh-count-badge {
+                    font-size: 1.6rem; font-weight: 900;
+                    min-width: 60px; text-align: center; flex-shrink: 0;
+                }
+                .rank-1 .sheikh-count-badge { color: #d4af37; }
+                .rank-2 .sheikh-count-badge { color: #c0c0c0; }
+                .rank-3 .sheikh-count-badge { color: #cd7f32; }
+                .sheikh-count-badge .count-label { font-size: 0.65rem; color: #777; display: block; font-weight: 400; }
+                .sheikh-actions-admin { display: flex; gap: 8px; flex-shrink: 0; }
+                .add-sheikh-admin-box {
+                    background: rgba(255,255,255,0.02);
+                    border: 1px dashed rgba(212,175,55,0.4);
+                    border-radius: 18px;
+                    padding: 25px;
+                    margin-top: 20px;
+                }
+                .add-sheikh-admin-box h3 { color: #d4af37; margin-bottom: 20px; font-size: 1.1rem; }
+                .sheikh-add-form { display: grid; grid-template-columns: 1fr 1fr auto; gap: 15px; align-items: end; }
+                .sheikh-add-form input {
+                    padding: 12px 15px;
+                    border-radius: 10px;
+                    background: rgba(255,255,255,0.05);
+                    border: 1px solid rgba(212,175,55,0.3);
+                    color: #fff;
+                    font-family: 'Cairo', sans-serif;
+                    font-size: 0.95rem;
+                    width: 100%;
+                }
+                .podium-row { display: flex; gap: 15px; justify-content: center; margin-bottom: 30px; flex-wrap: wrap; }
+                .podium-card {
+                    text-align: center;
+                    padding: 25px 20px;
+                    border-radius: 20px;
+                    min-width: 200px;
+                    flex: 1;
+                    max-width: 250px;
+                }
+                .podium-card.p1 { background: linear-gradient(160deg, rgba(212,175,55,0.2), rgba(212,175,55,0.05)); border: 2px solid #d4af37; order: 2; }
+                .podium-card.p2 { background: linear-gradient(160deg, rgba(192,192,192,0.12), rgba(192,192,192,0.03)); border: 1px solid #aaa; order: 1; }
+                .podium-card.p3 { background: linear-gradient(160deg, rgba(205,127,50,0.12), rgba(205,127,50,0.03)); border: 1px solid #cd7f32; order: 3; }
+                .podium-medal { font-size: 3rem; display: block; margin-bottom: 10px; }
+                .podium-name { font-size: 1.05rem; font-weight: 800; color: #fff; }
+                .podium-count { font-size: 2rem; font-weight: 900; margin: 10px 0 5px; }
+                .p1 .podium-count { color: #d4af37; }
+                .p2 .podium-count { color: #c0c0c0; }
+                .p3 .podium-count { color: #cd7f32; }
+                .podium-label { font-size: 0.8rem; color: #888; }
+                @media (max-width: 700px) { .sheikh-add-form { grid-template-columns: 1fr; } .sheikh-rank-card { flex-wrap: wrap; } }
+            </style>
+
+            <div class="sheikhs-board-header">
+                <div style="font-size: 2.5rem; margin-bottom: 10px;">🏆</div>
+                <h2><i class="fas fa-trophy"></i> لوحة تكريم المشايخ المحفظين</h2>
+                <p>ترتيب تنافسي للمشايخ حسب عدد الطلاب المسجلين تحت إشرافهم</p>
+            </div>
+
+            <!-- Podium Top 3 -->
+            <div class="podium-row" id="sheikhsPodium">
+                <div style="text-align:center; color:#aaa; padding: 20px;">جاري تحميل البيانات...</div>
+            </div>
+
+            <!-- Full Leaderboard -->
+            <div class="sheikhs-leaderboard" id="sheikhsLeaderboard"></div>
+
+            <!-- Add New Sheikh Panel -->
+            <div class="add-sheikh-admin-box">
+                <h3><i class="fas fa-plus-circle"></i> إضافة شيخ جديد للقائمة</h3>
+                <div class="sheikh-add-form">
+                    <div>
+                        <label style="color:#aaa; font-size:0.85rem; display:block; margin-bottom:5px;">اسم الشيخ</label>
+                        <input type="text" id="adminNewSheikhName" placeholder="مثال: الشيخ محمد علي">
+                    </div>
+                    <div>
+                        <label style="color:#aaa; font-size:0.85rem; display:block; margin-bottom:5px;">رقم الهاتف</label>
+                        <input type="tel" id="adminNewSheikhPhone" placeholder="01xxxxxxxxx" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+                    </div>
+                    <button onclick="adminAddSheikh()" class="btn btn-primary" style="padding: 12px 25px; white-space: nowrap;">
+                        <i class="fas fa-plus"></i> إضافة
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="settingsSection" style="display:none;">
+            <div class="apply-card"
+                style="background: rgba(255,255,255,0.03); padding: 30px; border-radius: 20px; border: 1px solid #d4af37;">
+                <h2 style="color: #d4af37; margin-bottom: 30px;"><i class="fas fa-sliders-h"></i> التحكم في فتح وغلق
+                    التقديم</h2>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                    <!-- Registration Toggle -->
+                    <div
+                        style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
+                        <h3 style="margin-bottom: 20px;"><i class="fas fa-edit"></i> تقديم المتسابقين</h3>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <span id="regStatusLabel" style="font-weight: bold; color: #aaa;">الحالة الحالية: ...</span>
+                            <button id="regToggleButton" class="btn btn-primary"
+                                onclick="toggleStatus('registrationStatus')">جاري التحميل...</button>
+                        </div>
+                        <p style="font-size: 0.85rem; color: #888; margin-top: 15px;">عند الغلق، لن يتمكن المتسابقون من
+                            إرسال طلبات التسجيل وسيظهر لهم تنبيه بأن التقديم مغلق.</p>
+                    </div>
+
+                    <!-- Nominations Toggle -->
+                    <div
+                        style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
+                        <h3 style="margin-bottom: 20px;"><i class="fas fa-heart"></i> ترشيحات الأم/المعلم المثالي</h3>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <span id="nomStatusLabel" style="font-weight: bold; color: #aaa;">الحالة الحالية: ...</span>
+                            <button id="nomToggleButton" class="btn btn-primary"
+                                onclick="toggleStatus('nominationStatus')">جاري التحميل...</button>
+                        </div>
+                    </div>
+
+                    <!-- Stories Toggle -->
+                    <div
+                        style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
+                        <h3 style="margin-bottom: 20px;"><i class="fas fa-scroll"></i> استمارة قصتي مع القرآن</h3>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <span id="storyStatusLabel" style="font-weight: bold; color: #aaa;">الحالة الحالية: ...</span>
+                            <button id="storyToggleButton" class="btn btn-primary"
+                                onclick="toggleStatus('storyStatus')">جاري التحميل...</button>
+                        </div>
+                        <p style="font-size: 0.85rem; color: #888; margin-top: 15px;">عند الغلق، سيختفي قسم "قصتي مع القرآن" من الصفحة الرئيسية.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+    
+    <!-- JSZip and FileSaver for bulk downloading -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+    <script>
+        // --- Firebase Configuration ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyCsVH5BVV9abx66UicOa51T1qADmUVrd7U",
+            authDomain: "hamel-b7a68.firebaseapp.com",
+            projectId: "hamel-b7a68",
+            storageBucket: "hamel-b7a68.firebasestorage.app",
+            messagingSenderId: "818022836347",
+            appId: "1:818022836347:web:ebcdef3f19c53cd1ef1ade",
+            measurementId: "G-HEMLZDRBS3"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        async function checkPassword() {
+            const passInput = document.getElementById('adminPassword');
+            const enteredPass = passInput.value;
+
+            // Show loading state on login button
+            const loginBtn = document.querySelector('.btn-login');
+            const originalBtnText = loginBtn.textContent;
+            loginBtn.textContent = 'جاري التحقق...';
+            loginBtn.disabled = true;
+
+            try {
+                // Fetch the password from Firebase
+                const authDoc = await db.collection('settings').doc('adminAuth').get();
+
+                if (authDoc.exists) {
+                    const correctPass = authDoc.data().password;
+                    if (enteredPass === correctPass) {
+                        document.getElementById('loginOverlay').style.display = 'none';
+                        document.getElementById('adminContent').style.display = 'block';
+                        loadData();
+                    } else {
+                        alert('كلمة مرور خاطئة!');
+                    }
+                } else {
+                    // One-time setup: If password doesn't exist in DB, set the default
+                    // This only happens once to initialize your DB
+                    if (confirm('تنبيه: لم يتم العثور على كلمة مرور في قاعدة البيانات. هل تريد تعيين "01000qwe" ككلمة مرور افتراضية؟')) {
+                        await db.collection('settings').doc('adminAuth').set({ password: '01000qwe' });
+                        alert('تم تهيئة كلمة المرور بنجاح. يرجى المحاولة مرة أخرى.');
+                    }
+                }
+            } catch (error) {
+                console.error("Auth Error:", error);
+                alert('فشل في الاتصال بقاعدة البيانات. تأكد من إعدادات الـ Security Rules.');
+            } finally {
+                loginBtn.textContent = originalBtnText;
+                loginBtn.disabled = false;
+            }
+        }
+
+        function logout() {
+            location.reload();
+        }
+
+        // --- Export Data Function (GitHub Friendly) ---
+        function exportBackupData() {
+            if (allRegistrations.length === 0) {
+                alert('لا توجد بيانات لتصديرها حالياً.');
+                return;
+            }
+
+            // Create the content for data.js
+            const content = `// نسخة احتياطية لمسابقة حامل القرآن - بتاريخ: ${new Date().toLocaleString('ar-EG')}
+const backupData = ${JSON.stringify(allRegistrations, null, 2)};
+console.log('تم تحميل البيانات الاحتياطية بنجاح.');`;
+
+            // Create a blob and download link
+            const blob = new Blob([content], { type: 'text/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'data.js';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            alert('تم توليد ملف data.js بنجاح. يمكنك رفعه الآن على GitHub كنسخة احتياطية.');
+        }
+
+        function switchTab(tab) {
+            // Sections to manage
+            const sections = ['registrationsSection', 'messagesSection', 'nominationsSection', 'blockedSection', 'settingsSection', 'sheikhsSection', 'feedbackSection', 'storiesSection'];
+            const tabs = {
+                'registrations': 'tabRegs',
+                'messages': 'tabMsgs',
+                'motherAward': 'tabMother',
+                'maleTeacher': 'tabMale',
+                'femaleTeacher': 'tabFemale',
+                'sheikhs': 'tabSheikhs',
+                'blocked': 'tabBlocked',
+                'feedback': 'tabFeedback',
+                'stories': 'tabStories',
+                'visits': 'tabVisits',
+                'settings': 'tabSettings'
+            };
+
+            // Hide all sections
+            sections.forEach(s => {
+                const el = document.getElementById(s);
+                if (el) el.style.display = 'none';
+            });
+
+            // Reset all tab button classes
+            Object.values(tabs).forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.className = 'btn btn-secondary';
+            });
+
+            // Show selected section and activate tab
+            const activeTabId = tabs[tab];
+            const activeTabBtn = document.getElementById(activeTabId);
+            if (activeTabBtn) activeTabBtn.className = 'btn btn-primary';
+
+            if (tab === 'registrations') {
+                document.getElementById('registrationsSection').style.display = 'block';
+            } else if (tab === 'messages') {
+                document.getElementById('messagesSection').style.display = 'block';
+                loadMessages();
+            } else if (tab === 'motherAward') {
+                document.getElementById('nominationsSection').style.display = 'block';
+                loadNominations('الأم المثالية');
+            } else if (tab === 'maleTeacher') {
+                document.getElementById('nominationsSection').style.display = 'block';
+                loadNominations('المعلم المثالي');
+            } else if (tab === 'femaleTeacher') {
+                document.getElementById('nominationsSection').style.display = 'block';
+                loadNominations('المعلمة المثالية');
+            } else if (tab === 'sheikhs') {
+                document.getElementById('sheikhsSection').style.display = 'block';
+                loadSheikhsBoard();
+            } else if (tab === 'blocked') {
+                document.getElementById('blockedSection').style.display = 'block';
+                loadBlockedStudents();
+            } else if (tab === 'feedback') {
+                document.getElementById('feedbackSection').style.display = 'block';
+                loadFeedback();
+            } else if (tab === 'stories') {
+                document.getElementById('storiesSection').style.display = 'block';
+                loadStories();
+            } else if (tab === 'settings') {
+                document.getElementById('settingsSection').style.display = 'block';
+                loadSettings();
+            } else if (tab === 'visits') {
+                document.getElementById('visitsSection').style.display = 'block';
+                loadAnalytics();
+            }
+        }
+
+        let currentLevelFilter = 'all';
+        let currentGenderFilter = 'all';
+        let currentAgeGroupFilter = 'all';
+        let allRegistrations = [];
+
+        function setLevelFilter(val) {
+            currentLevelFilter = val;
+            updateFilterButtons('L', val);
+            renderRegistrations();
+        }
+
+        function setGenderFilter(val) {
+            currentGenderFilter = val;
+            updateFilterButtons('G', val);
+            renderRegistrations();
+        }
+
+        function setAgeGroupFilter(val) {
+            currentAgeGroupFilter = val;
+            updateFilterButtons('A', val);
+            renderRegistrations();
+        }
+
+        function updateFilterButtons(prefix, val) {
+            let btns = [];
+            let btnIds = [];
+
+            if (prefix === 'L') {
+                btns = ['all', 'المستوى الأول (القرآن كاملاً)', 'المستوى الثاني (ثلاثة أرباع القرآن)', 'المستوى الثالث (نصف القرآن)', 'المستوى الرابع (ربع القرآن)'];
+                btnIds = ['btnLAll', 'btnL1', 'btnL2', 'btnL3', 'btnL4'];
+            } else if (prefix === 'G') {
+                btns = ['all', 'بنين', 'بنات'];
+                btnIds = ['btnGAll', 'btnGBoy', 'btnGGirl'];
+            } else if (prefix === 'A') {
+                btns = ['all', 'junior', 'senior'];
+                btnIds = ['btnAAll', 'btnAJunior', 'btnASenior'];
+            }
+
+            btnIds.forEach((id, idx) => {
+                const btn = document.getElementById(id);
+                if (!btn) return;
+                if (btns[idx] === val) {
+                    btn.className = 'btn btn-primary';
+                } else {
+                    btn.className = 'btn btn-secondary';
+                }
+            });
+        }
+
+        function printTicket(id) {
+            const student = allRegistrations.find(s => s.id === id);
+            if (!student) return;
+
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+            <html>
+                <head>
+                    <title>طباعة رقم الجلوس - ${student.studentName}</title>
+                    <style>
+                        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+                        body { 
+                            font-family: 'Cairo', sans-serif; 
+                            direction: rtl; 
+                            padding: 20px;
+                            display: flex;
+                            justify-content: center;
+                            background: #fff;
+                        }
+                        .ticket-card {
+                            width: 10cm;
+                            height: 6cm;
+                            border: 2px double #d4af37;
+                            padding: 10px;
+                            position: relative;
+                            background: #fff;
+                            overflow: hidden;
+                            border-radius: 15px;
+                            display: flex;
+                            flex-direction: column;
+                            box-sizing: border-box;
+                        }
+                        .header {
+                            text-align: center;
+                            border-bottom: 1px solid #eee;
+                            padding-bottom: 5px;
+                            margin-bottom: 15px;
+                        }
+                        .header h2 { margin: 0; font-size: 16px; color: #1a1a1a; }
+                        .header p { margin: 2px 0; font-size: 12px; color: #d4af37; font-weight: bold; }
+                        
+                        .content-flex {
+                            display: flex;
+                            gap: 15px;
+                            height: 100%;
+                        }
+                        
+                        .photo-box {
+                            width: 2.2cm;
+                            height: 2.8cm;
+                            border: 1px solid #ddd;
+                            border-radius: 8px;
+                            overflow: hidden;
+                            background: #f9f9f9;
+                        }
+                        .photo-box img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                        
+                        .info-list {
+                            flex: 1;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 10px;
+                        }
+                        .info-item {
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                        }
+                        .label { font-weight: bold; font-size: 12px; color: #555; white-space: nowrap; }
+                        .value { 
+                            font-size: 13px; 
+                            color: #000; 
+                            font-weight: 700;
+                            border-bottom: 1px dashed #ccc;
+                            flex: 1;
+                        }
+                        
+                        .seat-badge {
+                            position: absolute;
+                            top: 10px;
+                            left: 10px;
+                            background: #1a1a1a;
+                            color: #d4af37;
+                            padding: 5px 10px;
+                            border-radius: 8px;
+                            font-size: 18px;
+                            font-weight: 800;
+                            border: 1px solid #d4af37;
+                        }
+                        
+                        .footer-text {
+                            text-align: center;
+                            font-size: 10px;
+                            color: #888;
+                            margin-top: auto;
+                            padding-top: 5px;
+                            border-top: 1px solid #eee;
+                        }
+
+                        @media print {
+                            body { padding: 0; margin: 0; }
+                            .ticket-card { box-shadow: none; -webkit-print-color-adjust: exact; }
+                        }
+                    </style>
+                </head>
+                <body onload="window.print(); window.close();">
+                    <div class="ticket-card">
+                        <div class="seat-badge">${student.seatNumber || '---'}</div>
+                        <div class="header">
+                            <h2>مسابقة حامل القرآن بمسير</h2>
+                            <p>رقم الجلوس للمتسابق</p>
+                        </div>
+                        
+                        <div class="content-flex">
+                            <div class="photo-box">
+                                ${student.personalPhotoPath ? `<img src="${student.personalPhotoPath}" />` : '<div style="display:flex; align-items:center; justify-content:center; height:100%; font-size:10px; color:#aaa;">بدون صورة</div>'}
+                            </div>
+                            
+                            <div class="info-list">
+                                <div class="info-item">
+                                    <span class="label">الاسم:</span>
+                                    <span class="value" style="font-size: ${student.studentName.length > 25 ? '11px' : '13px'}">${student.studentName}</span>
+                                </div>
+                                <div class="info-item">
+                                    <div style="display: flex; gap: 10px; width: 100%;">
+                                        <div style="flex: 0 0 50px;">
+                                            <span class="label">اللجنة:</span>
+                                            <span class="value" style="text-align: center;">${student.committee || '--'}</span>
+                                        </div>
+                                        <div style="flex: 1;">
+                                            <span class="label">المستوى:</span>
+                                            <span class="value" style="font-size: 10px;">${student.level}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="footer-text">
+                            نور الله دربك بحفظ كتابه الكريم - يمنع اصطحاب المحمول
+                        </div>
+                    </div>
+                </body>
+            </html>
+        `);
+            printWindow.document.close();
+        }
+
+        async function loadData() {
+            try {
+                db.collection('registrations').orderBy('timestamp', 'desc').onSnapshot((snapshot) => {
+                    allRegistrations = [];
+                    let stats = { total: 0, l1: 0, l2: 0, l3: 0, l4: 0, l5: 0 };
+
+                    snapshot.forEach(doc => {
+                        const data = doc.data();
+                        data.id = doc.id;
+                        allRegistrations.push(data);
+
+                        stats.total++;
+                        if (data.level) {
+                            if (data.level.includes('الأول')) stats.l1++;
+                            if (data.level.includes('الثاني')) stats.l2++;
+                            if (data.level.includes('الثالث')) stats.l3++;
+                            if (data.level.includes('الرابع')) stats.l4++;
+                            if (data.level.includes('الخامس')) stats.l5++;
+                        }
+                    });
+
+                    document.getElementById('totalCount').textContent = stats.total;
+                    document.getElementById('level1Count').textContent = stats.l1;
+                    document.getElementById('level2Count').textContent = stats.l2;
+                    document.getElementById('level3Count').textContent = stats.l3;
+                    document.getElementById('level4Count').textContent = stats.l4;
+                    document.getElementById('level5Count').textContent = stats.l5;
+
+                    renderRegistrations();
+                });
+
+                db.collection('blockedStudents').onSnapshot((snapshot) => {
+                    document.getElementById('blockedCount').textContent = snapshot.size;
+                });
+
+                // --- Real-time Nomination Stats ---
+                db.collection('nominations').onSnapshot((snapshot) => {
+                    let nomStats = { mother: 0, maleTeacher: 0, femaleTeacher: 0 };
+                    snapshot.forEach(doc => {
+                        const data = doc.data();
+                        if (data.awardType === 'الأم المثالية') nomStats.mother++;
+                        else if (data.awardType === 'المعلم المثالي') nomStats.maleTeacher++;
+                        else if (data.awardType === 'المعلمة المثالية') nomStats.femaleTeacher++;
+                    });
+                    document.getElementById('motherCount').textContent = nomStats.mother;
+                    document.getElementById('maleTeacherCount').textContent = nomStats.maleTeacher;
+                    document.getElementById('femaleTeacherCount').textContent = nomStats.femaleTeacher;
+                });
+
+                // --- Real-time Visit Stats for Today ---
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                db.collection('visits')
+                    .where('timestamp', '>=', firebase.firestore.Timestamp.fromDate(today))
+                    .onSnapshot((snapshot) => {
+                        document.getElementById('todayVisitsCount').textContent = snapshot.size;
+                    });
+            } catch (error) {
+                console.error("Error loading data: ", error);
+            }
+        }
+
+        async function loadAnalytics() {
+            const list = document.getElementById('visitsList');
+            const grid = document.getElementById('hourlyStatsGrid');
+            if (!list || !grid) return;
+
+            list.innerHTML = '<tr><td colspan="3" style="text-align:center;">جاري تحميل البيانات...</td></tr>';
+            grid.innerHTML = '<div style="grid-column: 1/-1; color: #aaa;">جاري تحليل الزيارات...</div>';
+
+            try {
+                // Fetch last 500 visits for a decent log
+                const snapshot = await db.collection('visits')
+                    .orderBy('timestamp', 'desc')
+                    .limit(500)
+                    .get();
+
+                list.innerHTML = '';
+                if (snapshot.empty) {
+                    list.innerHTML = '<tr><td colspan="3" style="text-align:center;">لا توجد زيارات مسجلة حالياً</td></tr>';
+                    grid.innerHTML = '<div style="grid-column: 1/-1; color: #aaa;">لا توجد بيانات كافية للتحليل</div>';
+                    return;
+                }
+
+                const now = new Date();
+                const last24h = new Date(now.getTime() - (24 * 60 * 60 * 1000));
+                let hourlyCounts = {}; // Key: Hour (0-23)
+
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const ts = data.timestamp ? data.timestamp.toDate() : null;
+                    if (!ts) return;
+
+                    // Log entry
+                    const row = `
+                        <tr>
+                            <td>${data.platform || 'غير معروف'}</td>
+                            <td style="font-size: 0.8rem; color: #aaa;">${data.userAgent ? data.userAgent.split(')')[0].split('(')[1] || '---' : '---'}</td>
+                            <td>${ts.toLocaleString('ar-EG')}</td>
+                        </tr>
+                    `;
+                    list.innerHTML += row;
+
+                    // Analysis for last 24h
+                    if (ts >= last24h) {
+                        const hour = ts.getHours();
+                        hourlyCounts[hour] = (hourlyCounts[hour] || 0) + 1;
+                    }
+                });
+
+                // Render Hourly Stats Grid
+                grid.innerHTML = '';
+                // Sort hours chronologically (e.g., from 24h ago to now)
+                for (let i = 0; i < 24; i++) {
+                    const h = (now.getHours() - (23 - i) + 24) % 24;
+                    const count = hourlyCounts[h] || 0;
+                    const hLabel = h > 12 ? (h-12) + ' م' : (h === 0 ? '12 ص' : h + ' ص');
+                    
+                    grid.innerHTML += `
+                        <div style="background: rgba(52, 152, 219, ${count > 0 ? '0.2' : '0.05'}); border: 1px solid ${count > 0 ? '#3498db' : 'rgba(255,255,255,0.05)'}; padding: 10px; border-radius: 12px;">
+                            <div style="font-size: 0.75rem; color: #aaa;">${hLabel}</div>
+                            <div style="font-size: 1.2rem; font-weight: 700; color: ${count > 0 ? '#3498db' : '#555'}">${count}</div>
+                        </div>
+                    `;
+                }
+
+            } catch (error) {
+                console.error("Analytics Error:", error);
+                list.innerHTML = '<tr><td colspan="3" style="text-align:center; color: #ff4d4d;">خطأ في تحميل البيانات</td></tr>';
+            }
+        }
+
+        async function deleteRegistration(id) {
+            if (confirm('⚠️ تنبيه: هل أنت متأكد من حذف هذا المتسابق نهائياً؟')) {
+                try {
+                    await db.collection('registrations').doc(id).delete();
+                } catch (error) {
+                    alert('خطأ أثناء الحذف');
+                }
+            }
+        }
+
+        function showImgPreview(url) {
+            const modal = document.getElementById('imgPreviewModal');
+            const img = document.getElementById('previewImg');
+            const downloadLink = document.getElementById('downloadLink');
+
+            img.src = url;
+            downloadLink.href = url;
+
+            modal.style.display = 'flex';
+        }
+
+        let searchQuery = '';
+
+        function handleSearch() {
+            searchQuery = document.getElementById('searchInput').value.trim();
+            renderRegistrations();
+        }
+
+        function closeImgPreview() {
+            document.getElementById('imgPreviewModal').style.display = 'none';
+        }
+
+        function showQRCode(id, name) {
+            const modal = document.getElementById('qrPreviewModal');
+            const img = document.getElementById('adminQRCodeImg');
+            const studentNameEl = document.getElementById('qrStudentName');
+            const downloadBtn = document.getElementById('downloadQRBtn');
+
+            // Construct student profile URL
+            const studentUrl = `${window.location.origin}${window.location.pathname.replace('admin.html', '')}student.html?id=${id}`;
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(studentUrl)}`;
+
+            img.src = qrUrl;
+            studentNameEl.textContent = name;
+            
+            downloadBtn.onclick = () => {
+                fetch(qrUrl)
+                  .then(response => response.blob())
+                  .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `QR_${name.replace(/\s+/g, '_')}.png`;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                  });
+            };
+
+            modal.style.display = 'flex';
+        }
+
+        function closeQRPreview() {
+            document.getElementById('qrPreviewModal').style.display = 'none';
+        }
+
+        // --- Edit Registration Logic ---
+        
+        function openEditModal(e, id) {
+            if (e) e.stopPropagation();
+            const data = allRegistrations.find(r => r.id === id);
+            if (!data) return;
+
+            document.getElementById('editStudentId').value = id;
+            document.getElementById('editStudentName').value = data.studentName || '';
+            document.getElementById('editNationalID').value = data.nationalID || '';
+            document.getElementById('editSeatNumber').value = data.seatNumber || '';
+            document.getElementById('editCommittee').value = data.committee || '';
+            document.getElementById('editGender').value = data.gender || 'بنين';
+            document.getElementById('editLevel').value = data.level || '';
+            document.getElementById('editPhone1').value = data.phone1 || '';
+            document.getElementById('editPhone2').value = data.phone2 || '';
+            document.getElementById('editSheikhName').value = data.sheikhName || '';
+            document.getElementById('editSheikhPhone').value = data.sheikhPhone || '';
+            document.getElementById('editAddress').value = data.address || '';
+
+            document.getElementById('editModal').style.display = 'flex';
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').style.display = 'none';
+            document.getElementById('editStudentForm').reset();
+        }
+
+        async function uploadToCloudinary(file, type, folderName, cloudName, uploadPreset, studentName) {
+            if (!file) return null;
+            const uniquePublicId = `${studentName.replace(/\s+/g, '_')}_${Date.now()}`;
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', uploadPreset);
+            formData.append('folder', folderName);
+            formData.append('public_id', uniquePublicId);
+
+            try {
+                const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                return data.secure_url || null;
+            } catch (error) {
+                console.error('Cloudinary Error:', error);
+                return null;
+            }
+        }
+
+        async function saveEditedStudent() {
+            const id = document.getElementById('editStudentId').value;
+            const saveBtn = document.getElementById('saveEditBtn');
+            const originalBtnText = saveBtn.innerHTML;
+            
+            saveBtn.disabled = true;
+            saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ والتعديل...';
+
+            try {
+                const studentName = document.getElementById('editStudentName').value.trim();
+                const birthCertFile = document.getElementById('editBirthCertFile').files[0];
+                const personalPhotoFile = document.getElementById('editPersonalPhotoFile').files[0];
+
+                let updateData = {
+                    studentName: studentName,
+                    nationalID: document.getElementById('editNationalID').value.trim(),
+                    seatNumber: parseInt(document.getElementById('editSeatNumber').value),
+                    committee: parseInt(document.getElementById('editCommittee').value),
+                    gender: document.getElementById('editGender').value,
+                    level: document.getElementById('editLevel').value,
+                    phone1: document.getElementById('editPhone1').value.trim(),
+                    phone2: document.getElementById('editPhone2').value.trim(),
+                    sheikhName: document.getElementById('editSheikhName').value.trim(),
+                    sheikhPhone: document.getElementById('editSheikhPhone').value.trim(),
+                    address: document.getElementById('editAddress').value.trim()
+                };
+
+                // Handle Image Updates if files chosen
+                if (birthCertFile) {
+                    const url = await uploadToCloudinary(birthCertFile, 'شهادة الميلاد', 'birth_certs', 'duvunzwm2', 'hamel_preset', studentName);
+                    if (url) updateData.birthCertPath = url;
+                }
+                if (personalPhotoFile) {
+                    const url = await uploadToCloudinary(personalPhotoFile, 'الصورة الشخصية', 'student_photos', 'dvzqe1zr7', 'hamel_preset_2', studentName);
+                    if (url) updateData.personalPhotoPath = url;
+                }
+
+                await db.collection('registrations').doc(id).update(updateData);
+                alert('✅ تم تحديث بيانات المتسابق بنجاح!');
+                closeEditModal();
+            } catch (error) {
+                console.error("Update Error:", error);
+                alert('حدث خطأ أثناء التحديث: ' + error.message);
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = originalBtnText;
+            }
+        }
+
+        function renderRegistrations() {
+            const list = document.getElementById('registrationsList');
+            if (!list) return;
+            list.innerHTML = '';
+
+            let filtered = allRegistrations.filter(reg => {
+                const levelMatch = (currentLevelFilter === 'all' || reg.level === currentLevelFilter);
+                const genderMatch = (currentGenderFilter === 'all' || reg.gender === currentGenderFilter);
+                const sheikhMatch = (!currentSheikhFilter || (reg.sheikhName && reg.sheikhName.trim() === currentSheikhFilter.trim()));
+                const nameMatch = searchQuery === '' || (reg.studentName && reg.studentName.includes(searchQuery));
+                let ageMatch = true;
+                if (currentAgeGroupFilter !== 'all') {
+                    const y = reg.ageYears || 0;
+                    const m = reg.ageMonths || 0;
+                    const d = reg.ageDays || 0;
+                    const isJunior = y < 18 || (y === 18 && m === 0 && d === 0);
+                    const isSenior = y >= 30;
+                    if (currentAgeGroupFilter === 'junior') ageMatch = isJunior;
+                    if (currentAgeGroupFilter === 'senior') ageMatch = isSenior;
+                }
+                
+                return levelMatch && genderMatch && sheikhMatch && nameMatch && ageMatch;
+            });
+
+            if (filtered.length === 0) {
+                list.innerHTML = '<tr><td colspan="9" style="text-align:center;">لا توجد بيانات تطابق الاختيار</td></tr>';
+                return;
+            }
+
+            let grouped = {};
+            filtered.forEach(data => {
+                if (!grouped[data.level]) grouped[data.level] = [];
+                grouped[data.level].push(data);
+            });
+
+            for (const level in grouped) {
+                list.innerHTML += `<tr style="background: rgba(212, 175, 55, 0.2);"><td colspan="9" style="text-align:right; font-weight:bold; color:#d4af37; padding-right: 20px;">📂 ${level} (${grouped[level].length})</td></tr>`;
+
+                grouped[level].forEach(data => {
+                    const docsHtml = `
+                        <div style="display:flex; gap:8px; color: #d4af37; font-size: 0.9rem;">
+                            ${data.birthCertPath ? '<i class="fas fa-file-image" title="شهادة الميلاد"></i>' : '<i class="fas fa-file-image" style="color:#333" title="لا يوجد"></i>'}
+                            ${data.personalPhotoPath ? '<i class="fas fa-user-circle" title="الصورة الشخصية"></i>' : '<i class="fas fa-user-circle" style="color:#333" title="لا يوجد"></i>'}
+                        </div>
+                    `;
+
+                    const row = `
+                        <tr style="cursor: pointer;" onclick="showStudentDetails('${data.id}')">
+                            <td style="font-weight:bold;">${data.studentName}</td>
+                            <td><span style="background: rgba(212, 175, 55, 0.1); color: #d4af37; padding: 5px 12px; border-radius: 8px; font-weight: bold; border: 1px solid rgba(212, 175, 55, 0.3); font-size: 1.1rem;">${data.seatNumber || '-'}</span></td>
+                            <td style="font-weight:bold; color: #fff; font-size: 0.9rem;">
+                                ${data.ageYears || 0} س و ${data.ageMonths || 0} ش
+                            </td>
+                            <td style="font-weight: bold; color: #fff;">${data.committee || '-'}</td>
+                            <td><span class="badge ${data.gender === 'بنين' ? 'badge-blue' : 'badge-pink'}">${data.gender || '-'}</span></td>
+                            <td><div style="font-size:0.8rem;">${data.level}</div></td>
+                            <td>${docsHtml}</td>
+                            <td>
+                                <div style="font-size: 0.85rem; line-height: 1.4;">
+                                    <div title="المتسابق"><i class="fas fa-user-circle" style="font-size: 0.7rem; color: #d4af37;"></i> ${data.phone1}</div>
+                                    <div title="ولي الأمر" style="color: #aaa; border-top: 1px dashed rgba(255,255,255,0.1); margin-top: 2px; padding-top: 2px;"><i class="fas fa-users" style="font-size: 0.7rem;"></i> ${data.phone2}</div>
+                                </div>
+                            </td>
+                            <td onclick="event.stopPropagation()">
+                                <div style="display: flex; gap: 5px;">
+                                    <button onclick="deleteRegistration('${data.id}')" class="btn-view btn-delete" title="حذف"><i class="fas fa-trash"></i></button>
+                                    <button onclick="openEditModal(event, '${data.id}')" class="btn-view" style="background: #2980b9; color: #fff; border: none;" title="تعديل البيانات"><i class="fas fa-edit"></i></button>
+                                    <button onclick="showQRCode('${data.id}', '${data.studentName}')" class="btn-view" style="background: #000; color: #d4af37; border: 1px solid #d4af37;" title="كود المتسابق (QR)"><i class="fas fa-qrcode"></i></button>
+                                    <a href="#" onclick="openWhatsApp(event, '${data.phone1}', '${data.studentName}', '${data.seatNumber || ''}', '${data.committee || ''}', '${data.level}')" class="btn-view" style="background: #d4af37; color: #000;" title="واتساب الطالب"><i class="fab fa-whatsapp"></i></a>
+                                    <a href="#" onclick="openWhatsApp(event, '${data.phone2}', '${data.studentName}', '${data.seatNumber || ''}', '${data.committee || ''}', '${data.level}')" class="btn-view" style="background: #25D366; color: #fff;" title="واتساب ولي الأمر"><i class="fab fa-whatsapp"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                    list.innerHTML += row;
+                });
+            }
+        }
+
+        // --- Admin Logic ---
+        
+        function openWhatsApp(e, phone, name, seat, committee, level) {
+            e.stopPropagation(); // Prevent opening the details modal
+            if (!phone) {
+                alert('لا يوجد رقم هاتف مسجل.');
+                return;
+            }
+            const formatPhone = (p) => p ? (p.trim().startsWith('0') ? '2' + p.trim() : p.trim()) : '';
+            const waMsg = encodeURIComponent(`السلام عليكم ورحمة الله وبركاته\nعزيزي المتسابق: ${name}\nرقم جلوسك: ${seat || 'غير محدد'}\nاللجنة: ${committee || 'غير محدد'}\nالمستوى: ${level}\n\nيرجى المتابعة لتحديد موعد الاختبارات على الصفحة الرسمية على فيسبوك (مسابقة حامل القرآن).`);
+            window.open(`https://wa.me/${formatPhone(phone)}?text=${waMsg}`, '_blank');
+        }
+
+        function showStudentDetails(id) {
+            const data = allRegistrations.find(r => r.id === id);
+            if (!data) return;
+
+            const content = document.getElementById('studentDetailsContent');
+
+            const birthCertUrl = data.birthCertPath || null;
+            const personalPhotoUrl = data.personalPhotoPath || null;
+
+            const birthCertBtn = birthCertUrl ? `
+                <div style="display:flex; flex-direction:column; gap:8px; width:100%;">
+                    <div style="cursor:pointer; border:1px solid #333; border-radius:10px; overflow:hidden;" onclick="showImgPreview('${birthCertUrl}')">
+                        <img src="${birthCertUrl}" style="width:100%; height:160px; object-fit:cover; opacity: 0.8; transition: 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">
+                    </div>
+                    <a href="${birthCertUrl}" target="_blank" class="btn btn-primary" style="padding: 8px; font-size: 0.75rem; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 5px;">
+                        <i class="fas fa-external-link-alt"></i> فتح الشهادة
+                    </a>
+                </div>` : '<span style="color:#666">❌ لم يتم الرفع</span>';
+
+            const photoBtn = personalPhotoUrl ? `
+                <div style="display:flex; flex-direction:column; gap:8px; width:100%;">
+                    <div style="cursor:pointer; border:1px solid #333; border-radius:10px; overflow:hidden;" onclick="showImgPreview('${personalPhotoUrl}')">
+                        <img src="${personalPhotoUrl}" style="width:100%; height:160px; object-fit:cover; opacity: 0.8; transition: 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">
+                    </div>
+                    <a href="${personalPhotoUrl}" target="_blank" class="btn btn-secondary" style="padding: 8px; font-size: 0.75rem; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 5px;">
+                        <i class="fas fa-user-circle"></i> فتح الصورة
+                    </a>
+                </div>` : '<span style="color:#666">❌ لم يتم الرفع</span>';
+
+            const formatPhone = (phone) => phone ? (phone.trim().startsWith('0') ? '2' + phone.trim() : phone.trim()) : '';
+            content.innerHTML = `
+                <div><strong style="color: #d4af37;">الاسم:</strong><br>${data.studentName}</div>
+                <div><strong style="color: #d4af37;">الرقم القومي:</strong><br>${data.nationalID || '-'}</div>
+                <div><strong style="color: #d4af37;">السن:</strong><br>${data.formattedAge || (data.ageYears ? data.ageYears + ' سنة' : '-')}</div>
+                <div><strong style="color: #d4af37;">رقم الجلوس:</strong><br>${data.seatNumber || '-'}</div>
+                <div><strong style="color: #d4af37;">اللجنة:</strong><br>${data.committee || '-'}</div>
+                <div><strong style="color: #d4af37;">النوع:</strong><br>${data.gender || '-'}</div>
+                <div><strong style="color: #d4af37;">المستوى:</strong><br>${data.level}</div>
+                <div><strong style="color: #d4af37;">هاتف المتسابق:</strong><br>${data.phone1}</div>
+                <div><strong style="color: #d4af37;">هاتف ولي الأمر:</strong><br>${data.phone2}</div>
+                <div><strong style="color: #d4af37;">هاتف الشيخ:</strong><br>${data.sheikhPhone}</div>
+                <div style="grid-column: span 2;"><strong style="color: #d4af37;">العنوان:</strong><br>${data.address}</div>
+                <div style="border-top: 1px solid #333; padding-top: 15px;">
+                    <label style="color:#d4af37; font-size:0.8rem; display:block; margin-bottom:5px;">شهادة الميلاد:</label>
+                    ${birthCertBtn}
+                </div>
+                <div style="border-top: 1px solid #333; padding-top: 15px;">
+                    <label style="color:#d4af37; font-size:0.8rem; display:block; margin-bottom:5px;">الصورة الشخصية:</label>
+                    ${photoBtn}
+                </div>
+                <div style="grid-column: span 2; font-size: 0.8rem; color: #888; border-top: 1px solid #222; margin-top: 10px; padding-top: 10px;">تاريخ التسجيل: ${data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleString('ar-EG') : '-'}</div>
+
+                <div style="grid-column: span 2; display: flex; gap: 10px; margin-top: 20px; border-top: 1px solid #333; padding-top: 20px;">
+                    <button onclick="printTicket('${data.id}')" class="btn btn-primary" style="flex:2;">
+                        <i class="fas fa-print"></i> طباعة رقم الجلوس
+                    </button>
+                    <button onclick="openEditModal(null, '${data.id}')" class="btn btn-secondary" style="flex:1; background: #2980b9; color: #fff; border: none;">
+                        <i class="fas fa-edit"></i> تعديل
+                    </button>
+                    <button onclick="showQRCode('${data.id}', '${data.studentName}')" class="btn btn-secondary" style="flex:1; border: 1px solid #d4af37; color: #d4af37;">
+                        <i class="fas fa-qrcode"></i> QR
+                    </button>
+                    <button onclick="closeDetailsModal()" class="btn btn-secondary" style="flex:1;">
+                        إغلاق
+                    </button>
+                    <button onclick="deleteRegistration('${data.id}')" class="btn btn-delete" style="flex:0 0 50px; background: #ff4d4d; color: white; border: none; border-radius: 10px; cursor: pointer;">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `;
+
+            document.getElementById('detailsModal').style.display = 'flex';
+        }
+
+
+
+        function closeDetailsModal() {
+            document.getElementById('detailsModal').style.display = 'none';
+        }
+
+        async function loadMessages() {
+            const list = document.getElementById('messagesList');
+            if (!list) return;
+            list.innerHTML = '<tr><td colspan="5" style="text-align:center;">جاري تحميل الرسائل...</td></tr>';
+
+            try {
+                db.collection('messages').onSnapshot((snapshot) => {
+                    list.innerHTML = '';
+                    if (snapshot.empty) {
+                        list.innerHTML = '<tr><td colspan="5" style="text-align:center;">لا توجد رسائل حالياً</td></tr>';
+                        return;
+                    }
+
+                    let messages = [];
+                    snapshot.forEach(doc => {
+                        const data = doc.data();
+                        data.id = doc.id;
+                        messages.push(data);
+                    });
+
+                    messages.sort((a, b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
+
+                    messages.forEach(data => {
+                        const date = data.timestamp ? data.timestamp.toDate().toLocaleString('ar-EG') : 'قيد المعالجة';
+                        const row = `
+                        <tr>
+                            <td>${data.name}</td>
+                            <td>${data.phone}</td>
+                            <td style="max-width:300px;">${data.message}</td>
+                            <td>${date}</td>
+                            <td>
+                                <button onclick="deleteMessage('${data.id}')" class="btn-view btn-delete"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                `;
+                        list.innerHTML += row;
+                    });
+                });
+            } catch (error) {
+                console.error("Error loading messages: ", error);
+            }
+        }
+
+        async function loadFeedback() {
+            const list = document.getElementById('feedbackList');
+            if (!list) return;
+            list.innerHTML = '<tr><td colspan="8" style="text-align:center;">جاري تحميل الآراء...</td></tr>';
+
+            try {
+                db.collection('feedback').onSnapshot((snapshot) => {
+                    list.innerHTML = '';
+                    if (snapshot.empty) {
+                        list.innerHTML = '<tr><td colspan="8" style="text-align:center;">لا توجد آراء حالياً</td></tr>';
+                        return;
+                    }
+
+                    let feedback = [];
+                    snapshot.forEach(doc => {
+                        const data = doc.data();
+                        data.id = doc.id;
+                        feedback.push(data);
+                    });
+
+                    feedback.sort((a, b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
+
+                    feedback.forEach(data => {
+                        const date = data.timestamp ? data.timestamp.toDate().toLocaleString('ar-EG') : 'قيد المعالجة';
+                        const typeClass = data.commentType === 'إيجابي' ? 'color: #28a745;' : (data.commentType === 'سلبي' ? 'color: #ff4d4d;' : 'color: #d4af37;');
+                        
+                        const replyHtml = data.adminReply ? `
+                            <div style="font-size: 0.8rem; color: #3498db; background: rgba(52, 152, 219, 0.1); padding: 5px 8px; border-radius: 5px; margin-top: 5px; border-right: 2px solid #3498db;">
+                                <strong>رد الإدارة:</strong> ${data.adminReply}
+                            </div>
+                        ` : '<span style="color: #555; font-size: 0.8rem;">لا يوجد رد</span>';
+
+                        const row = `
+                        <tr>
+                            <td>${data.name || 'فاعـل خير'}</td>
+                            <td style="direction: ltr;">${data.phone || 'غير مسجل'}</td>
+                            <td><span class="badge" style="background: rgba(255,255,255,0.05); color: #fff;">${data.userType || '-'}</span></td>
+                            <td><strong style="${typeClass}">${data.commentType || '-'}</strong></td>
+                            <td style="max-width:250px; font-size: 0.9rem;">${data.message}</td>
+                            <td><span style="font-size: 0.8rem; color: #888;">${date}</span></td>
+                            <td>${replyHtml}</td>
+                            <td>
+                                <div style="display: flex; gap: 5px;">
+                                    <button onclick="openReplyModal('${data.id}')" class="btn-view" style="background: #3498db; color: white;" title="رد"><i class="fas fa-reply"></i></button>
+                                    <button onclick="whatsappReplyFeedback('${data.id}', '${data.phone}', '${data.name}')" class="btn-view" style="background: #25D366; color: white;" title="إرسال عبر واتساب"><i class="fab fa-whatsapp"></i></button>
+                                    <button onclick="deleteFeedback('${data.id}')" class="btn-view btn-delete" title="حذف"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                `;
+                        list.innerHTML += row;
+                    });
+                });
+            } catch (error) {
+                console.error("Error loading feedback: ", error);
+            }
+        }
+
+        let currentFeedbackId = null;
+
+        function openReplyModal(id) {
+            currentFeedbackId = id;
+            const feedback = db.collection('feedback').doc(id).get().then(doc => {
+                if (!doc.exists) return;
+                const data = doc.data();
+                document.getElementById('replyToInfo').innerHTML = `<strong>الرأي:</strong> ${data.message} <br> <span style="font-size: 0.8rem;">بواسطة: ${data.name || 'فاعل خير'}</span>`;
+                document.getElementById('adminReplyText').value = data.adminReply || '';
+                document.getElementById('replyModal').style.display = 'flex';
+            });
+        }
+
+        function closeReplyModal() {
+            document.getElementById('replyModal').style.display = 'none';
+        }
+
+        async function whatsappReplyFeedback(id, phone, name) {
+            if (!phone) {
+                alert('رقم الهاتف غير متاح لهذا المشارك.');
+                return;
+            }
+            const cleanPhone = phone.replace(/^0/, '20'); // Ensure it starts with country code for Egypt
+            const message = encodeURIComponent(`السلام عليكم، أ/ ${name || 'فاعل خير'}.\nنشكركم على رأيكم في مسابقة حامل القرآن.\nلقد تم الرد على رأيكم ومقترحاتكم الآن.\n\nيمكنكم عرض الرد مباشرة من هنا:\nhttps://hamelalquran.com/response.html?id=${id}\n\nشكراً لثقتكم بنا 🌟`);
+            window.open(`https://wa.me/${cleanPhone}?text=${message}`, '_blank');
+        }
+
+        async function saveAdminReply() {
+            if (!currentFeedbackId) return;
+            const replyText = document.getElementById('adminReplyText').value.trim();
+            const btn = document.getElementById('saveReplyBtn');
+            const originalText = btn.textContent;
+
+            btn.disabled = true;
+            btn.textContent = 'جاري الحفظ...';
+
+            try {
+                await db.collection('feedback').doc(currentFeedbackId).update({
+                    adminReply: replyText,
+                    replyTimestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                closeReplyModal();
+                alert('تم حفظ الرد بنجاح.');
+            } catch (error) {
+                console.error("Error saving reply:", error);
+                alert('حدث خطأ أثناء حفظ الرد.');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
+        }
+
+        async function deleteFeedback(id) {
+            if (confirm('هل أنت متأكد من حذف هذا الرأي؟')) {
+                try {
+                    await db.collection('feedback').doc(id).delete();
+                } catch (error) {
+                    alert('خطأ أثناء الحذف');
+                }
+            }
+        }
+
+        async function loadStories() {
+            const list = document.getElementById('storiesList');
+            if (!list) return;
+            list.innerHTML = '<tr><td colspan="5" style="text-align:center;">جاري تحميل القصص...</td></tr>';
+
+            try {
+                db.collection('stories').onSnapshot((snapshot) => {
+                    list.innerHTML = '';
+                    if (snapshot.empty) {
+                        list.innerHTML = '<tr><td colspan="5" style="text-align:center;">لا توجد قصص حالياً</td></tr>';
+                        return;
+                    }
+
+                    let stories = [];
+                    snapshot.forEach(doc => {
+                        const data = doc.data();
+                        data.id = doc.id;
+                        stories.push(data);
+                    });
+
+                    stories.sort((a, b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
+
+                    stories.forEach(data => {
+                        const date = data.timestamp ? data.timestamp.toDate().toLocaleString('ar-EG') : 'قيد المعالجة';
+                        const row = `
+                        <tr>
+                            <td><strong>${data.name || 'فاعل خير'}</strong></td>
+                            <td style="direction: ltr;">${data.phone || 'غير مسجل'}</td>
+                            <td style="max-width:400px; white-space: pre-wrap; font-size: 0.95rem; line-height: 1.6;">${data.story}</td>
+                            <td><span style="font-size: 0.8rem; color: #888;">${date}</span></td>
+                            <td>
+                                <div style="display: flex; gap: 5px;">
+                                    <a href="https://wa.me/${data.phone.replace(/^0/, '20')}" target="_blank" class="btn-view" style="background: #25D366; color: white;" title="تواصل عبر واتساب"><i class="fab fa-whatsapp"></i></a>
+                                    <button onclick="deleteStory('${data.id}')" class="btn-view btn-delete" title="حذف"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                `;
+                        list.innerHTML += row;
+                    });
+                });
+            } catch (error) {
+                console.error("Error loading stories: ", error);
+            }
+        }
+
+        async function deleteStory(id) {
+            if (confirm('هل أنت متأكد من حذف هذه القصة؟')) {
+                try {
+                    await db.collection('stories').doc(id).delete();
+                } catch (error) {
+                    alert('خطأ أثناء الحذف');
+                }
+            }
+        }
+
+        async function deleteMessage(id) {
+            if (confirm('هل أنت متأكد من حذف هذه الرسالة؟')) {
+                try {
+                    await db.collection('messages').doc(id).delete();
+                } catch (error) {
+                    alert('خطأ أثناء الحذف');
+                }
+            }
+        }
+
+        let currentNominationUnsubscribe = null;
+
+        async function loadNominations(type) {
+            if (currentNominationUnsubscribe) currentNominationUnsubscribe();
+
+            const list = document.getElementById('nominationsList');
+            if (!list) return;
+            list.innerHTML = '<tr><td colspan="6" style="text-align:center;">جاري تحميل الترشيحات...</td></tr>';
+
+            try {
+                currentNominationUnsubscribe = db.collection('nominations')
+                    .where('awardType', '==', type)
+                    .onSnapshot((snapshot) => {
+                        list.innerHTML = '';
+                        if (snapshot.empty) {
+                            list.innerHTML = '<tr><td colspan="6" style="text-align:center;">لا توجد ترشيحات حالياً لهذا القسم</td></tr>';
+                            return;
+                        }
+
+                        let noms = [];
+                        snapshot.forEach(doc => {
+                            const data = doc.data();
+                            data.id = doc.id;
+                            noms.push(data);
+                        });
+
+                        noms.sort((a, b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
+
+                        noms.forEach(data => {
+                            const date = data.timestamp ? data.timestamp.toDate().toLocaleString('ar-EG') : 'قيد المعالجة';
+                            const row = `
+                                <tr>
+                                    <td>${data.nominatorName || 'فاعل خير'}</td>
+                                    <td>${data.nominatorPhone || '-'}</td>
+                                    <td>${data.nomineeName}</td>
+                                    <td style="max-width:300px;">${data.reason}</td>
+                                    <td>${date}</td>
+                                    <td>
+                                        <div style="display:flex; gap:5px;">
+                                            <button onclick="printNomination('${data.id}')" class="btn-view" style="background: #28a745; color: white;"><i class="fas fa-print"></i></button>
+                                            <button onclick="deleteNomination('${data.id}')" class="btn-view btn-delete"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                `;
+                            list.innerHTML += row;
+                        });
+                    });
+            } catch (error) {
+                console.error("Error loading nominations: ", error);
+            }
+        }
+
+        function printNomination(id) {
+            // Find nomination in some way or refetch. 
+            // Since we use onSnapshot, we might need a better way if allNominations isn't global.
+            // Let's implement it to fetch from Firestore temporarily or search the DOM.
+            db.collection('nominations').doc(id).get().then(doc => {
+                if (!doc.exists) return;
+                const data = doc.data();
+                const printWindow = window.open('', '_blank');
+                printWindow.document.write(`
+                    <html>
+                        <head>
+                            <title>ترشيح - ${data.nomineeName}</title>
+                            <style>
+                                @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+                                body { font-family: 'Cairo', sans-serif; direction: rtl; padding: 40px; }
+                                .header { text-align: center; border-bottom: 2px solid #d4af37; padding-bottom: 20px; margin-bottom: 30px; }
+                                .award-title { color: #d4af37; font-size: 24px; font-weight: bold; margin: 10px 0; }
+                                .content { line-height: 1.8; font-size: 18px; }
+                                .item { margin-bottom: 15px; border-bottom: 1px dashed #eee; padding-bottom: 10px; }
+                                .label { font-weight: bold; color: #555; width: 150px; display: inline-block; }
+                                .reason-box { background: #f9f9f9; padding: 20px; border-radius: 10px; border: 1px solid #eee; margin-top: 20px; }
+                            </style>
+                        </head>
+                        <body>
+                            <div class="header">
+                                <h2>استمارة ترشيح جوائز المسابقة</h2>
+                                <div class="award-title">${data.awardType}</div>
+                            </div>
+                            <div class="content">
+                                <div class="item"><span class="label">اسم المرشَّح:</span> <span>${data.nomineeName}</span></div>
+                                <div class="item"><span class="label">اسم المرشِّح:</span> <span>${data.nominatorName || 'فاعل خير'}</span></div>
+                                <div class="item"><span class="label">هاتف المرشِّح:</span> <span>${data.nominatorPhone || '-'}</span></div>
+                                <div class="item"><span class="label">تاريخ التقديم:</span> <span>${data.timestamp ? data.timestamp.toDate().toLocaleString('ar-EG') : '-'}</span></div>
+                                <div class="reason-box">
+                                    <strong>سبب الترشيح:</strong><br>
+                                    ${data.reason}
+                                </div>
+                            </div>
+                            <script>window.onload = function() { window.print(); window.close(); }<\/script>
+                        </body>
+                    </html>
+                `);
+                printWindow.document.close();
+            });
+        }
+
+        async function deleteNomination(id) {
+            if (confirm('هل أنت متأكد من حذف هذا الترشيح؟')) {
+                try {
+                    await db.collection('nominations').doc(id).delete();
+                } catch (error) {
+                    alert('خطأ أثناء الحذف');
+                }
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") {
+                closeImgPreview();
+            }
+        });
+
+        // --- Settings Logic ---
+        let appSettings = {
+            registrationStatus: 'open',
+            nominationStatus: 'open'
+        };
+
+        async function loadSettings() {
+            try {
+                const doc = await db.collection('settings').doc('appConfig').get();
+                if (doc.exists) {
+                    appSettings = doc.data();
+                } else {
+                    // Initialize if not exists
+                    await db.collection('settings').doc('appConfig').set(appSettings);
+                }
+                updateSettingsUI();
+            } catch (error) {
+                console.error("Error loading settings:", error);
+            }
+        }
+
+        function updateSettingsUI() {
+            const regLabel = document.getElementById('regStatusLabel');
+            const regBtn = document.getElementById('regToggleButton');
+            const nomLabel = document.getElementById('nomStatusLabel');
+            const nomBtn = document.getElementById('nomToggleButton');
+
+            if (!regLabel || !regBtn || !nomLabel || !nomBtn) return;
+
+            if (appSettings.registrationStatus === 'open') {
+                regLabel.innerHTML = 'الحالة الحالية: <span style="color: #28a745;">مفتوح ✅</span>';
+                regBtn.textContent = 'غلق التقديم';
+                regBtn.style.background = '#ff4d4d';
+            } else {
+                regLabel.innerHTML = 'الحالة الحالية: <span style="color: #ff4d4d;">مغلق ❌</span>';
+                regBtn.textContent = 'فتح التقديم';
+                regBtn.style.background = '#28a745';
+            }
+
+            if (appSettings.nominationStatus === 'open') {
+                nomLabel.innerHTML = 'الحالة الحالية: <span style="color: #28a745;">مفتوح ✅</span>';
+                nomBtn.textContent = 'غلق الترشيحات';
+                nomBtn.style.background = '#ff4d4d';
+            } else {
+                nomLabel.innerHTML = 'الحالة الحالية: <span style="color: #ff4d4d;">مغلق ❌</span>';
+                nomBtn.textContent = 'فتح الترشيحات';
+                nomBtn.style.background = '#28a745';
+            }
+
+            const storyLabel = document.getElementById('storyStatusLabel');
+            const storyBtn = document.getElementById('storyToggleButton');
+            if (storyLabel && storyBtn) {
+                if (appSettings.storyStatus === 'open') {
+                    storyLabel.innerHTML = 'الحالة الحالية: <span style="color: #28a745;">مفتوح ✅</span>';
+                    storyBtn.textContent = 'غلق استمارة القصص';
+                    storyBtn.style.background = '#ff4d4d';
+                } else {
+                    storyLabel.innerHTML = 'الحالة الحالية: <span style="color: #ff4d4d;">مغلق ❌</span>';
+                    storyBtn.textContent = 'فتح استمارة القصص';
+                    storyBtn.style.background = '#28a745';
+                }
+            }
+        }
+
+        async function toggleStatus(field) {
+            const newValue = appSettings[field] === 'open' ? 'closed' : 'open';
+            const confirmMsg = newValue === 'open' ? 'هل تريد فتح باب التقديم؟' : 'هل تريد غلق باب التقديم؟';
+
+            if (confirm(confirmMsg)) {
+                try {
+                    await db.collection('settings').doc('appConfig').update({
+                        [field]: newValue
+                    });
+                    appSettings[field] = newValue;
+                    updateSettingsUI();
+                } catch (error) {
+                    alert('حدث خطأ أثناء التحديث');
+                }
+            }
+        }
+
+        // --- Blocked Students Management ---
+        let allBlockedStudents = [];
+        async function loadBlockedStudents() {
+            const list = document.getElementById('blockedList');
+            if (!list) return;
+            list.innerHTML = '<tr><td colspan="6" style="text-align:center;">جاري تحميل البيانات...</td></tr>';
+
+            try {
+                db.collection('blockedStudents').orderBy('blockedAt', 'desc').onSnapshot((snapshot) => {
+                    allBlockedStudents = [];
+                    list.innerHTML = '';
+                    if (snapshot.empty) {
+                        list.innerHTML = '<tr><td colspan="6" style="text-align:center;">لا يوجد طلاب محظورين حالياً</td></tr>';
+                        return;
+                    }
+
+                    snapshot.forEach(doc => {
+                        const data = doc.data();
+                        data.id = doc.id;
+                        allBlockedStudents.push(data);
+                    });
+
+                    renderBlockedStudents();
+                });
+            } catch (error) {
+                console.error("Error loading blocked students: ", error);
+            }
+        }
+
+        function renderBlockedStudents() {
+            const list = document.getElementById('blockedList');
+            if (!list) return;
+            list.innerHTML = '';
+
+            allBlockedStudents.forEach(data => {
+                const date = data.blockedAt ? data.blockedAt.toDate().toLocaleString('ar-EG') : 'قيد المعالجة';
+                const row = `
+                    <tr>
+                        <td style="font-weight:bold;">${data.studentName}</td>
+                        <td>${data.nationalID}</td>
+                        <td>${data.ageYears} س و ${data.ageMonths} ش</td>
+                        <td style="color:#ff4d4d; font-weight: bold;">${data.reason}</td>
+                        <td>${date}</td>
+                        <td>
+                            <button onclick="deleteBlockedStudent('${data.id}')" class="btn-view btn-delete"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `;
+                list.innerHTML += row;
+            });
+        }
+
+        async function deleteBlockedStudent(id) {
+            if (confirm('هل أنت متأكد من حذف هذا السجل من قائمة المحظورين؟')) {
+                try {
+                    await db.collection('blockedStudents').doc(id).delete();
+                } catch (error) {
+                    alert('حدث خطأ أثناء الحذف');
+                }
+            }
+        }
+
+        async function downloadImagesZip() {
+            const btn = document.getElementById('zipDownloadBtn');
+            const originalText = btn.innerHTML;
+            
+            let filtered = allRegistrations.filter(reg => {
+                const levelMatch = (currentLevelFilter === 'all' || reg.level === currentLevelFilter);
+                const genderMatch = (currentGenderFilter === 'all' || reg.gender === currentGenderFilter);
+                const sheikhMatch = (!currentSheikhFilter || (reg.sheikhName && reg.sheikhName.trim() === currentSheikhFilter.trim()));
+                const nameMatch = searchQuery === '' || (reg.studentName && reg.studentName.includes(searchQuery));
+                return levelMatch && genderMatch && sheikhMatch && nameMatch;
+            });
+
+            if (filtered.length === 0) {
+                alert('لا يوجد متسابقين في القائمة الحالية لتحميل صورهم.');
+                return;
+            }
+
+            if (!confirm(`سيتم تحميل صور ومستندات عدد (${filtered.length}) متسابقين. قد تستغرق هذه العملية بعض الوقت. هل أنت متأكد؟`)) return;
+
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري تجهيز الملفات...';
+            btn.disabled = true;
+
+            const zip = new JSZip();
+            const folder = zip.folder("طلبات المتسابقين");
+
+            let count = 0;
+            const fetchImage = async (url) => {
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error('Network error');
+                    return await response.blob();
+                } catch (e) {
+                    console.error('Error downloading from URL:', url, e);
+                    return null;
+                }
+            };
+
+            for (const student of filtered) {
+                const safeName = student.studentName.replace(/[^a-zA-Z0-9أ-ي]/g, '_');
+                if (student.personalPhotoPath) {
+                    const blobP = await fetchImage(student.personalPhotoPath);
+                    if (blobP) folder.file(`${safeName}_صورة_شخصية.jpg`, blobP);
+                }
+                if (student.birthCertPath) {
+                    const blobB = await fetchImage(student.birthCertPath);
+                    if (blobB) folder.file(`${safeName}_شهادة_ميلاد.jpg`, blobB);
+                }
+                count++;
+                if (count % 5 === 0) {
+                    btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> تحميل ${count} من ${filtered.length}...`;
+                }
+            }
+
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري ضغط الملف...';
+            zip.generateAsync({ type: "blob" }).then(function(content) {
+                saveAs(content, "ملفات_طلبات_حامل_القرآن.zip");
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                alert('تم التنزيل بنجاح!');
+            }).catch(e => {
+                console.error("Zip Error:", e);
+                alert('حدث مشكلة أثناء محاولة إنشاء ملف الـ ZIP.');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            });
+        }
+
+        // ============================================
+        // === SHEIKH LEADERBOARD ADMIN LOGIC ===
+        // ============================================
+        let allSheikhsData = [];
+        let sheikhsBoardUnsubscribe = null;
+
+        async function loadSheikhsBoard() {
+            const podium = document.getElementById('sheikhsPodium');
+            const leaderboard = document.getElementById('sheikhsLeaderboard');
+            if (!podium || !leaderboard) return;
+
+            podium.innerHTML = '<div style="text-align:center; color:#aaa; padding:20px;"><i class="fas fa-spinner fa-spin"></i> جاري التحميل...</div>';
+            leaderboard.innerHTML = '';
+
+            if (sheikhsBoardUnsubscribe) sheikhsBoardUnsubscribe();
+
+            try {
+                // Get sheikhs from Firebase
+                sheikhsBoardUnsubscribe = db.collection('sheikhs').onSnapshot(async (sheikhsSnap) => {
+                    // Count students per sheikh by looking at registrations
+                    const sheikhCountMap = {};
+                    allRegistrations.forEach(reg => {
+                        if (reg.sheikhName) {
+                            const key = reg.sheikhName.trim();
+                            sheikhCountMap[key] = (sheikhCountMap[key] || 0) + 1;
+                        }
+                    });
+
+                    allSheikhsData = [];
+                    sheikhsSnap.forEach(doc => {
+                        const data = doc.data();
+                        const count = sheikhCountMap[data.name] || 0;
+                        allSheikhsData.push({ id: doc.id, name: data.name, phone: data.phone, count });
+                    });
+
+                    // Sort by count descending
+                    allSheikhsData.sort((a, b) => b.count - a.count);
+
+                    renderSheikhsBoard();
+                });
+            } catch (err) {
+                console.error('Sheikh board error:', err);
+                leaderboard.innerHTML = '<p style="color:#ff4d4d; text-align:center;">حدث خطأ أثناء تحميل البيانات.</p>';
+            }
+        }
+
+        function renderSheikhsBoard() {
+            const podium = document.getElementById('sheikhsPodium');
+            const leaderboard = document.getElementById('sheikhsLeaderboard');
+            if (!podium || !leaderboard) return;
+
+            const maxCount = allSheikhsData[0]?.count || 1;
+
+            // === PODIUM (Top 3) ===
+            const top3 = allSheikhsData.slice(0, 3);
+            const medals = ['🥇', '🥈', '🥉'];
+            const podiumClasses = ['p1', 'p2', 'p3'];
+
+            if (top3.length === 0) {
+                podium.innerHTML = '<div style="text-align:center; color:#555; padding:30px;">لا يوجد شيوخ بعد. أضف شيوخاً أولاً.</div>';
+            } else {
+                podium.innerHTML = top3.map((s, i) => `
+                    <div class="podium-card ${podiumClasses[i]}">
+                        <span class="podium-medal">${medals[i]}</span>
+                        <div class="podium-name">${s.name}</div>
+                        <div class="podium-count">${s.count}</div>
+                        <div class="podium-label">طالب مسجل</div>
+                        <div style="font-size:0.8rem; color:#666; margin-top:8px; direction:ltr;">${s.phone}</div>
+                    </div>
+                `).join('');
+            }
+
+            // === FULL LEADERBOARD ===
+            if (allSheikhsData.length === 0) {
+                leaderboard.innerHTML = '<div style="text-align:center; color:#555; padding:20px;">لا توجد بيانات.</div>';
+                return;
+            }
+
+            leaderboard.innerHTML = allSheikhsData.map((sheikh, i) => {
+                const rank = i + 1;
+                const rankClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : '';
+                const badgeClass = rank === 1 ? 'r1' : rank === 2 ? 'r2' : rank === 3 ? 'r3' : 'rn';
+                const badgeContent = rank <= 3 ? ['🥇','🥈','🥉'][rank-1] : rank;
+                const progressPct = maxCount > 0 ? Math.round((sheikh.count / maxCount) * 100) : 0;
+
+                return `
+                    <div class="sheikh-rank-card ${rankClass}" onclick="filterBySheikh('${sheikh.name}')" style="cursor:pointer;">
+                        <div class="rank-badge-admin ${badgeClass}">${badgeContent}</div>
+                        <div class="sheikh-info">
+                            <h3>${sheikh.name}</h3>
+                            <span class="sheikh-phone"><i class="fas fa-phone" style="font-size:0.7rem; margin-left:5px;"></i>${sheikh.phone}</span>
+                        </div>
+                        <div class="sheikh-progress-wrap">
+                            <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:#888;">
+                                <span>نسبة المشاركة</span>
+                                <span>${progressPct}%</span>
+                            </div>
+                            <div class="sheikh-progress-bar-bg">
+                                <div class="sheikh-progress-fill" style="width: ${progressPct}%"></div>
+                            </div>
+                        </div>
+                        <div class="sheikh-count-badge">
+                            ${sheikh.count}
+                            <span class="count-label">طالب</span>
+                        </div>
+                        <div class="sheikh-actions-admin" onclick="event.stopPropagation()">
+                            <a href="https://wa.me/${sheikh.phone.replace(/^0/, '2')}" target="_blank" class="btn-view" style="background:#25D366; color:#fff; padding:8px 12px; border-radius:8px;" title="واتساب">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <button onclick="adminEditSheikh('${sheikh.id}', '${sheikh.name}', '${sheikh.phone}')" class="btn-view" style="background:#f39c12; color:#fff; padding:8px 12px; border-radius:8px; border:none; cursor:pointer;" title="تعديل">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button onclick="adminDeleteSheikh('${sheikh.id}', '${sheikh.name}')" class="btn-view btn-delete" title="حذف الشيخ" style="padding:8px 12px;">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            // Re-render podium items to be clickable too
+            podium.innerHTML = top3.map((s, i) => `
+                <div class="podium-card ${podiumClasses[i]}" onclick="filterBySheikh('${s.name}')" style="cursor:pointer;">
+                    <span class="podium-medal">${medals[i]}</span>
+                    <div class="podium-name">${s.name}</div>
+                    <div class="podium-count">${s.count}</div>
+                    <div class="podium-label">طالب مسجل</div>
+                    <div style="font-size:0.8rem; color:#666; margin-top:8px; direction:ltr;">${s.phone}</div>
+                </div>
+            `).join('');
+        }
+
+        let currentSheikhFilter = null;
+        function filterBySheikh(name) {
+            currentSheikhFilter = name;
+            document.getElementById('activeSheikhFilter').style.display = 'flex';
+            document.getElementById('activeSheikhName').textContent = name;
+            switchTab('registrations');
+            renderRegistrations();
+        }
+
+        function clearSheikhFilter() {
+            currentSheikhFilter = null;
+            document.getElementById('activeSheikhFilter').style.display = 'none';
+            renderRegistrations();
+        }
+
+        async function adminAddSheikh() {
+            const nameInput = document.getElementById('adminNewSheikhName');
+            const phoneInput = document.getElementById('adminNewSheikhPhone');
+            const name = nameInput.value.trim();
+            const phone = phoneInput.value.trim();
+
+            if (!name) { alert('يرجى إدخال اسم الشيخ.'); return; }
+            if (!phone || phone.length < 11) { alert('يرجى إدخال رقم هاتف صحيح (11 رقم على الأقل).'); return; }
+
+            const isDuplicate = allSheikhsData.some(s => s.phone === phone || s.name === name);
+            if (isDuplicate) { alert('⚠️ هذا الشيخ أو الرقم موجود مسبقاً!'); return; }
+
+            try {
+                await db.collection('sheikhs').add({
+                    name,
+                    phone,
+                    studentCount: 0,
+                    addedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                nameInput.value = '';
+                phoneInput.value = '';
+                alert(`✅ تم إضافة ${name} بنجاح!`);
+                // onSnapshot will auto-refresh the board
+            } catch (err) {
+                console.error('Admin add sheikh error:', err);
+                alert('حدث خطأ أثناء الإضافة.');
+            }
+        }
+
+        async function adminDeleteSheikh(id, name) {
+            if (!confirm(`⚠️ هل أنت متأكد من حذف الشيخ "${name}" من القائمة؟\nلن يُحذف من سجلات الطلاب المسجلين.`)) return;
+            try {
+                await db.collection('sheikhs').doc(id).delete();
+                alert('تم الحذف بنجاح.');
+            } catch (err) {
+                console.error('Delete sheikh error:', err);
+                alert('حدث خطأ أثناء الحذف.');
+            }
+        }
+
+        async function adminEditSheikh(id, currentName, currentPhone) {
+            const newName = prompt('تعديل اسم الشيخ:', currentName);
+            if (newName === null) return;
+            const newPhone = prompt('تعديل رقم الهاتف:', currentPhone);
+            if (newPhone === null) return;
+
+            if (!newName.trim() || !newPhone.trim()) {
+                alert('يرجى إدخال بيانات صحيحة.');
+                return;
+            }
+
+            try {
+                await db.collection('sheikhs').doc(id).update({
+                    name: newName.trim(),
+                    phone: newPhone.trim()
+                });
+                alert('تم التحديث بنجاح!');
+            } catch (err) {
+                console.error('Update sheikh error:', err);
+                alert('حدث خطأ أثناء التحديث.');
+            }
+        }
+
+    </script>
+
+    <!-- Reply Modal -->
+    <div id="replyModal" class="img-preview-modal" style="display: none;">
+        <div class="login-card" style="max-width: 500px; text-align: right; background: #111; border: 2px solid #3498db; padding: 25px; border-radius: 20px; position: relative;">
+            <span onclick="closeReplyModal()" style="position: absolute; top: 15px; left: 15px; cursor: pointer; color: #fff; font-size: 1.5rem; background: rgba(255,255,255,0.1); width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">&times;</span>
+            <h3 style="color: #3498db; margin-bottom: 20px;"><i class="fas fa-reply"></i> الرد على الرأي</h3>
+            <div id="replyToInfo" style="margin-bottom: 15px; font-size: 0.9rem; color: #aaa; border-bottom: 1px dashed #333; padding-bottom: 10px;">
+                <!-- Info about who we are replying to -->
+            </div>
+            <textarea id="adminReplyText" placeholder="اكتب ردك هنا..." style="width: 100%; min-height: 120px; padding: 15px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid #333; color: #fff; font-family: 'Cairo', sans-serif; margin-bottom: 20px; outline: none;"></textarea>
+            <div style="display: flex; gap: 10px;">
+                <button id="saveReplyBtn" onclick="saveAdminReply()" class="btn btn-primary" style="flex: 1; background: #3498db; border: none; font-weight: bold;">حفظ الرد</button>
+                <button onclick="closeReplyModal()" class="btn btn-secondary" style="flex: 1; border-color: #333; color: #888;">إلغاء</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+</html>

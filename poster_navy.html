@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوستر النسخة الكحلية | مسابقة حامل القرآن</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --deep-navy: #04091a;
+            --royal-blue: #081235;
+            --accent-gold: #b28e2d;
+            --bright-gold: #f4d03f;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: 'Cairo', sans-serif; }
+        .poster {
+            width: 1080px; height: 1080px;
+            background: radial-gradient(circle at top right, var(--royal-blue) 0%, var(--deep-navy) 100%);
+            border: 15px solid var(--accent-gold);
+            position: relative; padding: 60px; display: flex; flex-direction: column; align-items: center; color: #fff;
+        }
+        .bg-pattern { position: absolute; inset: 0; background-image: url('https://www.transparenttextures.com/patterns/zwartevilt.png'); opacity: 0.2; }
+        .content { position: relative; z-index: 10; width: 100%; display: flex; flex-direction: column; align-items: center; }
+        .sponsor { font-size: 2rem; font-weight: 700; color: var(--bright-gold); border-bottom: 2px solid var(--accent-gold); padding-bottom: 10px; margin-bottom: 60px; }
+        .title { font-family: 'Amiri', serif; font-size: 6.2rem; color: #fff; text-shadow: 0 0 20px rgba(244, 208, 63, 0.3); margin-bottom: 20px; }
+        .loc { font-size: 3rem; color: var(--accent-gold); font-weight: 900; margin-bottom: 40px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; width: 100%; }
+        .box { background: rgba(255,255,255,0.03); border: 1px solid rgba(178, 142, 45, 0.3); border-radius: 40px; padding: 45px; }
+        .box h3 { font-size: 2.2rem; margin-bottom: 30px; color: var(--bright-gold); }
+        .lvl { display: flex; align-items: center; gap: 20px; font-size: 1.8rem; margin-bottom: 20px; font-weight: 600; }
+        .lvl i { color: var(--accent-gold); }
+        .new { background: #d35400; color: #fff; padding: 2px 12px; border-radius: 8px; font-size: 1.1rem; margin-right: auto; }
+        .footer { margin-top: auto; font-size: 2.2rem; font-weight: 900; letter-spacing: 2px; color: var(--accent-gold); }
+    </style>
+</head>
+<body>
+    <div class="poster">
+        <div class="bg-pattern"></div>
+        <div class="content">
+            <div class="sponsor">برعاية مطبعة أبوخضرة وشباب مسير</div>
+            <h1 class="title">مسابقة حامل القرآن الكريم</h1>
+            <div class="loc">بمدينـة مسيـر</div>
+            <div class="grid">
+                <div class="box">
+                    <h3>فئة الشباب (حتى 18)</h3>
+                    <div class="lvl"><i class="fas fa-check-circle"></i> القرآن كاملاً</div>
+                    <div class="lvl"><i class="fas fa-check-circle"></i> 3/4 القرآن</div>
+                    <div class="lvl"><i class="fas fa-check-circle"></i> نصف القرآن</div>
+                    <div class="lvl"><i class="fas fa-check-circle"></i> ربع القرآن</div>
+                </div>
+                <div class="box">
+                    <h3>فئة الكبار (30 فأكثر)</h3>
+                    <div class="lvl"><i class="fas fa-star"></i> القرآن كاملاً <span class="new">جديد</span></div>
+                    <div class="lvl"><i class="fas fa-star"></i> نصف القرآن <span class="new">جديد</span></div>
+                    <p style="margin-top: 40px; opacity: 0.5;">سارع بالتسجيل الإلكتروني الآن</p>
+                </div>
+            </div>
+            <div class="footer">hamelalquran.com</div>
+        </div>
+    </div>
+</body>
+</html>
