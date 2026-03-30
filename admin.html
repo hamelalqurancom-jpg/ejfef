@@ -268,15 +268,19 @@
                 <div style="display: flex; flex-direction: column; gap: 5px;">
                     <div style="display: flex; gap: 5px;">
                         <a href="print.html?ageGroup=junior" target="_blank" class="btn btn-primary"
-                            style="padding: 10px 15px; font-size: 0.8rem; flex: 1;"><i class="fas fa-print"></i> كشوف الصغار</a>
+                            style="padding: 10px 15px; font-size: 0.8rem; flex: 1;"><i class="fas fa-print"></i> كشوف
+                            الصغار</a>
                         <a href="print.html?ageGroup=senior" target="_blank" class="btn btn-primary"
-                            style="padding: 10px 15px; font-size: 0.8rem; flex: 1; background: #2d3436; border: 1px solid #d4af37;"><i class="fas fa-print"></i> كشوف الكبار</a>
+                            style="padding: 10px 15px; font-size: 0.8rem; flex: 1; background: #2d3436; border: 1px solid #d4af37;"><i
+                                class="fas fa-print"></i> كشوف الكبار</a>
                     </div>
                     <div style="display: flex; gap: 5px;">
                         <a href="print_photos.html?ageGroup=junior" target="_blank" class="btn btn-primary"
-                            style="padding: 10px 15px; font-size: 0.8rem; flex: 1; background: #6c5ce7; border: none;"><i class="fas fa-image"></i> صور الصغار</a>
+                            style="padding: 10px 15px; font-size: 0.8rem; flex: 1; background: #6c5ce7; border: none;"><i
+                                class="fas fa-image"></i> صور الصغار</a>
                         <a href="print_photos.html?ageGroup=senior" target="_blank" class="btn btn-primary"
-                            style="padding: 10px 15px; font-size: 0.8rem; flex: 1; background: #a29bfe; border: none; color: #000;"><i class="fas fa-image"></i> صور الكبار</a>
+                            style="padding: 10px 15px; font-size: 0.8rem; flex: 1; background: #a29bfe; border: none; color: #000;"><i
+                                class="fas fa-image"></i> صور الكبار</a>
                     </div>
                 </div>
                 <button onclick="exportBackupData()" class="btn btn-primary" style="background: #28a745; border: none;">
@@ -347,553 +351,785 @@
             <button onclick="switchTab('maleTeacher')" id="tabMale" class="btn btn-secondary">المعلم المثالي</button>
             <button onclick="switchTab('femaleTeacher')" id="tabFemale" class="btn btn-secondary">المعلمة
                 المثالية</button>
-            <button onclick="switchTab('sheikhs')" id="tabSheikhs" class="btn btn-secondary" style="background: linear-gradient(135deg, #1a472a, #2d6a4f); color: #d4af37; border: 1px solid #d4af37;"><i
+            <button onclick="switchTab('sheikhs')" id="tabSheikhs" class="btn btn-secondary"
+                style="background: linear-gradient(135deg, #1a472a, #2d6a4f); color: #d4af37; border: 1px solid #d4af37;"><i
                     class="fas fa-star"></i> لوحة المشايخ</button>
             <button onclick="switchTab('blocked')" id="tabBlocked" class="btn btn-secondary"><i
                     class="fas fa-user-slash"></i> الطلاب المحظورين</button>
             <button onclick="switchTab('feedback')" id="tabFeedback" class="btn btn-secondary">آراء المشاركين</button>
-            <button onclick="switchTab('stories')" id="tabStories" class="btn btn-secondary" style="background: linear-gradient(135deg, #1e140d, #2d1e0d); color: #d4af37; border: 1px solid #d4af37;"><i class="fas fa-scroll"></i> قصص القرآن</button>
-            <button onclick="switchTab('visits')" id="tabVisits" class="btn btn-secondary" style="background: #3498db; color: #fff; border: none;"><i class="fas fa-eye"></i> إحصائيات الزوار</button>
+            <button onclick="switchTab('stories')" id="tabStories" class="btn btn-secondary"
+                style="background: linear-gradient(135deg, #1e140d, #2d1e0d); color: #d4af37; border: 1px solid #d4af37;"><i
+                    class="fas fa-scroll"></i> قصص القرآن</button>
+            <button onclick="switchTab('visits')" id="tabVisits" class="btn btn-secondary"
+                style="background: #3498db; color: #fff; border: none;"><i class="fas fa-eye"></i> إحصائيات
+                الزوار</button>
             <button onclick="switchTab('settings')" id="tabSettings" class="btn btn-secondary"><i
                     class="fas fa-cog"></i> إعدادات المسابقة</button>
         </div>
 
         <div id="registrationsSection">
-            <div class="registration-filters"
-                style="margin-bottom: 20px; display: flex; flex-direction: column; gap: 10px;">
-                <div
-                    style="display: flex; gap: 10px; flex-wrap: wrap; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px;">
-                    <span
-                        style="color: #d4af37; font-weight: bold; align-self: center; margin-left: 10px;">المستوى:</span>
-                    <button onclick="setLevelFilter('all')" id="btnLAll" class="btn btn-primary"
-                        style="padding: 5px 15px; font-size: 0.9rem;">الكل</button>
-                    <button onclick="setLevelFilter('المستوى الأول (القرآن كاملاً)')" id="btnL1"
-                        class="btn btn-secondary" style="padding: 5px 15px; font-size: 0.9rem;">الأول</button>
-                    <button onclick="setLevelFilter('المستوى الثاني (ثلاثة أرباع القرآن)')" id="btnL2"
-                        class="btn btn-secondary" style="padding: 5px 15px; font-size: 0.9rem;">الثاني</button>
-                    <button onclick="setLevelFilter('المستوى الثالث (نصف القرآن)')" id="btnL3" class="btn btn-secondary"
-                        style="padding: 5px 15px; font-size: 0.9rem;">الثالث</button>
-                    <button onclick="setLevelFilter('المستوى الرابع (ربع القرآن)')" id="btnL4" class="btn btn-secondary"
-                        style="padding: 5px 15px; font-size: 0.9rem;">الرابع</button>
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                <button onclick="copyTodayRegistrations()" class="btn btn-primary"
+                    style="background: linear-gradient(135deg, #d4af37, #b8860b); color: #000; border: none; font-weight: bold;"><i
+                        class="fas fa-copy"></i> نسخ أسماء المسجلين اليوم</button>
+                <button onclick="copyTodayStats()" class="btn btn-secondary"
+                    style="background: #3498db; border: none;"><i class="fas fa-chart-bar"></i> نسخ إحصائيات
+                    اليوم</button>
+            </div>
+            <div
+                style="display: flex; gap: 10px; flex-wrap: wrap; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px;">
+                <span style="color: #d4af37; font-weight: bold; align-self: center; margin-left: 10px;">المستوى:</span>
+                <button onclick="setLevelFilter('all')" id="btnLAll" class="btn btn-primary"
+                    style="padding: 5px 15px; font-size: 0.9rem;">الكل</button>
+                <button onclick="setLevelFilter('المستوى الأول (القرآن كاملاً)')" id="btnL1" class="btn btn-secondary"
+                    style="padding: 5px 15px; font-size: 0.9rem;">الأول</button>
+                <button onclick="setLevelFilter('المستوى الثاني (ثلاثة أرباع القرآن)')" id="btnL2"
+                    class="btn btn-secondary" style="padding: 5px 15px; font-size: 0.9rem;">الثاني</button>
+                <button onclick="setLevelFilter('المستوى الثالث (نصف القرآن)')" id="btnL3" class="btn btn-secondary"
+                    style="padding: 5px 15px; font-size: 0.9rem;">الثالث</button>
+                <button onclick="setLevelFilter('المستوى الرابع (ربع القرآن)')" id="btnL4" class="btn btn-secondary"
+                    style="padding: 5px 15px; font-size: 0.9rem;">الرابع</button>
+            </div>
+            <div
+                style="display: flex; gap: 10px; flex-wrap: wrap; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px;">
+                <span style="color: #d4af37; font-weight: bold; align-self: center; margin-left: 10px;">النوع:</span>
+                <button onclick="setGenderFilter('all')" id="btnGAll" class="btn btn-primary"
+                    style="padding: 5px 15px; font-size: 0.9rem;">الجميع</button>
+                <button onclick="setGenderFilter('بنين')" id="btnGBoy" class="btn btn-secondary"
+                    style="padding: 5px 15px; font-size: 0.9rem;">بنين</button>
+                <button onclick="setGenderFilter('بنات')" id="btnGGirl" class="btn btn-secondary"
+                    style="padding: 5px 15px; font-size: 0.9rem;">بنات</button>
+            </div>
+            <div
+                style="display: flex; gap: 10px; flex-wrap: wrap; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px;">
+                <span style="color: #d4af37; font-weight: bold; align-self: center; margin-left: 10px;">الفئة
+                    العمرية:</span>
+                <button onclick="setAgeGroupFilter('all')" id="btnAAll" class="btn btn-primary"
+                    style="padding: 5px 15px; font-size: 0.9rem;">الكل</button>
+                <button onclick="setAgeGroupFilter('junior')" id="btnAJunior" class="btn btn-secondary"
+                    style="padding: 5px 15px; font-size: 0.9rem;">الصغار (1-18)</button>
+                <button onclick="setAgeGroupFilter('senior')" id="btnASenior" class="btn btn-secondary"
+                    style="padding: 5px 15px; font-size: 0.9rem;">الكبار (30+)</button>
+            </div>
+            <div
+                style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
+                <!-- Search Bar -->
+                <div style="position: relative; width: 100%; max-width: 400px;">
+                    <i class="fas fa-search"
+                        style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #d4af37;"></i>
+                    <input type="text" id="searchInput" onkeyup="handleSearch()" placeholder="ابحث باسم المتسابق..."
+                        style="width: 100%; padding: 12px 45px 12px 15px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(212,175,55,0.3); color: #fff; font-family: 'Cairo', sans-serif;">
                 </div>
-                <div
-                    style="display: flex; gap: 10px; flex-wrap: wrap; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px;">
-                    <span
-                        style="color: #d4af37; font-weight: bold; align-self: center; margin-left: 10px;">النوع:</span>
-                    <button onclick="setGenderFilter('all')" id="btnGAll" class="btn btn-primary"
-                        style="padding: 5px 15px; font-size: 0.9rem;">الجميع</button>
-                    <button onclick="setGenderFilter('بنين')" id="btnGBoy" class="btn btn-secondary"
-                        style="padding: 5px 15px; font-size: 0.9rem;">بنين</button>
-                    <button onclick="setGenderFilter('بنات')" id="btnGGirl" class="btn btn-secondary"
-                        style="padding: 5px 15px; font-size: 0.9rem;">بنات</button>
-                </div>
-                <div
-                    style="display: flex; gap: 10px; flex-wrap: wrap; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px;">
-                    <span
-                        style="color: #d4af37; font-weight: bold; align-self: center; margin-left: 10px;">الفئة العمرية:</span>
-                    <button onclick="setAgeGroupFilter('all')" id="btnAAll" class="btn btn-primary"
-                        style="padding: 5px 15px; font-size: 0.9rem;">الكل</button>
-                    <button onclick="setAgeGroupFilter('junior')" id="btnAJunior" class="btn btn-secondary"
-                        style="padding: 5px 15px; font-size: 0.9rem;">الصغار (1-18)</button>
-                    <button onclick="setAgeGroupFilter('senior')" id="btnASenior" class="btn btn-secondary"
-                        style="padding: 5px 15px; font-size: 0.9rem;">الكبار (30+)</button>
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
-                    <!-- Search Bar -->
-                    <div style="position: relative; width: 100%; max-width: 400px;">
-                        <i class="fas fa-search"
-                            style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #d4af37;"></i>
-                        <input type="text" id="searchInput" onkeyup="handleSearch()" placeholder="ابحث باسم المتسابق..."
-                            style="width: 100%; padding: 12px 45px 12px 15px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(212,175,55,0.3); color: #fff; font-family: 'Cairo', sans-serif;">
+                <button onclick="downloadImagesZip()" id="zipDownloadBtn" class="btn btn-primary"
+                    style="background: #8e44ad; border: none; padding: 10px 20px;">
+                    <i class="fas fa-file-archive"></i> تحميل ملفات المتسابقين المعروضين (ZIP)
+                </button>
+            </div>
+            <!-- Active Sheikh Filter Badge (Initially Hidden) -->
+            <div id="activeSheikhFilter"
+                style="display:none; background: rgba(212, 175, 55, 0.1); border: 1px solid #d4af37; padding: 10px 15px; border-radius: 10px; align-items: center; gap: 10px; margin-top: 10px;">
+                <span style="color: #d4af37; font-weight: bold;"><i class="fas fa-user-tie"></i> طلاب الشيخ: <span
+                        id="activeSheikhName">---</span></span>
+                <button onclick="clearSheikhFilter()" class="btn btn-secondary"
+                    style="padding: 5px 12px; font-size: 0.8rem; background: #ff4d4d; border: none;"><i
+                        class="fas fa-times"></i> إلغاء الفلتر</button>
+            </div>
+        </div>
+
+        <div style="overflow-x: auto;">
+            <table class="registrations-table">
+                <thead>
+                    <tr>
+                        <th>الاسم</th>
+                        <th>رقم الجلوس</th>
+                        <th>السن</th>
+                        <th>اللجنة</th>
+                        <th>النوع</th>
+                        <th>المستوى</th>
+                        <th>العنوان</th>
+                        <th>أرقام الهاتف</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody id="registrationsList">
+                    <!-- البيانات ستظهر هنا -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="imgPreviewModal" class="img-preview-modal">
+        <span class="close-preview" onclick="closeImgPreview()">&times;</span>
+        <img id="previewImg" src="">
+        <a id="downloadLink" href="#" download class="download-btn">
+            <i class="fas fa-download"></i> تحميل الصورة
+        </a>
+    </div>
+
+    <!-- Details Modal -->
+    <div id="detailsModal" class="img-preview-modal" style="display: none; padding: 10px;">
+        <div class="login-card"
+            style="max-width: 600px; width: 95%; text-align: right; position: relative; background: #111; border: 2px solid #d4af37; padding: 25px; max-height: 95vh; overflow-y: auto; border-radius: 20px; box-shadow: 0 0 30px rgba(0,0,0,0.5);">
+            <!-- Improved Close Button (X) -->
+            <span onclick="closeDetailsModal()"
+                style="position: absolute; top: 15px; left: 15px; cursor: pointer; color: #fff; background: rgba(255,255,255,0.1); width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.2rem; z-index: 100; transition: 0.3s;"
+                onmouseover="this.style.background='#ff4d4d'"
+                onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+                &times;
+            </span>
+
+            <h2
+                style="margin-bottom: 25px; border-bottom: 1px solid #d4af37; padding-bottom: 10px; color: #d4af37; font-size: 1.4rem;">
+                <i class="fas fa-info-circle"></i> تفاصيل المتسابق
+            </h2>
+
+            <div id="studentDetailsContent"
+                style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.95rem; color: #fff;">
+                <!-- Details will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="img-preview-modal" style="display: none; padding: 10px;">
+        <div class="login-card"
+            style="max-width: 700px; width: 95%; text-align: right; position: relative; background: #111; border: 2px solid #d4af37; padding: 25px; max-height: 95vh; overflow-y: auto; border-radius: 20px;">
+            <span onclick="closeEditModal()"
+                style="position: absolute; top: 15px; left: 15px; cursor: pointer; color: #fff; background: rgba(255,255,255,0.1); width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.2rem; z-index: 100;">&times;</span>
+            <h2
+                style="margin-bottom: 25px; border-bottom: 1px solid #d4af37; padding-bottom: 10px; color: #d4af37; font-size: 1.4rem;">
+                <i class="fas fa-edit"></i> تعديل بيانات المتسابق
+            </h2>
+
+            <form id="editStudentForm" onsubmit="event.preventDefault(); saveEditedStudent();">
+                <input type="hidden" id="editStudentId">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">اسم
+                            المتسابق</label>
+                        <input type="text" id="editStudentName" required
+                            style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
                     </div>
-                    <button onclick="downloadImagesZip()" id="zipDownloadBtn" class="btn btn-primary" style="background: #8e44ad; border: none; padding: 10px 20px;">
-                        <i class="fas fa-file-archive"></i> تحميل ملفات المتسابقين المعروضين (ZIP)
-                    </button>
-                </div>
-                <!-- Active Sheikh Filter Badge (Initially Hidden) -->
-                <div id="activeSheikhFilter" style="display:none; background: rgba(212, 175, 55, 0.1); border: 1px solid #d4af37; padding: 10px 15px; border-radius: 10px; align-items: center; gap: 10px; margin-top: 10px;">
-                    <span style="color: #d4af37; font-weight: bold;"><i class="fas fa-user-tie"></i> طلاب الشيخ: <span id="activeSheikhName">---</span></span>
-                    <button onclick="clearSheikhFilter()" class="btn btn-secondary" style="padding: 5px 12px; font-size: 0.8rem; background: #ff4d4d; border: none;"><i class="fas fa-times"></i> إلغاء الفلتر</button>
-                </div>
-            </div>
-
-            <div style="overflow-x: auto;">
-                <table class="registrations-table">
-                    <thead>
-                        <tr>
-                            <th>الاسم</th>
-                            <th>رقم الجلوس</th>
-                            <th>السن</th>
-                            <th>اللجنة</th>
-                            <th>النوع</th>
-                            <th>المستوى</th>
-                            <th>العنوان</th>
-                            <th>أرقام الهاتف</th>
-                            <th>الإجراءات</th>
-                        </tr>
-                    </thead>
-                    <tbody id="registrationsList">
-                        <!-- البيانات ستظهر هنا -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div id="imgPreviewModal" class="img-preview-modal">
-            <span class="close-preview" onclick="closeImgPreview()">&times;</span>
-            <img id="previewImg" src="">
-            <a id="downloadLink" href="#" download class="download-btn">
-                <i class="fas fa-download"></i> تحميل الصورة
-            </a>
-        </div>
-
-        <!-- Details Modal -->
-        <div id="detailsModal" class="img-preview-modal" style="display: none; padding: 10px;">
-            <div class="login-card"
-                style="max-width: 600px; width: 95%; text-align: right; position: relative; background: #111; border: 2px solid #d4af37; padding: 25px; max-height: 95vh; overflow-y: auto; border-radius: 20px; box-shadow: 0 0 30px rgba(0,0,0,0.5);">
-                <!-- Improved Close Button (X) -->
-                <span onclick="closeDetailsModal()"
-                    style="position: absolute; top: 15px; left: 15px; cursor: pointer; color: #fff; background: rgba(255,255,255,0.1); width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.2rem; z-index: 100; transition: 0.3s;"
-                    onmouseover="this.style.background='#ff4d4d'"
-                    onmouseout="this.style.background='rgba(255,255,255,0.1)'">
-                    &times;
-                </span>
-
-                <h2
-                    style="margin-bottom: 25px; border-bottom: 1px solid #d4af37; padding-bottom: 10px; color: #d4af37; font-size: 1.4rem;">
-                    <i class="fas fa-info-circle"></i> تفاصيل المتسابق
-                </h2>
-
-                <div id="studentDetailsContent"
-                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.95rem; color: #fff;">
-                    <!-- Details will be injected here -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Edit Modal -->
-        <div id="editModal" class="img-preview-modal" style="display: none; padding: 10px;">
-            <div class="login-card" style="max-width: 700px; width: 95%; text-align: right; position: relative; background: #111; border: 2px solid #d4af37; padding: 25px; max-height: 95vh; overflow-y: auto; border-radius: 20px;">
-                <span onclick="closeEditModal()" style="position: absolute; top: 15px; left: 15px; cursor: pointer; color: #fff; background: rgba(255,255,255,0.1); width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.2rem; z-index: 100;">&times;</span>
-                <h2 style="margin-bottom: 25px; border-bottom: 1px solid #d4af37; padding-bottom: 10px; color: #d4af37; font-size: 1.4rem;"><i class="fas fa-edit"></i> تعديل بيانات المتسابق</h2>
-                
-                <form id="editStudentForm" onsubmit="event.preventDefault(); saveEditedStudent();">
-                    <input type="hidden" id="editStudentId">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                        <div>
-                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">اسم المتسابق</label>
-                            <input type="text" id="editStudentName" required style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
-                        </div>
-                        <div>
-                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">الرقم القومي</label>
-                            <input type="text" id="editNationalID" required maxlength="14" style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
-                        </div>
-                        <div>
-                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">رقم الجلوس</label>
-                            <input type="number" id="editSeatNumber" required style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
-                        </div>
-                        <div>
-                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">اللجنة</label>
-                            <input type="number" id="editCommittee" required style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
-                        </div>
-                        <div>
-                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">الجنس</label>
-                            <select id="editGender" style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
-                                <option value="بنين">بنين</option>
-                                <option value="بنات">بنات</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">المستوى</label>
-                            <select id="editLevel" style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
-                                <option value="المستوى الأول (القرآن كاملاً)">المستوى الأول (القرآن كاملاً)</option>
-                                <option value="المستوى الثاني (ثلاثة أرباع القرآن)">المستوى الثاني (ثلاثة أرباع القرآن)</option>
-                                <option value="المستوى الثالث (نصف القرآن)">المستوى الثالث (نصف القرآن)</option>
-                                <option value="المستوى الرابع (ربع القرآن)">المستوى الرابع (ربع القرآن)</option>
-                                <option value="المستوى الخامس (المعلم المتميز)">المستوى الخامس (المعلم المتميز)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">هاتف المتسابق</label>
-                            <input type="tel" id="editPhone1" required style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
-                        </div>
-                        <div>
-                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">هاتف ولي الأمر</label>
-                            <input type="tel" id="editPhone2" style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
-                        </div>
-                         <div>
-                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">اسم الشيخ</label>
-                            <input type="text" id="editSheikhName" style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
-                        </div>
-                        <div>
-                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">هاتف الشيخ</label>
-                            <input type="tel" id="editSheikhPhone" style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
-                        </div>
-                         <div style="grid-column: span 2;">
-                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">العنوان</label>
-                            <input type="text" id="editAddress" style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
-                        </div>
-                        <div style="border-top: 1px dashed #333; padding-top: 10px;">
-                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">تحديث صورة الشهادة</label>
-                            <input type="file" id="editBirthCertFile" accept="image/*" style="width: 100%; color: #aaa; font-size: 0.8rem;">
-                        </div>
-                        <div style="border-top: 1px dashed #333; padding-top: 10px;">
-                            <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">تحديث الصورة الشخصية</label>
-                            <input type="file" id="editPersonalPhotoFile" accept="image/*" style="width: 100%; color: #aaa; font-size: 0.8rem;">
-                        </div>
+                    <div>
+                        <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">الرقم
+                            القومي</label>
+                        <input type="text" id="editNationalID" required maxlength="14"
+                            style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
                     </div>
-                    <div style="margin-top: 30px; display: flex; gap: 10px;">
-                        <button type="submit" id="saveEditBtn" class="btn btn-primary" style="flex: 2; padding: 15px; font-weight: 900;">
-                             <i class="fas fa-save"></i> حفظ التعديلات
-                        </button>
-                        <button type="button" onclick="closeEditModal()" class="btn btn-secondary" style="flex: 1; padding: 15px;">إلغاء</button>
+                    <div>
+                        <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">رقم
+                            الجلوس</label>
+                        <input type="number" id="editSeatNumber" required
+                            style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
                     </div>
-                </form>
-            </div>
-        </div>
-
-        <!-- QR Code Preview Modal -->
-        <div id="qrPreviewModal" class="img-preview-modal" style="display: none;">
-            <div class="login-card" style="max-width: 400px; background: #fff; padding: 30px; border-radius: 20px; text-align: center; position: relative; border: 5px solid #d4af37;">
-                <span onclick="closeQRPreview()" style="position: absolute; top: 10px; right: 10px; cursor: pointer; color: #000; font-size: 1.5rem; transition: 0.3s;">&times;</span>
-                <h3 style="color: #000; margin-bottom: 20px; font-family: 'Cairo', sans-serif;">كود المتسابق (QR)</h3>
-                <div id="qrCodeContainer" style="background: #fff; padding: 10px; display: inline-block; border: 1px solid #eee; margin-bottom: 20px;">
-                    <img id="adminQRCodeImg" src="" style="width: 200px; height: 200px;">
+                    <div>
+                        <label
+                            style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">اللجنة</label>
+                        <input type="number" id="editCommittee" required
+                            style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
+                    </div>
+                    <div>
+                        <label
+                            style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">الجنس</label>
+                        <select id="editGender"
+                            style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
+                            <option value="بنين">بنين</option>
+                            <option value="بنات">بنات</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label
+                            style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">المستوى</label>
+                        <select id="editLevel"
+                            style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
+                            <option value="المستوى الأول (القرآن كاملاً)">المستوى الأول (القرآن كاملاً)</option>
+                            <option value="المستوى الثاني (ثلاثة أرباع القرآن)">المستوى الثاني (ثلاثة أرباع القرآن)
+                            </option>
+                            <option value="المستوى الثالث (نصف القرآن)">المستوى الثالث (نصف القرآن)</option>
+                            <option value="المستوى الرابع (ربع القرآن)">المستوى الرابع (ربع القرآن)</option>
+                            <option value="المستوى الخامس (المعلم المتميز)">المستوى الخامس (المعلم المتميز)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">هاتف
+                            المتسابق</label>
+                        <input type="tel" id="editPhone1" required
+                            style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
+                    </div>
+                    <div>
+                        <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">هاتف ولي
+                            الأمر</label>
+                        <input type="tel" id="editPhone2"
+                            style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
+                    </div>
+                    <div>
+                        <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">اسم
+                            الشيخ</label>
+                        <input type="text" id="editSheikhName"
+                            style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
+                    </div>
+                    <div>
+                        <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">هاتف
+                            الشيخ</label>
+                        <input type="tel" id="editSheikhPhone"
+                            style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
+                    </div>
+                    <div style="grid-column: span 2;">
+                        <label
+                            style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">العنوان</label>
+                        <input type="text" id="editAddress"
+                            style="width: 100%; padding: 10px; border-radius: 8px; background: #000; border: 1px solid #333; color: #fff;">
+                    </div>
+                    <div style="border-top: 1px dashed #333; padding-top: 10px;">
+                        <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">تحديث صورة
+                            الشهادة</label>
+                        <input type="file" id="editBirthCertFile" accept="image/*"
+                            style="width: 100%; color: #aaa; font-size: 0.8rem;">
+                    </div>
+                    <div style="border-top: 1px dashed #333; padding-top: 10px;">
+                        <label style="color: #d4af37; font-size: 0.8rem; display: block; margin-bottom: 5px;">تحديث
+                            الصورة الشخصية</label>
+                        <input type="file" id="editPersonalPhotoFile" accept="image/*"
+                            style="width: 100%; color: #aaa; font-size: 0.8rem;">
+                    </div>
                 </div>
-                <p id="qrStudentName" style="color: #000; font-weight: bold; margin-bottom: 10px;"></p>
-                <div style="display: flex; gap: 10px;">
-                    <button id="downloadQRBtn" class="btn btn-primary" style="flex: 1; padding: 10px; font-size: 0.9rem; background: #d4af37; color: #000; border: none; font-weight: bold;">
-                        <i class="fas fa-download"></i> تحميل الكود
+                <div style="margin-top: 30px; display: flex; gap: 10px;">
+                    <button type="submit" id="saveEditBtn" class="btn btn-primary"
+                        style="flex: 2; padding: 15px; font-weight: 900;">
+                        <i class="fas fa-save"></i> حفظ التعديلات
                     </button>
-                    <button onclick="closeQRPreview()" class="btn btn-secondary" style="flex: 1; padding: 10px; font-size: 0.9rem; border-color: #333; color: #333;">
-                        إغلاق
-                    </button>
+                    <button type="button" onclick="closeEditModal()" class="btn btn-secondary"
+                        style="flex: 1; padding: 15px;">إلغاء</button>
                 </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- QR Code Preview Modal -->
+    <div id="qrPreviewModal" class="img-preview-modal" style="display: none;">
+        <div class="login-card"
+            style="max-width: 400px; background: #fff; padding: 30px; border-radius: 20px; text-align: center; position: relative; border: 5px solid #d4af37;">
+            <span onclick="closeQRPreview()"
+                style="position: absolute; top: 10px; right: 10px; cursor: pointer; color: #000; font-size: 1.5rem; transition: 0.3s;">&times;</span>
+            <h3 style="color: #000; margin-bottom: 20px; font-family: 'Cairo', sans-serif;">كود المتسابق (QR)</h3>
+            <div id="qrCodeContainer"
+                style="background: #fff; padding: 10px; display: inline-block; border: 1px solid #eee; margin-bottom: 20px;">
+                <img id="adminQRCodeImg" src="" style="width: 200px; height: 200px;">
+            </div>
+            <p id="qrStudentName" style="color: #000; font-weight: bold; margin-bottom: 10px;"></p>
+            <div style="display: flex; gap: 10px;">
+                <button id="downloadQRBtn" class="btn btn-primary"
+                    style="flex: 1; padding: 10px; font-size: 0.9rem; background: #d4af37; color: #000; border: none; font-weight: bold;">
+                    <i class="fas fa-download"></i> تحميل الكود
+                </button>
+                <button onclick="closeQRPreview()" class="btn btn-secondary"
+                    style="flex: 1; padding: 10px; font-size: 0.9rem; border-color: #333; color: #333;">
+                    إغلاق
+                </button>
             </div>
         </div>
+    </div>
 
-        <div id="messagesSection" style="display:none;">
-            <div style="overflow-x: auto;">
-                <table class="registrations-table">
-                    <thead>
-                        <tr>
-                            <th>الاسم</th>
-                            <th>رقم الهاتف</th>
-                            <th>الرسالة</th>
-                            <th>التاريخ</th>
-                            <th>الإجراءات</th>
-                        </tr>
-                    </thead>
-                    <tbody id="messagesList">
-                        <!-- الرسائل ستظهر هنا -->
-                    </tbody>
-                </table>
+    <div id="messagesSection" style="display:none;">
+        <div style="overflow-x: auto;">
+            <table class="registrations-table">
+                <thead>
+                    <tr>
+                        <th>الاسم</th>
+                        <th>رقم الهاتف</th>
+                        <th>الرسالة</th>
+                        <th>التاريخ</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody id="messagesList">
+                    <!-- الرسائل ستظهر هنا -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="nominationsSection" style="display:none;">
+        <div style="overflow-x: auto;">
+            <table class="registrations-table">
+                <thead>
+                    <tr>
+                        <th>المرشِح</th>
+                        <th>هاتف المرشِح</th>
+                        <th>المرشَح</th>
+                        <th>سبب الترشيح</th>
+                        <th>التاريخ</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody id="nominationsList">
+                    <!-- Nominations will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="blockedSection" style="display:none;">
+        <div style="overflow-x: auto;">
+            <table class="registrations-table">
+                <thead>
+                    <tr>
+                        <th>الاسم</th>
+                        <th>الرقم القومي</th>
+                        <th>السن</th>
+                        <th>السبب</th>
+                        <th>التاريخ</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody id="blockedList">
+                    <!-- الطلاب المحظورين سيظهرون هنا -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="feedbackSection" style="display:none;">
+        <div style="overflow-x: auto;">
+            <table class="registrations-table">
+                <thead>
+                    <tr>
+                        <th>الاسم</th>
+                        <th>الهاتف</th>
+                        <th>الصفة</th>
+                        <th>النوع</th>
+                        <th>الرسالة</th>
+                        <th>التاريخ</th>
+                        <th>الرد</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody id="feedbackList">
+                    <!-- الآراء ستظهر هنا -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="storiesSection" style="display:none;">
+        <div style="overflow-x: auto;">
+            <table class="registrations-table">
+                <thead>
+                    <tr>
+                        <th>الاسم</th>
+                        <th>الهاتف</th>
+                        <th>القصة</th>
+                        <th>التاريخ</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody id="storiesList">
+                    <!-- القصص ستظهر هنا -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="visitsSection" style="display:none;">
+        <div
+            style="background: rgba(52, 152, 219, 0.1); border: 2px solid #3498db; padding: 25px; border-radius: 20px; margin-bottom: 30px; text-align: center;">
+            <h2 style="color: #fff; font-size: 1.8rem; margin-bottom: 10px;"><i class="fas fa-chart-bar"></i> تحليل
+                الزيارات (آخر 24 ساعة)</h2>
+            <div id="hourlyStatsGrid"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; margin-top: 20px;">
+                <!-- Hourly stats will appear here -->
             </div>
         </div>
-
-        <div id="nominationsSection" style="display:none;">
-            <div style="overflow-x: auto;">
-                <table class="registrations-table">
-                    <thead>
-                        <tr>
-                            <th>المرشِح</th>
-                            <th>هاتف المرشِح</th>
-                            <th>المرشَح</th>
-                            <th>سبب الترشيح</th>
-                            <th>التاريخ</th>
-                            <th>الإجراءات</th>
-                        </tr>
-                    </thead>
-                    <tbody id="nominationsList">
-                        <!-- Nominations will be loaded here -->
-                    </tbody>
-                </table>
-            </div>
+        <div style="overflow-x: auto;">
+            <table class="registrations-table">
+                <thead>
+                    <tr>
+                        <th>المنصة</th>
+                        <th>المتصفح</th>
+                        <th>التاريخ والوقت</th>
+                    </tr>
+                </thead>
+                <tbody id="visitsList">
+                    <!-- الزيارات ستظهر هنا -->
+                </tbody>
+            </table>
         </div>
+    </div>
 
-        <div id="blockedSection" style="display:none;">
-            <div style="overflow-x: auto;">
-                <table class="registrations-table">
-                    <thead>
-                        <tr>
-                            <th>الاسم</th>
-                            <th>الرقم القومي</th>
-                            <th>السن</th>
-                            <th>السبب</th>
-                            <th>التاريخ</th>
-                            <th>الإجراءات</th>
-                        </tr>
-                    </thead>
-                    <tbody id="blockedList">
-                        <!-- الطلاب المحظورين سيظهرون هنا -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <!-- ====== SHEIKHS LEADERBOARD SECTION ====== -->
+    <div id="sheikhsSection" style="display:none;">
+        <style>
+            .sheikhs-board-header {
+                text-align: center;
+                padding: 30px 20px 20px;
+                background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(212, 175, 55, 0.03));
+                border-radius: 20px;
+                border: 1px solid rgba(212, 175, 55, 0.2);
+                margin-bottom: 30px;
+            }
 
-        <div id="feedbackSection" style="display:none;">
-            <div style="overflow-x: auto;">
-                <table class="registrations-table">
-                    <thead>
-                        <tr>
-                            <th>الاسم</th>
-                            <th>الهاتف</th>
-                            <th>الصفة</th>
-                            <th>النوع</th>
-                            <th>الرسالة</th>
-                            <th>التاريخ</th>
-                            <th>الرد</th>
-                            <th>الإجراءات</th>
-                        </tr>
-                    </thead>
-                    <tbody id="feedbackList">
-                        <!-- الآراء ستظهر هنا -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
+            .sheikhs-board-header h2 {
+                color: #d4af37;
+                font-size: 1.8rem;
+                margin-bottom: 5px;
+            }
 
-        <div id="storiesSection" style="display:none;">
-            <div style="overflow-x: auto;">
-                <table class="registrations-table">
-                    <thead>
-                        <tr>
-                            <th>الاسم</th>
-                            <th>الهاتف</th>
-                            <th>القصة</th>
-                            <th>التاريخ</th>
-                            <th>الإجراءات</th>
-                        </tr>
-                    </thead>
-                    <tbody id="storiesList">
-                        <!-- القصص ستظهر هنا -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
+            .sheikhs-board-header p {
+                color: #aaa;
+                font-size: 0.95rem;
+            }
 
-        <div id="visitsSection" style="display:none;">
-            <div style="background: rgba(52, 152, 219, 0.1); border: 2px solid #3498db; padding: 25px; border-radius: 20px; margin-bottom: 30px; text-align: center;">
-                <h2 style="color: #fff; font-size: 1.8rem; margin-bottom: 10px;"><i class="fas fa-chart-bar"></i> تحليل الزيارات (آخر 24 ساعة)</h2>
-                <div id="hourlyStatsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; margin-top: 20px;">
-                    <!-- Hourly stats will appear here -->
-                </div>
-            </div>
-            <div style="overflow-x: auto;">
-                <table class="registrations-table">
-                    <thead>
-                        <tr>
-                            <th>المنصة</th>
-                            <th>المتصفح</th>
-                            <th>التاريخ والوقت</th>
-                        </tr>
-                    </thead>
-                    <tbody id="visitsList">
-                        <!-- الزيارات ستظهر هنا -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
+            .sheikhs-leaderboard {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                margin-bottom: 40px;
+            }
 
-        <!-- ====== SHEIKHS LEADERBOARD SECTION ====== -->
-        <div id="sheikhsSection" style="display:none;">
-            <style>
-                .sheikhs-board-header {
-                    text-align: center;
-                    padding: 30px 20px 20px;
-                    background: linear-gradient(135deg, rgba(212,175,55,0.08), rgba(212,175,55,0.03));
-                    border-radius: 20px;
-                    border: 1px solid rgba(212,175,55,0.2);
-                    margin-bottom: 30px;
+            .sheikh-rank-card {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                padding: 20px 25px;
+                border-radius: 18px;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                transition: all 0.3s;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .sheikh-rank-card:hover {
+                transform: translateX(-5px);
+                border-color: rgba(212, 175, 55, 0.3);
+            }
+
+            .sheikh-rank-card.rank-1 {
+                background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.05));
+                border: 2px solid #d4af37;
+                box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
+            }
+
+            .sheikh-rank-card.rank-2 {
+                background: linear-gradient(135deg, rgba(192, 192, 192, 0.1), rgba(192, 192, 192, 0.03));
+                border: 1px solid rgba(192, 192, 192, 0.5);
+            }
+
+            .sheikh-rank-card.rank-3 {
+                background: linear-gradient(135deg, rgba(205, 127, 50, 0.12), rgba(205, 127, 50, 0.03));
+                border: 1px solid rgba(205, 127, 50, 0.4);
+            }
+
+            .rank-badge-admin {
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+                font-weight: 900;
+                flex-shrink: 0;
+            }
+
+            .rank-badge-admin.r1 {
+                background: linear-gradient(135deg, #d4af37, #f0c040);
+                color: #000;
+                box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            }
+
+            .rank-badge-admin.r2 {
+                background: linear-gradient(135deg, #aaa, #ddd);
+                color: #000;
+            }
+
+            .rank-badge-admin.r3 {
+                background: linear-gradient(135deg, #cd7f32, #e8a45a);
+                color: #000;
+            }
+
+            .rank-badge-admin.rn {
+                background: rgba(255, 255, 255, 0.08);
+                color: #aaa;
+                font-size: 1.1rem;
+            }
+
+            .sheikh-info {
+                flex: 1;
+            }
+
+            .sheikh-info h3 {
+                font-size: 1.2rem;
+                font-weight: 800;
+                color: #fff;
+                margin: 0 0 5px;
+            }
+
+            .sheikh-info .sheikh-phone {
+                font-size: 0.88rem;
+                color: #aaa;
+                direction: ltr;
+                display: inline-block;
+            }
+
+            .sheikh-progress-wrap {
+                flex: 2;
+            }
+
+            .sheikh-progress-bar-bg {
+                background: rgba(255, 255, 255, 0.06);
+                border-radius: 50px;
+                height: 14px;
+                overflow: hidden;
+                margin-top: 6px;
+            }
+
+            .sheikh-progress-fill {
+                height: 100%;
+                border-radius: 50px;
+                background: linear-gradient(90deg, #d4af37, #f0c040);
+                transition: width 1s ease;
+            }
+
+            .rank-1 .sheikh-progress-fill {
+                background: linear-gradient(90deg, #d4af37, #f5e06e);
+            }
+
+            .rank-2 .sheikh-progress-fill {
+                background: linear-gradient(90deg, #aaa, #ddd);
+            }
+
+            .rank-3 .sheikh-progress-fill {
+                background: linear-gradient(90deg, #cd7f32, #e8a45a);
+            }
+
+            .sheikh-count-badge {
+                font-size: 1.6rem;
+                font-weight: 900;
+                min-width: 60px;
+                text-align: center;
+                flex-shrink: 0;
+            }
+
+            .rank-1 .sheikh-count-badge {
+                color: #d4af37;
+            }
+
+            .rank-2 .sheikh-count-badge {
+                color: #c0c0c0;
+            }
+
+            .rank-3 .sheikh-count-badge {
+                color: #cd7f32;
+            }
+
+            .sheikh-count-badge .count-label {
+                font-size: 0.65rem;
+                color: #777;
+                display: block;
+                font-weight: 400;
+            }
+
+            .sheikh-actions-admin {
+                display: flex;
+                gap: 8px;
+                flex-shrink: 0;
+            }
+
+            .add-sheikh-admin-box {
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px dashed rgba(212, 175, 55, 0.4);
+                border-radius: 18px;
+                padding: 25px;
+                margin-top: 20px;
+            }
+
+            .add-sheikh-admin-box h3 {
+                color: #d4af37;
+                margin-bottom: 20px;
+                font-size: 1.1rem;
+            }
+
+            .sheikh-add-form {
+                display: grid;
+                grid-template-columns: 1fr 1fr auto;
+                gap: 15px;
+                align-items: end;
+            }
+
+            .sheikh-add-form input {
+                padding: 12px 15px;
+                border-radius: 10px;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(212, 175, 55, 0.3);
+                color: #fff;
+                font-family: 'Cairo', sans-serif;
+                font-size: 0.95rem;
+                width: 100%;
+            }
+
+            .podium-row {
+                display: flex;
+                gap: 15px;
+                justify-content: center;
+                margin-bottom: 30px;
+                flex-wrap: wrap;
+            }
+
+            .podium-card {
+                text-align: center;
+                padding: 25px 20px;
+                border-radius: 20px;
+                min-width: 200px;
+                flex: 1;
+                max-width: 250px;
+            }
+
+            .podium-card.p1 {
+                background: linear-gradient(160deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.05));
+                border: 2px solid #d4af37;
+                order: 2;
+            }
+
+            .podium-card.p2 {
+                background: linear-gradient(160deg, rgba(192, 192, 192, 0.12), rgba(192, 192, 192, 0.03));
+                border: 1px solid #aaa;
+                order: 1;
+            }
+
+            .podium-card.p3 {
+                background: linear-gradient(160deg, rgba(205, 127, 50, 0.12), rgba(205, 127, 50, 0.03));
+                border: 1px solid #cd7f32;
+                order: 3;
+            }
+
+            .podium-medal {
+                font-size: 3rem;
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            .podium-name {
+                font-size: 1.05rem;
+                font-weight: 800;
+                color: #fff;
+            }
+
+            .podium-count {
+                font-size: 2rem;
+                font-weight: 900;
+                margin: 10px 0 5px;
+            }
+
+            .p1 .podium-count {
+                color: #d4af37;
+            }
+
+            .p2 .podium-count {
+                color: #c0c0c0;
+            }
+
+            .p3 .podium-count {
+                color: #cd7f32;
+            }
+
+            .podium-label {
+                font-size: 0.8rem;
+                color: #888;
+            }
+
+            @media (max-width: 700px) {
+                .sheikh-add-form {
+                    grid-template-columns: 1fr;
                 }
-                .sheikhs-board-header h2 { color: #d4af37; font-size: 1.8rem; margin-bottom: 5px; }
-                .sheikhs-board-header p { color: #aaa; font-size: 0.95rem; }
-                .sheikhs-leaderboard { display: flex; flex-direction: column; gap: 15px; margin-bottom: 40px; }
+
                 .sheikh-rank-card {
-                    display: flex;
-                    align-items: center;
-                    gap: 20px;
-                    padding: 20px 25px;
-                    border-radius: 18px;
-                    background: rgba(255,255,255,0.03);
-                    border: 1px solid rgba(255,255,255,0.08);
-                    transition: all 0.3s;
-                    position: relative;
-                    overflow: hidden;
+                    flex-wrap: wrap;
                 }
-                .sheikh-rank-card:hover { transform: translateX(-5px); border-color: rgba(212,175,55,0.3); }
-                .sheikh-rank-card.rank-1 {
-                    background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(212,175,55,0.05));
-                    border: 2px solid #d4af37;
-                    box-shadow: 0 0 25px rgba(212,175,55,0.2);
-                }
-                .sheikh-rank-card.rank-2 {
-                    background: linear-gradient(135deg, rgba(192,192,192,0.1), rgba(192,192,192,0.03));
-                    border: 1px solid rgba(192,192,192,0.5);
-                }
-                .sheikh-rank-card.rank-3 {
-                    background: linear-gradient(135deg, rgba(205,127,50,0.12), rgba(205,127,50,0.03));
-                    border: 1px solid rgba(205,127,50,0.4);
-                }
-                .rank-badge-admin {
-                    width: 55px; height: 55px;
-                    border-radius: 50%;
-                    display: flex; align-items: center; justify-content: center;
-                    font-size: 1.5rem; font-weight: 900;
-                    flex-shrink: 0;
-                }
-                .rank-badge-admin.r1 { background: linear-gradient(135deg,#d4af37,#f0c040); color:#000; box-shadow:0 0 15px rgba(212,175,55,0.5); }
-                .rank-badge-admin.r2 { background: linear-gradient(135deg,#aaa,#ddd); color:#000; }
-                .rank-badge-admin.r3 { background: linear-gradient(135deg,#cd7f32,#e8a45a); color:#000; }
-                .rank-badge-admin.rn { background: rgba(255,255,255,0.08); color:#aaa; font-size: 1.1rem; }
-                .sheikh-info { flex: 1; }
-                .sheikh-info h3 { font-size: 1.2rem; font-weight: 800; color: #fff; margin: 0 0 5px; }
-                .sheikh-info .sheikh-phone { font-size: 0.88rem; color: #aaa; direction: ltr; display: inline-block; }
-                .sheikh-progress-wrap { flex: 2; }
-                .sheikh-progress-bar-bg {
-                    background: rgba(255,255,255,0.06);
-                    border-radius: 50px;
-                    height: 14px;
-                    overflow: hidden;
-                    margin-top: 6px;
-                }
-                .sheikh-progress-fill {
-                    height: 100%;
-                    border-radius: 50px;
-                    background: linear-gradient(90deg, #d4af37, #f0c040);
-                    transition: width 1s ease;
-                }
-                .rank-1 .sheikh-progress-fill { background: linear-gradient(90deg, #d4af37, #f5e06e); }
-                .rank-2 .sheikh-progress-fill { background: linear-gradient(90deg, #aaa, #ddd); }
-                .rank-3 .sheikh-progress-fill { background: linear-gradient(90deg, #cd7f32, #e8a45a); }
-                .sheikh-count-badge {
-                    font-size: 1.6rem; font-weight: 900;
-                    min-width: 60px; text-align: center; flex-shrink: 0;
-                }
-                .rank-1 .sheikh-count-badge { color: #d4af37; }
-                .rank-2 .sheikh-count-badge { color: #c0c0c0; }
-                .rank-3 .sheikh-count-badge { color: #cd7f32; }
-                .sheikh-count-badge .count-label { font-size: 0.65rem; color: #777; display: block; font-weight: 400; }
-                .sheikh-actions-admin { display: flex; gap: 8px; flex-shrink: 0; }
-                .add-sheikh-admin-box {
-                    background: rgba(255,255,255,0.02);
-                    border: 1px dashed rgba(212,175,55,0.4);
-                    border-radius: 18px;
-                    padding: 25px;
-                    margin-top: 20px;
-                }
-                .add-sheikh-admin-box h3 { color: #d4af37; margin-bottom: 20px; font-size: 1.1rem; }
-                .sheikh-add-form { display: grid; grid-template-columns: 1fr 1fr auto; gap: 15px; align-items: end; }
-                .sheikh-add-form input {
-                    padding: 12px 15px;
-                    border-radius: 10px;
-                    background: rgba(255,255,255,0.05);
-                    border: 1px solid rgba(212,175,55,0.3);
-                    color: #fff;
-                    font-family: 'Cairo', sans-serif;
-                    font-size: 0.95rem;
-                    width: 100%;
-                }
-                .podium-row { display: flex; gap: 15px; justify-content: center; margin-bottom: 30px; flex-wrap: wrap; }
-                .podium-card {
-                    text-align: center;
-                    padding: 25px 20px;
-                    border-radius: 20px;
-                    min-width: 200px;
-                    flex: 1;
-                    max-width: 250px;
-                }
-                .podium-card.p1 { background: linear-gradient(160deg, rgba(212,175,55,0.2), rgba(212,175,55,0.05)); border: 2px solid #d4af37; order: 2; }
-                .podium-card.p2 { background: linear-gradient(160deg, rgba(192,192,192,0.12), rgba(192,192,192,0.03)); border: 1px solid #aaa; order: 1; }
-                .podium-card.p3 { background: linear-gradient(160deg, rgba(205,127,50,0.12), rgba(205,127,50,0.03)); border: 1px solid #cd7f32; order: 3; }
-                .podium-medal { font-size: 3rem; display: block; margin-bottom: 10px; }
-                .podium-name { font-size: 1.05rem; font-weight: 800; color: #fff; }
-                .podium-count { font-size: 2rem; font-weight: 900; margin: 10px 0 5px; }
-                .p1 .podium-count { color: #d4af37; }
-                .p2 .podium-count { color: #c0c0c0; }
-                .p3 .podium-count { color: #cd7f32; }
-                .podium-label { font-size: 0.8rem; color: #888; }
-                @media (max-width: 700px) { .sheikh-add-form { grid-template-columns: 1fr; } .sheikh-rank-card { flex-wrap: wrap; } }
-            </style>
+            }
+        </style>
 
-            <div class="sheikhs-board-header">
-                <div style="font-size: 2.5rem; margin-bottom: 10px;">🏆</div>
-                <h2><i class="fas fa-trophy"></i> لوحة تكريم المشايخ المحفظين</h2>
-                <p>ترتيب تنافسي للمشايخ حسب عدد الطلاب المسجلين تحت إشرافهم</p>
+        <div class="sheikhs-board-header">
+            <div style="font-size: 2.5rem; margin-bottom: 10px;">🏆</div>
+            <h2><i class="fas fa-trophy"></i> لوحة تكريم المشايخ المحفظين</h2>
+            <p>ترتيب تنافسي للمشايخ حسب عدد الطلاب المسجلين تحت إشرافهم</p>
+        </div>
+
+        <!-- Podium Top 3 -->
+        <div class="podium-row" id="sheikhsPodium">
+            <div style="text-align:center; color:#aaa; padding: 20px;">جاري تحميل البيانات...</div>
+        </div>
+
+        <!-- Full Leaderboard -->
+        <div class="sheikhs-leaderboard" id="sheikhsLeaderboard"></div>
+
+        <!-- Add New Sheikh Panel -->
+        <div class="add-sheikh-admin-box">
+            <h3><i class="fas fa-plus-circle"></i> إضافة شيخ جديد للقائمة</h3>
+            <div class="sheikh-add-form">
+                <div>
+                    <label style="color:#aaa; font-size:0.85rem; display:block; margin-bottom:5px;">اسم الشيخ</label>
+                    <input type="text" id="adminNewSheikhName" placeholder="مثال: الشيخ محمد علي">
+                </div>
+                <div>
+                    <label style="color:#aaa; font-size:0.85rem; display:block; margin-bottom:5px;">رقم الهاتف</label>
+                    <input type="tel" id="adminNewSheikhPhone" placeholder="01xxxxxxxxx"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+                </div>
+                <button onclick="adminAddSheikh()" class="btn btn-primary"
+                    style="padding: 12px 25px; white-space: nowrap;">
+                    <i class="fas fa-plus"></i> إضافة
+                </button>
             </div>
+        </div>
+    </div>
 
-            <!-- Podium Top 3 -->
-            <div class="podium-row" id="sheikhsPodium">
-                <div style="text-align:center; color:#aaa; padding: 20px;">جاري تحميل البيانات...</div>
-            </div>
+    <div id="settingsSection" style="display:none;">
+        <div class="apply-card"
+            style="background: rgba(255,255,255,0.03); padding: 30px; border-radius: 20px; border: 1px solid #d4af37;">
+            <h2 style="color: #d4af37; margin-bottom: 30px;"><i class="fas fa-sliders-h"></i> التحكم في فتح وغلق
+                التقديم</h2>
 
-            <!-- Full Leaderboard -->
-            <div class="sheikhs-leaderboard" id="sheikhsLeaderboard"></div>
-
-            <!-- Add New Sheikh Panel -->
-            <div class="add-sheikh-admin-box">
-                <h3><i class="fas fa-plus-circle"></i> إضافة شيخ جديد للقائمة</h3>
-                <div class="sheikh-add-form">
-                    <div>
-                        <label style="color:#aaa; font-size:0.85rem; display:block; margin-bottom:5px;">اسم الشيخ</label>
-                        <input type="text" id="adminNewSheikhName" placeholder="مثال: الشيخ محمد علي">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <!-- Registration Toggle -->
+                <div
+                    style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
+                    <h3 style="margin-bottom: 20px;"><i class="fas fa-edit"></i> تقديم المتسابقين</h3>
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <span id="regStatusLabel" style="font-weight: bold; color: #aaa;">الحالة الحالية: ...</span>
+                        <button id="regToggleButton" class="btn btn-primary"
+                            onclick="toggleStatus('registrationStatus')">جاري التحميل...</button>
                     </div>
-                    <div>
-                        <label style="color:#aaa; font-size:0.85rem; display:block; margin-bottom:5px;">رقم الهاتف</label>
-                        <input type="tel" id="adminNewSheikhPhone" placeholder="01xxxxxxxxx" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+                    <p style="font-size: 0.85rem; color: #888; margin-top: 15px;">عند الغلق، لن يتمكن المتسابقون من
+                        إرسال طلبات التسجيل وسيظهر لهم تنبيه بأن التقديم مغلق.</p>
+                </div>
+
+                <!-- Nominations Toggle -->
+                <div
+                    style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
+                    <h3 style="margin-bottom: 20px;"><i class="fas fa-heart"></i> ترشيحات الأم/المعلم المثالي</h3>
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <span id="nomStatusLabel" style="font-weight: bold; color: #aaa;">الحالة الحالية: ...</span>
+                        <button id="nomToggleButton" class="btn btn-primary"
+                            onclick="toggleStatus('nominationStatus')">جاري التحميل...</button>
                     </div>
-                    <button onclick="adminAddSheikh()" class="btn btn-primary" style="padding: 12px 25px; white-space: nowrap;">
-                        <i class="fas fa-plus"></i> إضافة
-                    </button>
+                </div>
+
+                <!-- Stories Toggle -->
+                <div
+                    style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
+                    <h3 style="margin-bottom: 20px;"><i class="fas fa-scroll"></i> استمارة قصتي مع القرآن</h3>
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <span id="storyStatusLabel" style="font-weight: bold; color: #aaa;">الحالة الحالية: ...</span>
+                        <button id="storyToggleButton" class="btn btn-primary"
+                            onclick="toggleStatus('storyStatus')">جاري التحميل...</button>
+                    </div>
+                    <p style="font-size: 0.85rem; color: #888; margin-top: 15px;">عند الغلق، سيختفي قسم "قصتي مع القرآن"
+                        من الصفحة الرئيسية.</p>
                 </div>
             </div>
         </div>
-
-        <div id="settingsSection" style="display:none;">
-            <div class="apply-card"
-                style="background: rgba(255,255,255,0.03); padding: 30px; border-radius: 20px; border: 1px solid #d4af37;">
-                <h2 style="color: #d4af37; margin-bottom: 30px;"><i class="fas fa-sliders-h"></i> التحكم في فتح وغلق
-                    التقديم</h2>
-
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-                    <!-- Registration Toggle -->
-                    <div
-                        style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
-                        <h3 style="margin-bottom: 20px;"><i class="fas fa-edit"></i> تقديم المتسابقين</h3>
-                        <div style="display: flex; align-items: center; justify-content: space-between;">
-                            <span id="regStatusLabel" style="font-weight: bold; color: #aaa;">الحالة الحالية: ...</span>
-                            <button id="regToggleButton" class="btn btn-primary"
-                                onclick="toggleStatus('registrationStatus')">جاري التحميل...</button>
-                        </div>
-                        <p style="font-size: 0.85rem; color: #888; margin-top: 15px;">عند الغلق، لن يتمكن المتسابقون من
-                            إرسال طلبات التسجيل وسيظهر لهم تنبيه بأن التقديم مغلق.</p>
-                    </div>
-
-                    <!-- Nominations Toggle -->
-                    <div
-                        style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
-                        <h3 style="margin-bottom: 20px;"><i class="fas fa-heart"></i> ترشيحات الأم/المعلم المثالي</h3>
-                        <div style="display: flex; align-items: center; justify-content: space-between;">
-                            <span id="nomStatusLabel" style="font-weight: bold; color: #aaa;">الحالة الحالية: ...</span>
-                            <button id="nomToggleButton" class="btn btn-primary"
-                                onclick="toggleStatus('nominationStatus')">جاري التحميل...</button>
-                        </div>
-                    </div>
-
-                    <!-- Stories Toggle -->
-                    <div
-                        style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
-                        <h3 style="margin-bottom: 20px;"><i class="fas fa-scroll"></i> استمارة قصتي مع القرآن</h3>
-                        <div style="display: flex; align-items: center; justify-content: space-between;">
-                            <span id="storyStatusLabel" style="font-weight: bold; color: #aaa;">الحالة الحالية: ...</span>
-                            <button id="storyToggleButton" class="btn btn-primary"
-                                onclick="toggleStatus('storyStatus')">جاري التحميل...</button>
-                        </div>
-                        <p style="font-size: 0.85rem; color: #888; margin-top: 15px;">عند الغلق، سيختفي قسم "قصتي مع القرآن" من الصفحة الرئيسية.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    </div>
     </div>
 
 
@@ -901,7 +1137,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
-    
+
     <!-- JSZip and FileSaver for bulk downloading -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
@@ -1063,6 +1299,69 @@ console.log('تم تحميل البيانات الاحتياطية بنجاح.')
         let currentLevelFilter = 'all';
         let currentGenderFilter = 'all';
         let currentAgeGroupFilter = 'all';
+        // Utility for WhatsApp formatting
+        function formatWhatsAppNumber(phone) {
+            if (!phone) return '';
+            const clean = phone.trim().replace(/\D/g, ''); // Remove all non-digits
+            if (clean.startsWith('0')) return '20' + clean.substring(1);
+            if (clean.startsWith('20')) return clean;
+            return '20' + clean;
+        }
+
+        async function copyTodayRegistrations() {
+            const today = new Date();
+            const todayStr = today.toISOString().split('T')[0];
+
+            const todayRegs = allRegistrations.filter(reg => {
+                if (!reg.timestamp) return false;
+                const regDate = reg.timestamp.toDate ? reg.timestamp.toDate() : new Date(reg.timestamp.seconds * 1000);
+                return regDate.toISOString().split('T')[0] === todayStr;
+            });
+
+            if (todayRegs.length === 0) {
+                alert('لا يوجد تسجيلات جديدة لهذا اليوم.');
+                return;
+            }
+
+            // Sort by level then name
+            todayRegs.sort((a, b) => a.level.localeCompare(b.level) || a.studentName.localeCompare(b.studentName));
+
+            let listText = `📅 تسجيلات معتمدة اليوم (${today.toLocaleDateString('ar-EG')}):\n\n`;
+            let currentLevel = "";
+
+            todayRegs.forEach(reg => {
+                if (reg.level !== currentLevel) {
+                    currentLevel = reg.level;
+                    listText += `\n📌 ${currentLevel}:\n`;
+                }
+                listText += `- ${reg.studentName} (${reg.committee || 'غير محدد'})\n`;
+            });
+
+            listText += `\n#مسابقة_حامل_القرآن_بمسير 🌟`;
+
+            try {
+                await navigator.clipboard.writeText(listText);
+                alert('✅ تم نسخ قائمة الأسماء بنجاح!');
+            } catch (err) {
+                console.error('Failed to copy list: ', err);
+                alert('حدث خطأ أثناء النسخ. يرجى محاولة النسخ يدوياً.');
+            }
+        }
+
+        async function copyTodayStats() {
+            const today = new Date().toLocaleDateString('ar-EG');
+            const stats = `📊 إحصائيات اليوم (${today}):\n` +
+                `- إجمالي المسجلين: ${allRegistrations.length}\n` +
+                `- المستوى الأول: ${document.getElementById('level1Count').innerText}\n` +
+                `- المستوى الثاني: ${document.getElementById('level2Count').innerText}\n` +
+                `- المستوى الثالث: ${document.getElementById('level3Count').innerText}\n` +
+                `- المستوى الرابع: ${document.getElementById('level4Count').innerText}\n` +
+                `\nمسابقة حامل القرآن بمسير 🏆`;
+
+            await navigator.clipboard.writeText(stats);
+            alert('✅ تم نسخ الإحصائيات!');
+        }
+
         let allRegistrations = [];
 
         function setLevelFilter(val) {
@@ -1290,6 +1589,9 @@ console.log('تم تحميل البيانات الاحتياطية بنجاح.')
                     document.getElementById('level5Count').textContent = stats.l5;
 
                     renderRegistrations();
+                    if (document.getElementById('sheikhsSection').style.display === 'block') {
+                        if (typeof renderSheikhsBoard === 'function') renderSheikhsBoard();
+                    }
                 });
 
                 db.collection('blockedStudents').onSnapshot((snapshot) => {
@@ -1377,8 +1679,8 @@ console.log('تم تحميل البيانات الاحتياطية بنجاح.')
                 for (let i = 0; i < 24; i++) {
                     const h = (now.getHours() - (23 - i) + 24) % 24;
                     const count = hourlyCounts[h] || 0;
-                    const hLabel = h > 12 ? (h-12) + ' م' : (h === 0 ? '12 ص' : h + ' ص');
-                    
+                    const hLabel = h > 12 ? (h - 12) + ' م' : (h === 0 ? '12 ص' : h + ' ص');
+
                     grid.innerHTML += `
                         <div style="background: rgba(52, 152, 219, ${count > 0 ? '0.2' : '0.05'}); border: 1px solid ${count > 0 ? '#3498db' : 'rgba(255,255,255,0.05)'}; padding: 10px; border-radius: 12px;">
                             <div style="font-size: 0.75rem; color: #aaa;">${hLabel}</div>
@@ -1437,20 +1739,20 @@ console.log('تم تحميل البيانات الاحتياطية بنجاح.')
 
             img.src = qrUrl;
             studentNameEl.textContent = name;
-            
+
             downloadBtn.onclick = () => {
                 fetch(qrUrl)
-                  .then(response => response.blob())
-                  .then(blob => {
-                    const url = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `QR_${name.replace(/\s+/g, '_')}.png`;
-                    document.body.appendChild(a);
-                    a.click();
-                    window.URL.revokeObjectURL(url);
-                    document.body.removeChild(a);
-                  });
+                    .then(response => response.blob())
+                    .then(blob => {
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `QR_${name.replace(/\s+/g, '_')}.png`;
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                        document.body.removeChild(a);
+                    });
             };
 
             modal.style.display = 'flex';
@@ -1461,7 +1763,7 @@ console.log('تم تحميل البيانات الاحتياطية بنجاح.')
         }
 
         // --- Edit Registration Logic ---
-        
+
         function openEditModal(e, id) {
             if (e) e.stopPropagation();
             const data = allRegistrations.find(r => r.id === id);
@@ -1514,7 +1816,7 @@ console.log('تم تحميل البيانات الاحتياطية بنجاح.')
             const id = document.getElementById('editStudentId').value;
             const saveBtn = document.getElementById('saveEditBtn');
             const originalBtnText = saveBtn.innerHTML;
-            
+
             saveBtn.disabled = true;
             saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ والتعديل...';
 
@@ -1579,7 +1881,7 @@ console.log('تم تحميل البيانات الاحتياطية بنجاح.')
                     if (currentAgeGroupFilter === 'junior') ageMatch = isJunior;
                     if (currentAgeGroupFilter === 'senior') ageMatch = isSenior;
                 }
-                
+
                 return levelMatch && genderMatch && sheikhMatch && nameMatch && ageMatch;
             });
 
@@ -1627,7 +1929,7 @@ console.log('تم تحميل البيانات الاحتياطية بنجاح.')
                                     <button onclick="deleteRegistration('${data.id}')" class="btn-view btn-delete" title="حذف"><i class="fas fa-trash"></i></button>
                                     <button onclick="openEditModal(event, '${data.id}')" class="btn-view" style="background: #2980b9; color: #fff; border: none;" title="تعديل البيانات"><i class="fas fa-edit"></i></button>
                                     <button onclick="showQRCode('${data.id}', '${data.studentName}')" class="btn-view" style="background: #000; color: #d4af37; border: 1px solid #d4af37;" title="كود المتسابق (QR)"><i class="fas fa-qrcode"></i></button>
-                                    <a href="#" onclick="openWhatsApp(event, '${data.phone1}', '${data.studentName}', '${data.seatNumber || ''}', '${data.committee || ''}', '${data.level}')" class="btn-view" style="background: #d4af37; color: #000;" title="واتساب الطالب"><i class="fab fa-whatsapp"></i></a>
+                                    <a href="#" onclick="openWhatsApp(event, '${data.phone1}', '${data.studentName}', '${data.seatNumber || ''}', '${data.committee || ''}', '${data.level}')" class="btn-view" style="background: #25D366; color: #fff;" title="واتساب الطالب"><i class="fab fa-whatsapp"></i></a>
                                     <a href="#" onclick="openWhatsApp(event, '${data.phone2}', '${data.studentName}', '${data.seatNumber || ''}', '${data.committee || ''}', '${data.level}')" class="btn-view" style="background: #25D366; color: #fff;" title="واتساب ولي الأمر"><i class="fab fa-whatsapp"></i></a>
                                 </div>
                             </td>
@@ -1639,16 +1941,16 @@ console.log('تم تحميل البيانات الاحتياطية بنجاح.')
         }
 
         // --- Admin Logic ---
-        
+
         function openWhatsApp(e, phone, name, seat, committee, level) {
             e.stopPropagation(); // Prevent opening the details modal
             if (!phone) {
                 alert('لا يوجد رقم هاتف مسجل.');
                 return;
             }
-            const formatPhone = (p) => p ? (p.trim().startsWith('0') ? '2' + p.trim() : p.trim()) : '';
+            const cleanPhone = formatWhatsAppNumber(phone);
             const waMsg = encodeURIComponent(`السلام عليكم ورحمة الله وبركاته\nعزيزي المتسابق: ${name}\nرقم جلوسك: ${seat || 'غير محدد'}\nاللجنة: ${committee || 'غير محدد'}\nالمستوى: ${level}\n\nيرجى المتابعة لتحديد موعد الاختبارات على الصفحة الرسمية على فيسبوك (مسابقة حامل القرآن).`);
-            window.open(`https://wa.me/${formatPhone(phone)}?text=${waMsg}`, '_blank');
+            window.open(`https://wa.me/${cleanPhone}?text=${waMsg}`, '_blank');
         }
 
         function showStudentDetails(id) {
@@ -1680,18 +1982,17 @@ console.log('تم تحميل البيانات الاحتياطية بنجاح.')
                     </a>
                 </div>` : '<span style="color:#666">❌ لم يتم الرفع</span>';
 
-            const formatPhone = (phone) => phone ? (phone.trim().startsWith('0') ? '2' + phone.trim() : phone.trim()) : '';
             content.innerHTML = `
                 <div><strong style="color: #d4af37;">الاسم:</strong><br>${data.studentName}</div>
                 <div><strong style="color: #d4af37;">الرقم القومي:</strong><br>${data.nationalID || '-'}</div>
-                <div><strong style="color: #d4af37;">السن:</strong><br>${data.formattedAge || (data.ageYears ? data.ageYears + ' سنة' : '-')}</div>
-                <div><strong style="color: #d4af37;">رقم الجلوس:</strong><br>${data.seatNumber || '-'}</div>
+                <div><strong style="color: #d4af37;">المستوى:</strong><br>${data.level || '-'}</div>
                 <div><strong style="color: #d4af37;">اللجنة:</strong><br>${data.committee || '-'}</div>
+                <div><strong style="color: #d4af37;">رقم الجلوس:</strong><br>${data.seatNumber || '-'}</div>
+                <div><strong style="color: #d4af37;">الطالب:</strong><br>${data.phone1} <a href="https://wa.me/${formatWhatsAppNumber(data.phone1)}" target="_blank" style="color:#25D366"><i class="fab fa-whatsapp"></i></a></div>
+                <div><strong style="color: #d4af37;">ولي الأمر:</strong><br>${data.phone2} <a href="https://wa.me/${formatWhatsAppNumber(data.phone2)}" target="_blank" style="color:#25D366"><i class="fab fa-whatsapp"></i></a></div>
                 <div><strong style="color: #d4af37;">النوع:</strong><br>${data.gender || '-'}</div>
-                <div><strong style="color: #d4af37;">المستوى:</strong><br>${data.level}</div>
-                <div><strong style="color: #d4af37;">هاتف المتسابق:</strong><br>${data.phone1}</div>
-                <div><strong style="color: #d4af37;">هاتف ولي الأمر:</strong><br>${data.phone2}</div>
-                <div><strong style="color: #d4af37;">هاتف الشيخ:</strong><br>${data.sheikhPhone}</div>
+                <div><strong style="color: #d4af37;">العمر:</strong><br>${data.ageYears || 0} سنة و ${data.ageMonths || 0} شهر</div>
+                <div><strong style="color: #d4af37;">الشيخ:</strong><br>${data.sheikhName || '-'}</div>
                 <div style="grid-column: span 2;"><strong style="color: #d4af37;">العنوان:</strong><br>${data.address}</div>
                 <div style="border-top: 1px solid #333; padding-top: 15px;">
                     <label style="color:#d4af37; font-size:0.8rem; display:block; margin-bottom:5px;">شهادة الميلاد:</label>
@@ -1762,7 +2063,10 @@ console.log('تم تحميل البيانات الاحتياطية بنجاح.')
                             <td style="max-width:300px;">${data.message}</td>
                             <td>${date}</td>
                             <td>
-                                <button onclick="deleteMessage('${data.id}')" class="btn-view btn-delete"><i class="fas fa-trash"></i></button>
+                                <div style="display: flex; gap: 5px;">
+                                    <button onclick="deleteMessage('${data.id}')" class="btn-view btn-delete"><i class="fas fa-trash"></i></button>
+                                    <a href="https://wa.me/${formatWhatsAppNumber(data.phone)}" target="_blank" class="btn-view" style="background:#25D366; color:#fff;" title="رد واتساب"><i class="fab fa-whatsapp"></i></a>
+                                </div>
                             </td>
                         </tr>
                 `;
@@ -1799,7 +2103,7 @@ console.log('تم تحميل البيانات الاحتياطية بنجاح.')
                     feedback.forEach(data => {
                         const date = data.timestamp ? data.timestamp.toDate().toLocaleString('ar-EG') : 'قيد المعالجة';
                         const typeClass = data.commentType === 'إيجابي' ? 'color: #28a745;' : (data.commentType === 'سلبي' ? 'color: #ff4d4d;' : 'color: #d4af37;');
-                        
+
                         const replyHtml = data.adminReply ? `
                             <div style="font-size: 0.8rem; color: #3498db; background: rgba(52, 152, 219, 0.1); padding: 5px 8px; border-radius: 5px; margin-top: 5px; border-right: 2px solid #3498db;">
                                 <strong>رد الإدارة:</strong> ${data.adminReply}
@@ -1854,7 +2158,7 @@ console.log('تم تحميل البيانات الاحتياطية بنجاح.')
                 alert('رقم الهاتف غير متاح لهذا المشارك.');
                 return;
             }
-            const cleanPhone = phone.replace(/^0/, '20'); // Ensure it starts with country code for Egypt
+            const cleanPhone = formatWhatsAppNumber(phone);
             const message = encodeURIComponent(`السلام عليكم، أ/ ${name || 'فاعل خير'}.\nنشكركم على رأيكم في مسابقة حامل القرآن.\nلقد تم الرد على رأيكم ومقترحاتكم الآن.\n\nيمكنكم عرض الرد مباشرة من هنا:\nhttps://hamelalquran.com/response.html?id=${id}\n\nشكراً لثقتكم بنا 🌟`);
             window.open(`https://wa.me/${cleanPhone}?text=${message}`, '_blank');
         }
@@ -1926,7 +2230,7 @@ console.log('تم تحميل البيانات الاحتياطية بنجاح.')
                             <td><span style="font-size: 0.8rem; color: #888;">${date}</span></td>
                             <td>
                                 <div style="display: flex; gap: 5px;">
-                                    <a href="https://wa.me/${data.phone.replace(/^0/, '20')}" target="_blank" class="btn-view" style="background: #25D366; color: white;" title="تواصل عبر واتساب"><i class="fab fa-whatsapp"></i></a>
+                                    <a href="https://wa.me/${formatWhatsAppNumber(data.phone)}" target="_blank" class="btn-view" style="background: #25D366; color: white;" title="تواصل عبر واتساب"><i class="fab fa-whatsapp"></i></a>
                                     <button onclick="deleteStory('${data.id}')" class="btn-view btn-delete" title="حذف"><i class="fas fa-trash"></i></button>
                                 </div>
                             </td>
@@ -2221,7 +2525,7 @@ console.log('تم تحميل البيانات الاحتياطية بنجاح.')
         async function downloadImagesZip() {
             const btn = document.getElementById('zipDownloadBtn');
             const originalText = btn.innerHTML;
-            
+
             let filtered = allRegistrations.filter(reg => {
                 const levelMatch = (currentLevelFilter === 'all' || reg.level === currentLevelFilter);
                 const genderMatch = (currentGenderFilter === 'all' || reg.gender === currentGenderFilter);
@@ -2272,7 +2576,7 @@ console.log('تم تحميل البيانات الاحتياطية بنجاح.')
             }
 
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري ضغط الملف...';
-            zip.generateAsync({ type: "blob" }).then(function(content) {
+            zip.generateAsync({ type: "blob" }).then(function (content) {
                 saveAs(content, "ملفات_طلبات_حامل_القرآن.zip");
                 btn.innerHTML = originalText;
                 btn.disabled = false;
@@ -2304,30 +2608,20 @@ console.log('تم تحميل البيانات الاحتياطية بنجاح.')
             try {
                 // Get sheikhs from Firebase
                 sheikhsBoardUnsubscribe = db.collection('sheikhs').onSnapshot(async (sheikhsSnap) => {
-                    // Count students per sheikh by looking at registrations
-                    const sheikhCountMap = {};
-                    allRegistrations.forEach(reg => {
-                        if (reg.sheikhName) {
-                            const key = reg.sheikhName.trim();
-                            sheikhCountMap[key] = (sheikhCountMap[key] || 0) + 1;
-                        }
-                    });
-
                     allSheikhsData = [];
                     sheikhsSnap.forEach(doc => {
                         const data = doc.data();
-                        const count = sheikhCountMap[data.name] || 0;
-                        allSheikhsData.push({ id: doc.id, name: data.name, phone: data.phone, count });
+                        allSheikhsData.push({ id: doc.id, name: data.name, phone: data.phone, count: 0 });
                     });
 
-                    // Sort by count descending
-                    allSheikhsData.sort((a, b) => b.count - a.count);
-
                     renderSheikhsBoard();
+                }, err => {
+                    console.error('Sheikh snap error:', err);
+                    podium.innerHTML = '<p style="color:#ff4d4d;">خطأ في جلب بيانات المشايخ.</p>';
                 });
             } catch (err) {
                 console.error('Sheikh board error:', err);
-                leaderboard.innerHTML = '<p style="color:#ff4d4d; text-align:center;">حدث خطأ أثناء تحميل البيانات.</p>';
+                podium.innerHTML = '<p style="color:#ff4d4d; text-align:center;">حدث خطأ أثناء تحميل البيانات.</p>';
             }
         }
 
@@ -2335,6 +2629,24 @@ console.log('تم تحميل البيانات الاحتياطية بنجاح.')
             const podium = document.getElementById('sheikhsPodium');
             const leaderboard = document.getElementById('sheikhsLeaderboard');
             if (!podium || !leaderboard) return;
+
+            // Update counts from allRegistrations which is always live
+            const sheikhCountMap = {};
+            if (allRegistrations) {
+                allRegistrations.forEach(reg => {
+                    if (reg.sheikhName) {
+                        const key = reg.sheikhName.trim();
+                        sheikhCountMap[key] = (sheikhCountMap[key] || 0) + 1;
+                    }
+                });
+            }
+
+            allSheikhsData.forEach(s => {
+                s.count = sheikhCountMap[s.name?.trim()] || 0;
+            });
+
+            // Sort by count descending
+            allSheikhsData.sort((a, b) => b.count - a.count);
 
             const maxCount = allSheikhsData[0]?.count || 1;
 
@@ -2367,7 +2679,7 @@ console.log('تم تحميل البيانات الاحتياطية بنجاح.')
                 const rank = i + 1;
                 const rankClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : '';
                 const badgeClass = rank === 1 ? 'r1' : rank === 2 ? 'r2' : rank === 3 ? 'r3' : 'rn';
-                const badgeContent = rank <= 3 ? ['🥇','🥈','🥉'][rank-1] : rank;
+                const badgeContent = rank <= 3 ? ['🥇', '🥈', '🥉'][rank - 1] : rank;
                 const progressPct = maxCount > 0 ? Math.round((sheikh.count / maxCount) * 100) : 0;
 
                 return `
@@ -2391,9 +2703,12 @@ console.log('تم تحميل البيانات الاحتياطية بنجاح.')
                             <span class="count-label">طالب</span>
                         </div>
                         <div class="sheikh-actions-admin" onclick="event.stopPropagation()">
-                            <a href="https://wa.me/${sheikh.phone.replace(/^0/, '2')}" target="_blank" class="btn-view" style="background:#25D366; color:#fff; padding:8px 12px; border-radius:8px;" title="واتساب">
+                            <a href="https://wa.me/${formatWhatsAppNumber(sheikh.phone)}" target="_blank" class="btn-view" style="background:#25D366; color:#fff; padding:8px 12px; border-radius:8px;" title="واتساب">
                                 <i class="fab fa-whatsapp"></i>
                             </a>
+                            <button onclick="sendSheikhStudentList(event, '${sheikh.name}', '${sheikh.phone}')" class="btn-view" style="background: #9b59b6; color: #fff; padding: 8px 12px; border-radius: 8px; border: none; cursor: pointer;" title="إرسال كشف الطلاب للشيخ">
+                                <i class="fas fa-file-invoice"></i>
+                            </button>
                             <button onclick="adminEditSheikh('${sheikh.id}', '${sheikh.name}', '${sheikh.phone}')" class="btn-view" style="background:#f39c12; color:#fff; padding:8px 12px; border-radius:8px; border:none; cursor:pointer;" title="تعديل">
                                 <i class="fas fa-edit"></i>
                             </button>
@@ -2404,7 +2719,7 @@ console.log('تم تحميل البيانات الاحتياطية بنجاح.')
                     </div>
                 `;
             }).join('');
-            
+
             // Re-render podium items to be clickable too
             podium.innerHTML = top3.map((s, i) => `
                 <div class="podium-card ${podiumClasses[i]}" onclick="filterBySheikh('${s.name}')" style="cursor:pointer;">
@@ -2413,8 +2728,59 @@ console.log('تم تحميل البيانات الاحتياطية بنجاح.')
                     <div class="podium-count">${s.count}</div>
                     <div class="podium-label">طالب مسجل</div>
                     <div style="font-size:0.8rem; color:#666; margin-top:8px; direction:ltr;">${s.phone}</div>
+                    <button onclick="sendSheikhStudentList(event, '${s.name}', '${s.phone}')" class="btn-view" style="background: #9b59b6; color: #fff; padding: 8px 12px; border-radius: 8px; border: none; cursor: pointer; margin-top: 10px; width: 100%;" title="إرسال كشف الطلاب">
+                        <i class="fas fa-file-invoice"></i> إرسال كشف الطلاب
+                    </button>
                 </div>
             `).join('');
+        }
+
+        async function sendSheikhStudentList(e, sheikhName, sheikhPhone) {
+            if (e) e.stopPropagation();
+
+            if (!allRegistrations || allRegistrations.length === 0) {
+                alert('لا توجد بيانات طلاب حالياً.');
+                return;
+            }
+
+            const sheikhStudents = allRegistrations.filter(reg =>
+                reg.sheikhName && reg.sheikhName.trim().toLowerCase() === sheikhName.trim().toLowerCase()
+            );
+
+            if (sheikhStudents.length === 0) {
+                alert('لا يوجد طلاب مسجلين باسم هذا الشيخ.');
+                return;
+            }
+
+            // Sort by level then name
+            sheikhStudents.sort((a, b) => a.level.localeCompare(b.level) || a.studentName.localeCompare(b.studentName));
+
+            let message = `السلام عليكم ورحمة الله وبركاته\n`;
+            message += `باسم فضيلة الشيخ/ *${sheikhName}*\n\n`;
+            message += `تحية طيبة وبعد، نحيط فضيلتكم علماً بأن هؤلاء الطلاب قد قاموا بالتسجيل في *مسابقة حامل القرآن بمسير* تحت إشرافكم، وعددهم (*${sheikhStudents.length}*) طلاب:\n\n`;
+
+            const levelMapping = {
+                'المستوى الأول (القرآن كاملاً)': 'القرآن كاملاً 🏆',
+                'المستوى الثاني (ثلاثة أرباع القرآن)': 'ثلاثة أرباع القرآن 📖',
+                'المستوى الثالث (نصف القرآن)': 'نصف القرآن 🕯️',
+                'المستوى الرابع (ربع القرآن)': 'ربع القرآن 🌱'
+            };
+
+            let currentLevel = "";
+            sheikhStudents.forEach((st, idx) => {
+                if (st.level !== currentLevel) {
+                    currentLevel = st.level;
+                    const displayLevel = levelMapping[currentLevel] || currentLevel;
+                    message += `\n📌 *${displayLevel}*:\n`;
+                }
+                message += `${idx + 1}. ${st.studentName}\n`;
+            });
+
+            message += `\nمع تمنياتنا لجميع الطلاب بالتوفيق والنجاح 🌟`;
+
+            const cleanPhone = formatWhatsAppNumber(sheikhPhone);
+            const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
         }
 
         let currentSheikhFilter = null;
@@ -2499,20 +2865,27 @@ console.log('تم تحميل البيانات الاحتياطية بنجاح.')
 
     <!-- Reply Modal -->
     <div id="replyModal" class="img-preview-modal" style="display: none;">
-        <div class="login-card" style="max-width: 500px; text-align: right; background: #111; border: 2px solid #3498db; padding: 25px; border-radius: 20px; position: relative;">
-            <span onclick="closeReplyModal()" style="position: absolute; top: 15px; left: 15px; cursor: pointer; color: #fff; font-size: 1.5rem; background: rgba(255,255,255,0.1); width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">&times;</span>
+        <div class="login-card"
+            style="max-width: 500px; text-align: right; background: #111; border: 2px solid #3498db; padding: 25px; border-radius: 20px; position: relative;">
+            <span onclick="closeReplyModal()"
+                style="position: absolute; top: 15px; left: 15px; cursor: pointer; color: #fff; font-size: 1.5rem; background: rgba(255,255,255,0.1); width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">&times;</span>
             <h3 style="color: #3498db; margin-bottom: 20px;"><i class="fas fa-reply"></i> الرد على الرأي</h3>
-            <div id="replyToInfo" style="margin-bottom: 15px; font-size: 0.9rem; color: #aaa; border-bottom: 1px dashed #333; padding-bottom: 10px;">
+            <div id="replyToInfo"
+                style="margin-bottom: 15px; font-size: 0.9rem; color: #aaa; border-bottom: 1px dashed #333; padding-bottom: 10px;">
                 <!-- Info about who we are replying to -->
             </div>
-            <textarea id="adminReplyText" placeholder="اكتب ردك هنا..." style="width: 100%; min-height: 120px; padding: 15px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid #333; color: #fff; font-family: 'Cairo', sans-serif; margin-bottom: 20px; outline: none;"></textarea>
+            <textarea id="adminReplyText" placeholder="اكتب ردك هنا..."
+                style="width: 100%; min-height: 120px; padding: 15px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid #333; color: #fff; font-family: 'Cairo', sans-serif; margin-bottom: 20px; outline: none;"></textarea>
             <div style="display: flex; gap: 10px;">
-                <button id="saveReplyBtn" onclick="saveAdminReply()" class="btn btn-primary" style="flex: 1; background: #3498db; border: none; font-weight: bold;">حفظ الرد</button>
-                <button onclick="closeReplyModal()" class="btn btn-secondary" style="flex: 1; border-color: #333; color: #888;">إلغاء</button>
+                <button id="saveReplyBtn" onclick="saveAdminReply()" class="btn btn-primary"
+                    style="flex: 1; background: #3498db; border: none; font-weight: bold;">حفظ الرد</button>
+                <button onclick="closeReplyModal()" class="btn btn-secondary"
+                    style="flex: 1; border-color: #333; color: #888;">إلغاء</button>
             </div>
         </div>
     </div>
 </body>
+
 </html>
 
 </html>

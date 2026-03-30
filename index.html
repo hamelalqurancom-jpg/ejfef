@@ -87,7 +87,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Animation Lib -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2.0">
     <style>
     </style>
     <!-- Preload Hero Image -->
@@ -135,10 +135,11 @@
                     style="display: none; background: #1b5e20; color: #fff; border: 1px solid #d4af37; font-weight: 700; padding: 8px 15px; border-radius: 50px;">
                     <i class="fas fa-download"></i> تثبيت التطبيق
                 </button>
-                <a href="#apply" class="btn btn-apply-header"
-                    style="background: #d4af37; border: 1px solid #d4af37; color: #000; font-weight: 700; padding: 10px 20px;">
+                <button class="btn btn-apply-header btn-open-instructions"
+                    onclick="window.showRegistrationInstructions ? window.showRegistrationInstructions() : void(0)"
+                    style="background: #d4af37; border: 1px solid #d4af37; color: #000; font-weight: 700; padding: 10px 20px; font-family: 'Cairo', sans-serif; cursor: pointer;">
                     قدم الآن
-                </a>
+                </button>
             </div>
 
             <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="فتح القائمة">
@@ -168,11 +169,11 @@
                     <i class="fas fa-mobile-screen-button"></i> تثبيت تطبيق المسابقة
                 </a>
 
-                <a href="#apply" class="btn btn-primary mobile-apply-btn" style="background: #d4af37; color: #000;">قدم الآن</a>
+                <button class="btn btn-primary mobile-apply-btn btn-open-instructions" onclick="window.showRegistrationInstructions ? window.showRegistrationInstructions() : void(0)" style="background: #d4af37; color: #000; font-family: 'Cairo', sans-serif; cursor: pointer; border: none;">قدم الآن</button>
                 <a href="#quranStories" class="btn btn-secondary mobile-link"
                     style="margin-top: 10px; border-color: #d4af37; color: #d4af37;"><i class="fas fa-book-open"></i>
                     حكايتي مع القرآن</a>
-                <a href="#apply" class="btn btn-secondary mobile-link">سجل الآن في المسابقة</a>
+                <button class="btn btn-secondary mobile-link btn-open-instructions" onclick="window.showRegistrationInstructions ? window.showRegistrationInstructions() : void(0)" style="background: transparent; border: none; text-align: right; font-family: 'Cairo', sans-serif; cursor: pointer; padding: 10px 0; color: #fff;">سجل الآن في المسابقة</button>
             </div>
         </div>
     </header>
@@ -188,7 +189,7 @@
                     style="background: linear-gradient(135deg, #1e5631, #2d5a27); border-color: #d4af37;">
                     <i class="fas fa-heart"></i> قصتي مع القرآن
                 </a>
-                <a href="#apply" class="btn btn-secondary">سجل الآن في المسابقة</a>
+                <button class="btn btn-secondary btn-open-instructions" onclick="window.showRegistrationInstructions ? window.showRegistrationInstructions() : void(0)" style="border: 2px solid #D4AF37; background: transparent; color: #D4AF37; font-family: 'Cairo', sans-serif; cursor: pointer;">سجل الآن في المسابقة</button>
                 <a href="#nominationForm" class="btn btn-nominate-hero">
                     <i class="fas fa-heart"></i> رشح الآن الأم المثالية
                 </a>
@@ -962,21 +963,21 @@
                             </div>
 
                             <div class="input-group">
-                                <label for="phone1"><i class="fas fa-mobile-alt"></i> رقم هاتف المتسابق (واتساب)</label>
+                                <label for="phone1"><i class="fas fa-mobile-alt"></i> رقم هاتف المتسابق (واتساب) <span style="color:var(--primary-gold); font-size: 0.8rem;">[رقم أول]</span></label>
                                 <input type="tel" id="phone1" name="phone1" placeholder="01xxxxxxxxx" minlength="11"
                                     pattern="[0-9]{11,}" title="يرجى إدخال 11 رقم" required>
                             </div>
 
                             <div class="input-group">
-                                <label for="phone2"><i class="fas fa-phone-alt"></i> رقم هاتف ولي الأمر</label>
+                                <label for="phone2"><i class="fas fa-phone-alt"></i> رقم هاتف ولي الأمر <span style="color:var(--primary-gold); font-size: 0.8rem;">[رقم ثانٍ - مختلف]</span></label>
                                 <input type="tel" id="phone2" name="phone2" placeholder="01xxxxxxxxx" minlength="11"
                                     pattern="[0-9]{11,}" title="يرجى إدخال 11 رقم على الأقل" required>
                             </div>
 
                             <div class="input-group">
-                                <label for="phone3"><i class="fas fa-phone-alt"></i> رقم هاتف آخر</label>
+                                <label for="phone3"><i class="fas fa-phone-alt"></i> رقم هاتف آخر <span style="color:var(--primary-gold); font-size: 0.8rem;">[رقم ثالث - مختلف]</span></label>
                                 <input type="tel" id="phone3" name="phone3" placeholder="01xxxxxxxxx" minlength="11"
-                                    pattern="[0-9]{11,}" title="يرجى إدخال 11 رقم على الأقل">
+                                    pattern="[0-9]{11,}" title="يرجى إدخال 11 رقم على الأقل" required>
                             </div>
 
                             <div class="input-group">
@@ -1009,9 +1010,15 @@
                             <!-- Sheikh Phone (auto-filled, read-only display) -->
                             <div class="input-group" id="sheikhPhoneDisplay" style="display:none;">
                                 <label><i class="fas fa-mobile-alt"></i> رقم هاتف الشيخ (تلقائي)</label>
-                                <div id="sheikhPhoneValue"
-                                    style="padding: 15px 20px; border-radius: 12px; background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.4); color: #d4af37; font-weight: bold; font-size: 1rem; direction: ltr; text-align: left; font-family: monospace;">
-                                    ---</div>
+                                <div style="display: flex; gap: 10px; align-items: center;">
+                                    <div id="sheikhPhoneValue"
+                                        style="flex: 1; padding: 15px 20px; border-radius: 12px; background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.4); color: #d4af37; font-weight: bold; font-size: 1rem; direction: ltr; text-align: left; font-family: monospace;">
+                                        ---</div>
+                                    <a id="sheikhWhatsAppLink" href="#" target="_blank" 
+                                       style="background: #25D366; color: white; width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; text-decoration: none; transition: 0.3s; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </a>
+                                </div>
                             </div>
 
                             <!-- Add New Sheikh Section (shown when 'add_new' selected) -->
@@ -1287,8 +1294,22 @@
                     </p>
                 </div>
 
+                <!-- WhatsApp Group Section (Moved UP and Made Entirely Clickable) -->
+                <a href="https://chat.whatsapp.com/BJOuKNlHWDL2SIHr3GzFsn" target="_blank" id="whatsappGroupSection" style="display: none; text-decoration: none; margin-top: 20px; padding: 20px; border-radius: 15px; background: rgba(37, 211, 102, 0.1); border: 2px solid #25D366; animation: pulse-green 2s infinite; text-align: center; cursor: pointer;">
+                    <i class="fab fa-whatsapp" style="font-size: 3rem; color: #25D366; margin-bottom: 15px; display: block;"></i>
+                    <h3 style="color: #fff; margin-bottom: 10px; font-size: 1.4rem;">خطوة أخيرة هامة جداً!</h3>
+                    <p style="color: #fff; font-weight: bold; font-size: 1.15rem; line-height: 1.6; margin-bottom: 15px; padding: 0 10px;">
+                        انضم لجروب الواتساب الخاص بالمسابقة..<br>
+                        <span style="color: #25D366;">"هذا شرط أساسي من شروط التقديم لتصلك المواعيد"</span>
+                    </p>
+                    <div class="btn-whatsapp" 
+                       style="background: #25D366; color: #fff; width: 100%; font-weight: 900; font-size: 1.2rem; padding: 12px; border-radius: 50px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);">
+                        انضم للجروب الآن <i class="fas fa-external-link-alt"></i>
+                    </div>
+                </a>
+
                 <div id="studentQRCodeContainer"
-                    style="margin-top: 10px; background: #fff; padding: 10px; border-radius: 15px; display: none; box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); border: 2px solid var(--primary-gold); width: fit-content; margin-inline: auto;">
+                    style="margin-top: 20px; background: #fff; padding: 10px; border-radius: 15px; display: none; box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); border: 2px solid var(--primary-gold); width: fit-content; margin-inline: auto;">
                     <img id="studentQRCode" src="" alt="QR Code" style="width: 120px; height: 120px; display: block;">
                 </div>
                 <div id="qrMessage"
@@ -1300,20 +1321,6 @@
                 <button id="showQRBtn" onclick="toggleQRCode()" class="btn btn-secondary" style="margin-bottom: 20px; width: 100%; border-color: #d4af37; color: #d4af37;">
                    <i class="fas fa-qrcode"></i> عرض الباركود الخاص بك
                 </button>
-
-                <!-- WhatsApp Group Section -->
-                <div id="whatsappGroupSection" style="display: none; margin-top: 20px; padding: 20px; border-radius: 15px; background: rgba(37, 211, 102, 0.1); border: 2px solid #25D366; animation: pulse-green 2s infinite;">
-                    <i class="fab fa-whatsapp" style="font-size: 3rem; color: #25D366; margin-bottom: 10px;"></i>
-                    <h3 style="color: #fff; margin-bottom: 10px;">خطوة أخيرة هامة جداً!</h3>
-                    <p style="color: #fff; font-weight: bold; font-size: 1.1rem; line-height: 1.6; margin-bottom: 15px;">
-                        انضم لجروب الواتساب الخاص بالمسابقة..<br>
-                        <span style="color: #25D366;">"هذا شرط أساسي من شروط التقديم لتصلك المواعيد"</span>
-                    </p>
-                    <a href="https://chat.whatsapp.com/BJOuKNlHWDL2SIHr3GzFsn" target="_blank" class="btn btn-whatsapp" 
-                       style="background: #25D366; color: #fff; width: 100%; font-weight: 900; font-size: 1.2rem; padding: 15px; border-radius: 50px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);">
-                        انضم للجروب الآن <i class="fas fa-external-link-alt"></i>
-                    </a>
-                </div>
             </div>
             <button id="closeSeatModalBtn" onclick="window.closeSeatModal()" class="btn btn-primary" style="width: 100%; display: none; margin-top: 15px;">حسناً، تسجيل متسابق آخر</button>
         </div>
@@ -1335,6 +1342,79 @@
                 <button onclick="closeBlockedModal()" class="btn btn-secondary"
                     style="background: rgba(255, 77, 77, 0.1); color: #ff4d4d; border: 1px solid #ff4d4d; padding: 12px 35px; border-radius: 12px; font-weight: bold; cursor: pointer;">حسناً،
                     فهمت</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registration Instructions Modal (Pre-form) -->
+    <div id="instructionsModal" class="seat-modal" style="display: none; z-index: 5000;">
+        <div class="seat-modal-content" data-aos="zoom-in" style="max-width: 650px; border-width: 3px; max-height: 90vh; overflow-y: auto;">
+            <div class="seat-modal-header" style="background: rgba(212, 175, 55, 0.05); padding-bottom: 20px; border-bottom: 1px solid rgba(212, 175, 55, 0.2);">
+                <i class="fas fa-scroll" style="color: var(--primary-gold); font-size: 3.5rem; margin-bottom: 15px;"></i>
+                <h2 style="color: #fff; font-family: 'Amiri', serif; font-size: 2.2rem;">طريقة التقديم الصحيحة</h2>
+                <div class="decorative-line" style="background: var(--primary-gold); width: 150px; margin: 10px auto;"></div>
+            </div>
+            
+            <div class="seat-info-body" style="text-align: right; padding: 25px 15px;">
+                <div style="background: rgba(255, 77, 77, 0.1); border: 1px solid #ff4d4d; color: #ff4d4d; padding: 15px; border-radius: 15px; margin-bottom: 25px; text-align: center; font-weight: bold;">
+                    <i class="fas fa-exclamation-triangle"></i> تنبيه هام: هذا النظام دقيق جداً، وأي بيانات خاطئة قد تؤدي لاستبعاد المتسابق ومنعه من التسجيل مرة أخرى.
+                </div>
+
+                <div class="instruction-steps" style="display: flex; flex-direction: column; gap: 20px;">
+                    <div style="display: flex; gap: 15px; align-items: flex-start;">
+                        <span style="background: var(--primary-gold); color: #000; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; flex-shrink: 0; margin-top: 5px;">١</span>
+                        <div>
+                            <h3 style="color: var(--primary-gold); margin-bottom: 5px; font-size: 1.2rem;">الاسم الرباعي</h3>
+                            <p style="color: #eee; font-size: 1rem;">يرجى إدخال اسم المتسابق رباعياً (كما هو مدون في شهادة الميلاد) لضمان صحة الشهادات والنتائج.</p>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; align-items: flex-start;">
+                        <span style="background: var(--primary-gold); color: #000; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; flex-shrink: 0; margin-top: 5px;">٢</span>
+                        <div>
+                            <h3 style="color: var(--primary-gold); margin-bottom: 5px; font-size: 1.2rem;">الرقم القومي (للطالب)</h3>
+                            <p style="color: #eee; font-size: 1rem;">يجب إدخال الرقم القومي المكون من ١٤ رقماً والخاص بـ <strong>المتسابق نفسه</strong> (من واقع شهادة الميلاد المميكنة)، وليس رقم ولي الأمر.</p>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; align-items: flex-start;">
+                        <span style="background: var(--primary-gold); color: #000; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; flex-shrink: 0; margin-top: 5px;">٣</span>
+                        <div>
+                            <h3 style="color: var(--primary-gold); margin-bottom: 5px; font-size: 1.2rem;">أرقام الهواتف (ثلاثة أرقام مختلفة)</h3>
+                            <p style="color: #eee; font-size: 1rem;">يجب إدخال <strong>٣ أرقام هواتف مختلفة تماماً</strong> (رقم الطالب، رقم الأب، رقم الأم/المعلم). تكرار نفس الرقم في أكثر من خانة سيؤدي لفشل التسجيل.</p>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; align-items: flex-start;">
+                        <span style="background: var(--primary-gold); color: #000; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; flex-shrink: 0; margin-top: 5px;">٤</span>
+                        <div>
+                            <h3 style="color: var(--primary-gold); margin-bottom: 5px; font-size: 1.2rem;">اختيار المستوى والسن</h3>
+                            <p style="color: #eee; font-size: 1rem;">يرجى اختيار المستوى المناسب. (تنبيه: مستوى ربع القرآن مخصص لمن هم <strong>١٠ سنوات فأقل</strong> فقط. إذا كان السن أكبر، لن يظهر لك هذا المستوى).</p>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; align-items: flex-start;">
+                        <span style="background: var(--primary-gold); color: #000; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; flex-shrink: 0; margin-top: 5px;">٥</span>
+                        <div>
+                            <h3 style="color: var(--primary-gold); margin-bottom: 5px; font-size: 1.2rem;">رفع الأوراق المطلوبة</h3>
+                            <p style="color: #eee; font-size: 1rem;">يجب رفع صورة شهادة ميلاد الطالب (أو البطاقة للكبار) + صورة شخصية واضحة للمتسابق لإتمام طلبك.</p>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; align-items: flex-start;">
+                        <span style="background: var(--primary-gold); color: #000; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; flex-shrink: 0; margin-top: 5px;">٦</span>
+                        <div>
+                            <h3 style="color: var(--primary-gold); margin-bottom: 5px; font-size: 1.2rem;">استلام رقم الجلوس</h3>
+                            <p style="color: #eee; font-size: 1rem;">بمجرد استلامك لـ <strong>رقم الجلوس والباركود</strong> عبر الموقع، تكون قد أتممت عملية التقديم بنجاح.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="seat-modal-footer" style="padding-top: 20px; border-top: 1px solid rgba(212, 175, 55, 0.2); margin-top: 10px;">
+                <button onclick="closeInstructionsAndGoToApply()" class="btn btn-primary" style="width: 100%; font-size: 1.3rem; padding: 15px; font-weight: 900;">
+                    فهمت وجاهز للتسجيل <i class="fas fa-check-circle"></i>
+                </button>
             </div>
         </div>
     </div>
@@ -1413,12 +1493,22 @@
 
         @media (max-width: 600px) {
             .seat-modal {
-                align-items: center;
+                align-items: flex-start !important; /* Allow scrolling from top */
+                padding: 10px;
+                overflow-y: auto !important;
+                display: none; /* Keep original visibility control */
+            }
+
+            .seat-modal.active, .seat-modal[style*="display: flex"] {
+                display: flex !important;
             }
 
             .seat-modal-content {
                 padding: 25px 15px;
                 max-width: 95%;
+                margin: 20px auto !important; /* Ensure some space at top/bottom */
+                height: auto !important;
+                margin-top: 50px !important; /* Push it down a bit for status bar */
             }
 
             .seat-number-display {
@@ -1429,7 +1519,7 @@
     </style>
 
 
-    <script src="script.js"></script>
+    <script src="script.js?v=2.0"></script>
     <script>
         // Elite Preloader Logic with Extended Duration
         window.addEventListener('load', function () {

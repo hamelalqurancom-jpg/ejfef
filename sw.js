@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hamel-alquran-cache-v1';
+const CACHE_NAME = 'hamel-alquran-cache-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -44,29 +44,35 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch Event - Dynamic caching strategy (Cache First, then Network)
+// Fetch Event - Dynamic caching strategy: Network First, then Cache
 self.addEventListener('fetch', (event) => {
+  // We only want to handle GET requests
+  if (event.request.method !== 'GET') return;
+
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      if (response) {
-        return response; // Return from cache
-      }
-      return fetch(event.request).then((networkResponse) => {
-        // Don't cache data from firestore or external APIs if they shouldn't be cached
+    fetch(event.request)
+      .then((networkResponse) => {
+        // Cache the new response for future offline use
         if (!event.request.url.includes('google-analytics') && !event.request.url.includes('firestore')) {
-          return caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, networkResponse.clone());
-            return networkResponse;
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseToCache);
           });
         }
         return networkResponse;
-      });
-    }).catch(() => {
-      // Offline fallback can be added here if needed
-      if (event.request.mode === 'navigate') {
-        return caches.match('./index.html');
-      }
-    })
+      })
+      .catch(() => {
+        // If network fails (e.g. offline), try to get from cache
+        return caches.match(event.request).then((cachedResponse) => {
+          if (cachedResponse) {
+            return cachedResponse;
+          }
+          // Offline fallback
+          if (event.request.mode === 'navigate') {
+            return caches.match('./index.html');
+          }
+        });
+      })
   );
 });
 
